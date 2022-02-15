@@ -1,6 +1,4 @@
 // GameCode.cpp		
-
-
 #include "gamecode.h"
 #include "mydrawengine.h"
 #include "mysoundengine.h"
@@ -9,6 +7,7 @@
 #include "gametimer.h"
 #include "errorlogger.h"
 #include <math.h>
+#include "spaceship.h"
 #include "shapes.h"
 
 

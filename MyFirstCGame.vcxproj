@@ -80,6 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(ProjectDir)\Lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -120,7 +122,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -149,6 +151,7 @@
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="Shapes.cpp" />
+    <ClCompile Include="spaceship.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="wincode.cpp" />
   </ItemGroup>
@@ -158,6 +161,7 @@
     <ClInclude Include="errortype.h" />
     <ClInclude Include="gamecode.h" />
     <ClInclude Include="gametimer.h" />
+    <ClInclude Include="spaceship.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />
     <ClInclude Include="mysoundengine.h" />
