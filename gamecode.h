@@ -11,6 +11,7 @@
 #include "mydrawengine.h"
 #include "gametimer.h"
 #include "mysoundengine.h"
+#include "spaceship.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -40,17 +41,15 @@ private:
 	Game(Game& other);             // Copy constructor disabled
 
 	GameTimer gt;
+	Spaceship ship;
 
 
 public:
 	static Game instance;          // Singleton instance
-	PictureIndex image;
-	SoundIndex shootSound;
-	SoundIndex thrustLoop;
-	Vector2D pos;
+
 	Vector2D move;
-	Vector2D velocity;
-	float angle;
+
+
 
    // Starts the game engines - Draw Engine, Sound Engine, Input Engine - singletons
    // This is called soon after the program runs

@@ -1,3 +1,4 @@
+#pragma once
 #include "errortype.h"
 #include "windows.h"
 #include "mydrawengine.h"
@@ -9,12 +10,17 @@ class Spaceship
 private:
 	Vector2D velocity;
 	Vector2D position;
-	Vector2D direction;
+	float direction;
 	bool status;
 	PictureIndex spaceshipPicture;
+	SoundIndex shootSound;
+	SoundIndex thrustLoop;
+
 public:
-	Spaceship();
-	Initialise();
-	Render();
-	Update();
+	Spaceship(); //constructor
+	~Spaceship(); //destructor
+
+	void Initialise(Vector2D initialPos);
+	void Render();
+	void Update();
 };

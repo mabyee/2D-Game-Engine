@@ -7,7 +7,6 @@
 #include "gametimer.h"
 #include "errorlogger.h"
 #include <math.h>
-#include "spaceship.h"
 #include "shapes.h"
 
 
@@ -278,16 +277,11 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	image = pDE->LoadPicture(L"ship.bmp");
-
-	MySoundEngine* pSE = MySoundEngine::GetInstance();
-	shootSound = pSE->LoadWav(L"shoot.wav");
-	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
 	
-	Vector2D pos(300, 300);
+	Vector2D startPos(300, 300);
+	ship.Initialise(startPos);
 
-	velocity.setBearing(angle, 0.0f);
+	//velocity.setBearing(angle, 0.0f);
 
 	gt.mark();
 	gt.mark();
@@ -313,48 +307,13 @@ ErrorType Game::Update()
 	else
 		escapepressed=false;
 
-
+	
    // Your code goes here *************************************************
    // *********************************************************************
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	pDE->DrawAt(pos, image, 1.0f, angle, 0.0f);
 
-	// Keyboard controls
-	MyInputs* pInputs = MyInputs::GetInstance();
-	pInputs->SampleKeyboard();
-	if (pInputs->KeyPressed(DIK_A))
-	{
-		angle = angle - 0.05;
-	}
-	if (pInputs->KeyPressed(DIK_D))
-	{
-		angle = angle + 0.05;
-	}
-	if (pInputs->KeyPressed(DIK_W))
-	{
-		velocity.setBearing(angle, 4.0f);
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(this->thrustLoop, true);
-		pos = pos + velocity;
-	}
-	if (!pInputs->KeyPressed(DIK_W))
-	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->StopAllSounds();
-	}
-	if (pInputs->KeyPressed(DIK_S))
-	{
-		velocity.setBearing(angle, 0.0f);
-	}
-	if (pInputs->KeyPressed(DIK_SPACE))
-	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(this->shootSound);
-	}
-	
+	ship.Render();
+	ship.Update();
 	gt.mark();
-
-
 
    // *********************************************************************
    // *********************************************************************
