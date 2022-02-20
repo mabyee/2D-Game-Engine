@@ -21,7 +21,6 @@ void Spaceship::Initialise(Vector2D initialPos)
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
 	shootSound = pSE->LoadWav(L"shoot.wav");
 	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
-
 }
 
 //Render Spaceship

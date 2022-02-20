@@ -127,17 +127,11 @@ void Game::Shutdown()
    // Any clean up code here 
 
 
-
-
-
 	// (engines must be terminated last)
 	MyDrawEngine::Terminate();
 	MySoundEngine::Terminate();
 	MyInputs::Terminate();
 }
-
-
-
 
 // **********************************************************************************************
 // Placeholder menus  ***************************************************************************
@@ -303,6 +297,8 @@ ErrorType Game::Update()
 		if(!escapepressed)
 			ChangeState(PAUSED);
 		escapepressed=true;
+		MySoundEngine* pSE = MySoundEngine::GetInstance();
+		pSE->StopAllSounds(); //stop all sounds when entering menu
 	}
 	else
 		escapepressed=false;
@@ -315,7 +311,8 @@ ErrorType Game::Update()
 	ship.Update();
 	gt.mark();
 
-   // *********************************************************************
+   
+	// *********************************************************************
    // *********************************************************************
 
 	return SUCCESS;

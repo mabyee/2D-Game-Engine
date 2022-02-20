@@ -3,8 +3,6 @@
 // Chris Rook
 // Last modified 25/09/2018
 //   Update to prevent game loop from flipping twice
-
-
 #pragma once
 #include "errortype.h"
 #include "windows.h"
@@ -42,14 +40,9 @@ private:
 
 	GameTimer gt;
 	Spaceship ship;
-
-
 public:
 	static Game instance;          // Singleton instance
-
 	Vector2D move;
-
-
 
    // Starts the game engines - Draw Engine, Sound Engine, Input Engine - singletons
    // This is called soon after the program runs
