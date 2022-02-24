@@ -10,6 +10,7 @@
 #include "gametimer.h"
 #include "mysoundengine.h"
 #include "spaceship.h"
+#include "GameObject.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -39,7 +40,7 @@ private:
 	Game(Game& other);             // Copy constructor disabled
 
 	GameTimer gt;
-	Spaceship ship;
+	Spaceship* pShip;				// Pointer to superclass
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;

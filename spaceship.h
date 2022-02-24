@@ -1,16 +1,12 @@
 #pragma once
-#include "errortype.h"
-#include "windows.h"
-#include "mydrawengine.h"
-#include "gametimer.h"
-#include "mysoundengine.h"
+#include "GameObject.h"
 
-class Spaceship
+class Spaceship:public GameObject
 {
 private:
 	Vector2D velocity;
 	Vector2D position;
-	float direction;
+	float angle;
 	bool status;
 	PictureIndex spaceshipPicture;
 	SoundIndex shootSound;
@@ -21,6 +17,5 @@ public:
 	~Spaceship(); //destructor
 
 	void Initialise(Vector2D initialPos);
-	void Render();
 	void Update();
 };

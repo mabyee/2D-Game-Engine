@@ -271,9 +271,11 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	
+	pShip = new Spaceship();
 	Vector2D startPos(300, 300);
-	ship.Initialise(startPos);
+
+	pShip->Initialise(startPos);
+
 
 	//velocity.setBearing(angle, 0.0f);
 
@@ -307,8 +309,8 @@ ErrorType Game::Update()
    // Your code goes here *************************************************
    // *********************************************************************
 
-	ship.Render();
-	ship.Update();
+	pShip -> Render();
+	pShip -> Update();
 	gt.mark();
 
    
@@ -328,7 +330,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 
-	
+	delete pShip;
 
 	return SUCCESS;
 }

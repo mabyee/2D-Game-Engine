@@ -12,38 +12,35 @@ Spaceship::~Spaceship()
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos)
 {
-	status = true; //activating the ship
-	direction = 0; //setting angle/direction
 	position.set(initialPos);
 	velocity.set(0,0);
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	spaceshipPicture = pDE->LoadPicture(L"ship.bmp");
+	LoadImg();
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
 	shootSound = pSE->LoadWav(L"shoot.wav");
 	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
 }
 
-//Render Spaceship
-void Spaceship::Render()
+//Update Spaceship
+void Spaceship::Update()
 {
 	if (status == true) //check if active
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, spaceshipPicture, 1.0f, direction, 0.0f);
+		pDE->DrawAt(position, spaceshipPicture, 1.0f, angle, 0.0f);
 	}
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 	if (pInputs->KeyPressed(DIK_A))
 	{
-		direction = direction - 0.05;
+		angle = angle - 0.05;
 	}
 	if (pInputs->KeyPressed(DIK_D))
 	{
-		direction = direction + 0.05;
+		angle = angle + 0.05;
 	}
 	if (pInputs->KeyPressed(DIK_W))
 	{
-		velocity.setBearing(direction, 4.0f);
+		velocity.setBearing(angle, 4.0f);
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		pSE->Play(this->thrustLoop, true);
 		position = position + velocity;
@@ -55,7 +52,7 @@ void Spaceship::Render()
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
-		velocity.setBearing(direction, -4.0f);
+		velocity.setBearing(angle, -4.0f);
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		pSE->Play(this->thrustLoop, true);
 		position = position + velocity;
@@ -65,10 +62,4 @@ void Spaceship::Render()
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		pSE->Play(this->shootSound);
 	}
-}
-
-//Update Spaceship
-void Spaceship::Update()
-{
-	
 }
