@@ -271,12 +271,12 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	pShip = new Spaceship();
+	Spaceship* pShip = new Spaceship();
 	Vector2D startPos(300, 300);
 
 	pShip->Initialise(startPos);
 
-
+	pGameObject = pShip;
 	//velocity.setBearing(angle, 0.0f);
 
 	gt.mark();
@@ -309,8 +309,8 @@ ErrorType Game::Update()
    // Your code goes here *************************************************
    // *********************************************************************
 
-	pShip -> Render();
-	pShip -> Update();
+	pGameObject -> Render();
+	pGameObject -> Update();
 	gt.mark();
 
    
@@ -330,7 +330,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 
-	delete pShip;
+	delete pGameObject;
 
 	return SUCCESS;
 }

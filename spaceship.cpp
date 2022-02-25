@@ -2,32 +2,22 @@
 #include "spaceship.h"
 #include "myinputs.h"
 
-Spaceship::Spaceship()
-{
-};//constructor
-Spaceship::~Spaceship()
-{
-};//destructor
-
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos)
 {
 	position.set(initialPos);
 	velocity.set(0,0);
-	LoadImg();
+	LoadImg(L"botboy.bmp");
+	angle = 0;
+	active = true;
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
-	shootSound = pSE->LoadWav(L"shoot.wav");
 	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
+	shootSound = pSE->LoadWav(L"shoot.wav");
 }
 
 //Update Spaceship
 void Spaceship::Update()
 {
-	if (status == true) //check if active
-	{
-		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, spaceshipPicture, 1.0f, angle, 0.0f);
-	}
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 	if (pInputs->KeyPressed(DIK_A))
@@ -40,8 +30,8 @@ void Spaceship::Update()
 	}
 	if (pInputs->KeyPressed(DIK_W))
 	{
-		velocity.setBearing(angle, 4.0f);
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
+		velocity.setBearing(angle, 4.0f);
 		pSE->Play(this->thrustLoop, true);
 		position = position + velocity;
 	}

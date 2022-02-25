@@ -7,15 +7,13 @@
 
 class GameObject {
 private:
+	PictureIndex image;
+protected:
 	Vector2D position;
 	float angle;
-	PictureIndex image;
 	bool active;
-	
+	void LoadImg(const wchar_t* filename);
 public:
-	GameObject();						//constructor
-	~GameObject();
-	void LoadImg();						// std::string filename
 	void Render();
-	void Update();
+	virtual void Update() = 0;
 };

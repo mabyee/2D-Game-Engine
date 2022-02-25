@@ -8,11 +8,15 @@ void GameObject::Update()
 
 void GameObject::Render()
 {
-
+	if (active)
+	{
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->DrawAt(position, image, 1.0f, angle, 0.0f);
+	}
 }
 
-void GameObject::LoadImg()									// std::string filename
+void GameObject::LoadImg(const wchar_t* filename)
 {
 	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	image = pDE->LoadPicture(L"ship.bmp");					//HARDCODED FOR NOW : TODO
+	image = pDE->LoadPicture(filename);					
 }
