@@ -12,6 +12,7 @@ protected:
 	Vector2D position;
 	float angle;
 	bool active;
+	float scale;
 	void LoadImg(const wchar_t* filename);
 public:
 	void Render();

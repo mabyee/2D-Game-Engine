@@ -10,6 +10,7 @@ void Spaceship::Initialise(Vector2D initialPos)
 	LoadImg(L"botboy.bmp");
 	angle = 0;
 	active = true;
+	scale = 3.0f;
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
 	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
 	shootSound = pSE->LoadWav(L"shoot.wav");
@@ -32,7 +33,7 @@ void Spaceship::Update()
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		velocity.setBearing(angle, 4.0f);
-		pSE->Play(this->thrustLoop, true);
+		pSE->Play(thrustLoop, true);
 		position = position + velocity;
 	}
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
@@ -44,12 +45,12 @@ void Spaceship::Update()
 	{
 		velocity.setBearing(angle, -4.0f);
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(this->thrustLoop, true);
+		pSE->Play(thrustLoop, true);
 		position = position + velocity;
 	}
 	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(this->shootSound);
+		pSE->Play(shootSound);
 	}
 }
