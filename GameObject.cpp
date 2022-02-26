@@ -1,8 +1,7 @@
 #include "GameObject.h"
 
 void GameObject::Update()
-{
-	active = true;											// activating
+{										
 	angle = 0;												// base angle
 	scale = 1.0f;											// base scale
 }

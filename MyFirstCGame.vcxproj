@@ -151,6 +151,7 @@
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
+    <ClCompile Include="rock.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="spaceship.cpp" />
     <ClCompile Include="vector2D.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="gamecode.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gametimer.h" />
+    <ClInclude Include="rock.h" />
     <ClInclude Include="spaceship.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />

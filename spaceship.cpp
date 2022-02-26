@@ -7,10 +7,10 @@ void Spaceship::Initialise(Vector2D initialPos)
 {
 	position.set(initialPos);
 	velocity.set(0,0);
-	LoadImg(L"botboy.bmp");
+	LoadImg(L"ship.bmp");
 	angle = 0;
 	active = true;
-	scale = 3.0f;
+	scale = 1.0f;
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
 	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
 	shootSound = pSE->LoadWav(L"shoot.wav");

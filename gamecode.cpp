@@ -1,13 +1,11 @@
 // GameCode.cpp		
 #include "gamecode.h"
-#include "mydrawengine.h"
-#include "mysoundengine.h"
 #include "myinputs.h"
 #include <time.h>
-#include "gametimer.h"
 #include "errorlogger.h"
 #include <math.h>
 #include "shapes.h"
+#include "rock.h"
 
 
 Game::Game()
@@ -272,11 +270,16 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	Spaceship* pShip = new Spaceship();
+	Rock* pRockk = new Rock();
+	
 	Vector2D startPos(300, 300);
+	Vector2D startPos2(200, 200);
 
+	pRockk->Initialise(startPos2);
 	pShip->Initialise(startPos);
 
-	pGameObject = pShip;
+	pRock = pRockk;
+	pSpaceShip = pShip;
 	//velocity.setBearing(angle, 0.0f);
 
 	gt.mark();
@@ -309,8 +312,10 @@ ErrorType Game::Update()
    // Your code goes here *************************************************
    // *********************************************************************
 
-	pGameObject -> Render();
-	pGameObject -> Update();
+	pSpaceShip ->Render();
+	pSpaceShip ->Update();
+	pRock->Render();
+	pRock->Update();
 	gt.mark();
 
    
@@ -330,7 +335,8 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 
-	delete pGameObject;
+	delete pSpaceShip;
+	delete pRock;
 
 	return SUCCESS;
 }

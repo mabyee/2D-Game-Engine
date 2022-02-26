@@ -40,7 +40,8 @@ private:
 	Game(Game& other);             // Copy constructor disabled
 
 	GameTimer gt;
-	GameObject* pGameObject;				// Pointer to superclass
+	GameObject* pSpaceShip;			// Pointer to superclass
+	GameObject* pRock;				// Pointer to superclass
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;
