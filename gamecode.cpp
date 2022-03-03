@@ -270,16 +270,28 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	Spaceship* pShip = new Spaceship();
-	Rock* pRockk = new Rock();
+	Rock* pRock = new Rock();
 	
+	int posChange = 40;
+	Rock* rockArray[5];
+	for (int i = 0; i < 5; i++)							//creating an array of enemies
+	{
+		rockArray[i] = new Rock();
+		Vector2D rockPos(posChange,posChange);
+		rockArray[i]->Initialise(rockPos);
+		posChange = posChange + 100;
+		ObjectManager.AddObject(rockArray[i]);
+	}
+
 	Vector2D startPos(300, 300);
 	Vector2D startPos2(200, 200);
 
-	pRockk->Initialise(startPos2);
+	pRock->Initialise(startPos2);
 	pShip->Initialise(startPos);
 
+
 	ObjectManager.AddObject(pShip);
-	ObjectManager.AddObject(pRockk);
+	ObjectManager.AddObject(pRock);
 
 	
 
