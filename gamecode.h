@@ -11,6 +11,7 @@
 #include "mysoundengine.h"
 #include "spaceship.h"
 #include "GameObject.h"
+#include "ObjectManager.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -40,8 +41,8 @@ private:
 	Game(Game& other);             // Copy constructor disabled
 
 	GameTimer gt;
-	GameObject* pSpaceShip;			// Pointer to superclass
-	GameObject* pRock;				// Pointer to superclass
+	ObjectManager ObjectManager;
+	GameObject* pNewObject;				// Pointer to superclass
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;

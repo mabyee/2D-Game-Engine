@@ -6,7 +6,7 @@
 #include <math.h>
 #include "shapes.h"
 #include "rock.h"
-
+#include "ObjectManager.h"
 
 Game::Game()
 {
@@ -278,9 +278,10 @@ ErrorType Game::StartOfGame()
 	pRockk->Initialise(startPos2);
 	pShip->Initialise(startPos);
 
-	pRock = pRockk;
-	pSpaceShip = pShip;
-	//velocity.setBearing(angle, 0.0f);
+	ObjectManager.AddObject(pShip);
+	ObjectManager.AddObject(pRockk);
+
+	
 
 	gt.mark();
 	gt.mark();
@@ -311,11 +312,13 @@ ErrorType Game::Update()
 	
    // Your code goes here *************************************************
    // *********************************************************************
+	Rectangle2D rectangleTest;
+	rectangleTest.PlaceAt(10, 10, 100, 100);
+	int colour = _XRGB(255, 0, 0);
+	MyDrawEngine::GetInstance()->FillRect(rectangleTest, colour);
 
-	pSpaceShip ->Render();
-	pSpaceShip ->Update();
-	pRock->Render();
-	pRock->Update();
+	ObjectManager.RenderAll();
+	ObjectManager.UpdateAll();
 	gt.mark();
 
    
@@ -334,9 +337,6 @@ ErrorType Game::EndOfGame()
 {
    // Add code here to tidy up ********************************************
    // *********************************************************************
-
-	delete pSpaceShip;
-	delete pRock;
 
 	return SUCCESS;
 }
