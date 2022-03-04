@@ -1,6 +1,6 @@
-#include "rock.h"
+#include "enemy.h"
 
-void Rock::Initialise(Vector2D initialPos)
+void Enemy::Initialise(Vector2D initialPos)
 {
 	position.set(initialPos);
 	velocity.set(0, 0);
@@ -10,7 +10,7 @@ void Rock::Initialise(Vector2D initialPos)
 	LoadImg(L"botboy.bmp");
 }
 
-void Rock::Update()
+void Enemy::Update()
 {
 
 }

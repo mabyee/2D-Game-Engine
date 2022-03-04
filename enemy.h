@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-class Rock : public GameObject
+class Enemy : public GameObject
 {
 private:
 	Vector2D velocity;

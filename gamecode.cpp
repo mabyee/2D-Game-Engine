@@ -5,8 +5,9 @@
 #include "errorlogger.h"
 #include <math.h>
 #include "shapes.h"
-#include "rock.h"
+#include "enemy.h"
 #include "ObjectManager.h"
+#include "brickwall.h"
 
 Game::Game()
 {
@@ -270,16 +271,16 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	Spaceship* pShip = new Spaceship();
-	Rock* pRock = new Rock();
+	Enemy* pRock = new Enemy();
 	
-	int posChange = 40;
-	Rock* rockArray[5];
+	float posChange = 40.0f;
+	Enemy* rockArray[5];
 	for (int i = 0; i < 5; i++)							//creating an array of enemies
 	{
-		rockArray[i] = new Rock();
+		rockArray[i] = new Enemy();
 		Vector2D rockPos(posChange,posChange);
 		rockArray[i]->Initialise(rockPos);
-		posChange = posChange + 100;
+		posChange = posChange + 100.0f;
 		ObjectManager.AddObject(rockArray[i]);
 	}
 
@@ -289,11 +290,8 @@ ErrorType Game::StartOfGame()
 	pRock->Initialise(startPos2);
 	pShip->Initialise(startPos);
 
-
 	ObjectManager.AddObject(pShip);
 	ObjectManager.AddObject(pRock);
-
-	
 
 	gt.mark();
 	gt.mark();
