@@ -15,6 +15,10 @@ protected:
 	float scale;
 	void LoadImg(const wchar_t* filename);
 public:
+	GameObject();
+	virtual ~GameObject();
 	void Render();
 	virtual void Update(double gt) = 0;
+	bool IsActive() const;
+	void Deactivate();
 };

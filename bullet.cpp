@@ -13,4 +13,9 @@ void Bullet::Initialise(Vector2D initialPos, float shipAngle, float bulletSpeed)
 void Bullet::Update(double gt)
 {
 	position = position + velocity * gt;
+	if (timer < 0.0f)
+	{
+		active = false;
+	}
+	timer = timer - gt;
 }

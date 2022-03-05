@@ -10,4 +10,5 @@ public:
 	void UpdateAll(double gt);
 	void RenderAll();
 	void DeleteAll();
+	void DeleteInactiveObjects();
 };
