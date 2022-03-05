@@ -1,9 +1,10 @@
 #pragma once
 #include "spaceship.h"
 #include "myinputs.h"
+#include "bullet.h"
 
 //Initialise Spaceship
-void Spaceship::Initialise(Vector2D initialPos)
+void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
 {
 	position.set(initialPos);
 	velocity.set(0,0);
@@ -14,6 +15,7 @@ void Spaceship::Initialise(Vector2D initialPos)
 	MySoundEngine* pSE = MySoundEngine::GetInstance();
 	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
 	shootSound = pSE->LoadWav(L"shoot.wav");
+	pObjectManager = pOM;
 }
 
 //Update Spaceship
@@ -52,5 +54,12 @@ void Spaceship::Update()
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		pSE->Play(shootSound);
+		
+		Bullet* pBullet = new Bullet();
+		pBullet->Initialise(position, angle, 10.0f);
+		if (pObjectManager)
+		{
+			pObjectManager->AddObject(pBullet);
+		}
 	}
 }

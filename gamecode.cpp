@@ -288,7 +288,7 @@ ErrorType Game::StartOfGame()
 	Vector2D startPos2(200, 200);
 
 	pRock->Initialise(startPos2);
-	pShip->Initialise(startPos);
+	pShip->Initialise(startPos, &ObjectManager);
 
 	ObjectManager.AddObject(pShip);
 	ObjectManager.AddObject(pRock);
