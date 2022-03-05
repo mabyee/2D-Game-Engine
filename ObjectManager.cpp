@@ -1,6 +1,6 @@
 #include "ObjectManager.h"
 
-void ObjectManager::UpdateAll() 
+void ObjectManager::UpdateAll(double gt) 
 {
 	for (auto const& i : pObjectList){
 		i->Update();
@@ -20,4 +20,14 @@ void ObjectManager::AddObject(GameObject* pNewObject)
 	{
 		pObjectList.push_back(pNewObject);
 	}
+}
+
+void ObjectManager::DeleteAll()
+{
+	for (GameObject* pNext : pObjectList)
+	{
+		delete pNext;
+		pNext = nullptr;
+	}
+	pObjectList.clear();
 }

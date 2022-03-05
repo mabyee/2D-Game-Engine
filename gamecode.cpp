@@ -271,27 +271,25 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 	Spaceship* pShip = new Spaceship();
-	Enemy* pRock = new Enemy();
 	
-	float posChange = 40.0f;
-	Enemy* rockArray[5];
-	for (int i = 0; i < 5; i++)							//creating an array of enemies
+	for (int i = 0; i < 5; i++)
 	{
-		rockArray[i] = new Enemy();
-		Vector2D rockPos(posChange,posChange);
-		rockArray[i]->Initialise(rockPos);
-		posChange = posChange + 100.0f;
-		ObjectManager.AddObject(rockArray[i]);
+		Enemy* pRock = new Enemy();
+		Vector2D pos;
+		Vector2D vel;
+		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600);
+		vel.setBearing(rand() % 628 / 100.0f, rand() % 2 + 5);
+		pRock->Initialise(pos, vel);
+		ObjectManager.AddObject(pRock);
 	}
+
 
 	Vector2D startPos(300, 300);
 	Vector2D startPos2(200, 200);
 
-	pRock->Initialise(startPos2);
 	pShip->Initialise(startPos, &ObjectManager);
 
 	ObjectManager.AddObject(pShip);
-	ObjectManager.AddObject(pRock);
 
 	gt.mark();
 	gt.mark();
@@ -322,15 +320,18 @@ ErrorType Game::Update()
 	
    // Your code goes here *************************************************
    // *********************************************************************
+
+
 	Rectangle2D rectangleTest;
 	rectangleTest.PlaceAt(10, 10, 100, 100);
 	int colour = _XRGB(255, 0, 0);
 	MyDrawEngine::GetInstance()->FillRect(rectangleTest, colour);
-
-	ObjectManager.RenderAll();
-	ObjectManager.UpdateAll();
+	
 	gt.mark();
 
+	ObjectManager.UpdateAll(gt.mdFrameTime);
+	ObjectManager.RenderAll();
+	
    
 	// *********************************************************************
    // *********************************************************************
@@ -347,7 +348,8 @@ ErrorType Game::EndOfGame()
 {
    // Add code here to tidy up ********************************************
    // *********************************************************************
-
+	
+	ObjectManager.DeleteAll();
 	return SUCCESS;
 }
 

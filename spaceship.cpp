@@ -53,13 +53,13 @@ void Spaceship::Update()
 	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(shootSound);
 		
 		Bullet* pBullet = new Bullet();
 		pBullet->Initialise(position, angle, 10.0f);
 		if (pObjectManager)
 		{
 			pObjectManager->AddObject(pBullet);
+			pSE->Play(shootSound);
 		}
 	}
 }
