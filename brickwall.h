@@ -1,13 +1,15 @@
 #pragma once
-#include "Shapes.h"
 #include "GameObject.h"
 
 class BrickWall: public GameObject
 {
 private:
-
+	Rectangle2D rectangleTest;
+	int colour;
+	Vector2D bottomCorner;
+	Vector2D topCorner;
 public:
-	void Initialise();
-	void Update();
-	void makeWall(int brickStart, int brickEnd, int R, int G, int B, int brickAmount);
+	void Initialise(Vector2D initialPos);
+	void Update(double gt);
+	void MakeWall();
 };

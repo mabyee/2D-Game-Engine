@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include <list>
 #include "gametimer.h"
+
 class ObjectManager {
 private:
 	std::list<GameObject*> pObjectList;

@@ -272,6 +272,7 @@ ErrorType Game::StartOfGame()
    // **********************************************************************
 	Spaceship* pShip = new Spaceship();
 	
+
 	for (int i = 0; i < 5; i++)
 	{
 		Enemy* pRock = new Enemy();
@@ -283,9 +284,7 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pRock);
 	}
 
-
 	Vector2D startPos(300, 300);
-	Vector2D startPos2(200, 200);
 
 	pShip->Initialise(startPos, &ObjectManager);
 
@@ -321,11 +320,6 @@ ErrorType Game::Update()
    // Your code goes here *************************************************
    // *********************************************************************
 
-
-	Rectangle2D rectangleTest;
-	rectangleTest.PlaceAt(10, 10, 100, 100);
-	int colour = _XRGB(255, 0, 0);
-	MyDrawEngine::GetInstance()->FillRect(rectangleTest, colour);
 	
 	gt.mark();
 

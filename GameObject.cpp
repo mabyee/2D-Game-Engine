@@ -4,8 +4,7 @@ void GameObject::Update(double gt)
 {
 	if (active)
 	{
-		angle = 0;												// base angle
-		scale = 1.0f;											// base scale
+
 	}
 }
 

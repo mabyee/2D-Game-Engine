@@ -1,29 +1,19 @@
 #include "brickwall.h"
-#include "Shapes.h"
-#include "mydrawengine.h"
-#include "vector2D.h"
 
-void BrickWall::Update()
+void BrickWall::Initialise(Vector2D initialPos)
+{
+	//Rectangle2D rectangleTest;
+	//rectangleTest.PlaceAt(bottomCorner, topCorner);
+	//int colour = _XRGB(255, 0, 0);
+	//MyDrawEngine::GetInstance()->FillRect(rectangleTest, colour);
+}
+
+void BrickWall::Update(double gt)
 {
 
 }
 
-void BrickWall::Initialise()
+void BrickWall::MakeWall()
 {
 
-}
-
-
-void BrickWall::makeWall(int brickStart, int brickEnd, int R, int G, int B, int brickAmount)
-{
-	Rectangle2D brickWallArray[1000];			// Maximum size 1000
-	Rectangle2D rectangle;
-	rectangle.PlaceAt(brickStart, brickStart, brickEnd, brickEnd);
-	int colour = _XRGB(R, G, B);
-	MyDrawEngine::GetInstance()->FillRect(rectangle, colour);
-
-	for (int i = 0; i < brickAmount; i++)
-	{
-		brickWallArray[i] = rectangle;
-	}
 }
