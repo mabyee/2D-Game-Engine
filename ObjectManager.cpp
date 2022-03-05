@@ -3,7 +3,7 @@
 void ObjectManager::UpdateAll(double gt) 
 {
 	for (auto const& i : pObjectList){
-		i->Update();
+		i->Update(gt);
 	}
 }
 

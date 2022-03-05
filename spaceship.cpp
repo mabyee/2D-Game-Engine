@@ -19,7 +19,7 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
 }
 
 //Update Spaceship
-void Spaceship::Update()
+void Spaceship::Update(double gt)
 {
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -34,10 +34,12 @@ void Spaceship::Update()
 	if (pInputs->KeyPressed(DIK_W))
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		velocity.setBearing(angle, 4.0f);
 		pSE->Play(thrustLoop, true);
-		position = position + velocity;
+
+		acceleration.setBearing(angle, 300.0f);
+		velocity = velocity + acceleration * gt;
 	}
+
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
@@ -45,17 +47,22 @@ void Spaceship::Update()
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
-		velocity.setBearing(angle, -4.0f);
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		pSE->Play(thrustLoop, true);
-		position = position + velocity;
+		
+		acceleration.setBearing(angle, -300.0f);
+		velocity = velocity + acceleration * gt;
 	}
+	velocity = velocity + friction * gt;
+	friction = -0.5 * velocity;						// -2 for more friction, 0 to disable friction
+	position = position + velocity * gt;
+
 	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		
 		Bullet* pBullet = new Bullet();
-		pBullet->Initialise(position, angle, 10.0f);
+		pBullet->Initialise(position, angle, 700.0f);
 		if (pObjectManager)
 		{
 			pObjectManager->AddObject(pBullet);

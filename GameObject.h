@@ -16,5 +16,5 @@ protected:
 	void LoadImg(const wchar_t* filename);
 public:
 	void Render();
-	virtual void Update() = 0;
+	virtual void Update(double gt) = 0;
 };

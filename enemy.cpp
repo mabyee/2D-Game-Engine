@@ -10,7 +10,7 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel)
 	LoadImg(L"botboy.bmp");
 }
 
-void Enemy::Update()
+void Enemy::Update(double gt)
 {
-	position = position + velocity;
+	position = position + velocity * gt;
 }

@@ -278,7 +278,7 @@ ErrorType Game::StartOfGame()
 		Vector2D pos;
 		Vector2D vel;
 		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600);
-		vel.setBearing(rand() % 628 / 100.0f, rand() % 2 + 5);
+		vel.setBearing(rand() % 628 / 100.0f, rand() % 100 + 100);
 		pRock->Initialise(pos, vel);
 		ObjectManager.AddObject(pRock);
 	}

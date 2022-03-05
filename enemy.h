@@ -7,5 +7,5 @@ private:
 	Vector2D velocity;
 public:
 	void Initialise(Vector2D initialPos, Vector2D velocity);
-	void Update();
+	void Update(double gt);
 };

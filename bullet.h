@@ -6,7 +6,8 @@ class Bullet:public GameObject
 private:
 	Vector2D velocity;
 	SoundIndex impactSound;
+	float timer;
 public:
 	void Initialise(Vector2D initialPos, float angle, float bulletSpeed);
-	void Update();
+	void Update(double gt);
 };

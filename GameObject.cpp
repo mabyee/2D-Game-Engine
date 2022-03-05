@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-void GameObject::Update()
+void GameObject::Update(double gt)
 {										
 	angle = 0;												// base angle
 	scale = 1.0f;											// base scale

@@ -8,11 +8,13 @@ class Spaceship:public GameObject
 {
 private:
 	Vector2D velocity;
+	Vector2D acceleration;
+	Vector2D friction;
 	SoundIndex shootSound;
 	SoundIndex thrustLoop;
 	ObjectManager* pObjectManager;
 
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM);
-	void Update();
+	void Update(double gt);
 };
