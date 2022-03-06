@@ -4,6 +4,7 @@
 #include "bullet.h"
 #include "enemy.h"
 #include "gamecode.h"
+#include "explosion.h"
 
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
@@ -40,12 +41,12 @@ void Spaceship::Update(double gt)
 
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
-		//Explosion* pExp = new Explosion();
-		//Vector2D jet;
-		//jet.setBearing(angle + 3.14f, 36.0f);
-		//jet = jet + position;
-		//pExp->Initialise(jet, 0.4f, 0.5f, Vector2D(0,0));
-		//pObjectManager->AddObject(pExp);
+		Explosion* pExp = new Explosion();
+		Vector2D jet;
+		jet.setBearing(angle + 3.14f, 36.0f);
+		jet = jet + position;
+		pExp->Initialise(jet, 0.4f, 0.5f, Vector2D(0,0));
+		pObjectManager->AddObject(pExp);
 	}
 
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
@@ -70,7 +71,7 @@ void Spaceship::Update(double gt)
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		
 		Bullet* pBullet = new Bullet();
-		pBullet->Initialise(position, angle, 700.0f);
+		pBullet->Initialise(position, angle, 700.0f, pObjectManager);
 		if (pObjectManager)
 		{
 			pObjectManager->AddObject(pBullet);
@@ -91,8 +92,8 @@ void Spaceship::HandleCollision(GameObject& other)
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		pSE->Stop(thrustLoop);
 		Deactivate();
-		//Explosion* pExp = new Explosion();
-		//pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
-		//pObjectManager->AddObject(pExp);
+		Explosion* pExp = new Explosion();
+		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
+		pObjectManager->AddObject(pExp);
 	}
 }

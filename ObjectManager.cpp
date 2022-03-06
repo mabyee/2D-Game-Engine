@@ -74,8 +74,3 @@ void ObjectManager::CheckAllCollisions()
 		}
 	}
 }
-
-void ObjectManager::GetObjectManager()
-{
-	ObjectManager* pOM = new ObjectManager();
-}

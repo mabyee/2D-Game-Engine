@@ -11,8 +11,8 @@ private:
 	PictureIndex images[8];
 public:
 	void Initialise(Vector2D pos, float size, float time, Vector2D vel);
-	void Update(float gt);
-	void Render();
+	void Update(double gt);
+	void Render() override;
 	void HandleCollision(GameObject& other);
 	IShape2D& GetShape();
 };

@@ -18,7 +18,7 @@ protected:
 public:
 	GameObject();
 	virtual ~GameObject();
-	void Render();
+	virtual void Render();
 	virtual void Update(double gt) = 0;
 	virtual IShape2D& GetShape() = 0;
 	virtual void HandleCollision(GameObject& other) = 0;

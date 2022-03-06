@@ -20,7 +20,7 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 	active = true;
 }
 
-void Explosion::Update(float gt)
+void Explosion::Update(double gt)
 {
 	currentImage += gt * animationSpeed;
 	if (currentImage >= 8)
@@ -32,8 +32,12 @@ void Explosion::Update(float gt)
 
 void Explosion::Render()
 {
+	if (active)
+	{
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->DrawAt(position, currentImage, scale, angle, 0.0f);
+	}
 }
-
 
 void Explosion::HandleCollision(GameObject& other)
 {
