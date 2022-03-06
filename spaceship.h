@@ -1,7 +1,5 @@
 #pragma once
 #include "GameObject.h"
-#include "mysoundengine.h"
-#include "mydrawengine.h"
 #include "ObjectManager.h"
 
 class Spaceship:public GameObject
@@ -12,7 +10,7 @@ private:
 	Vector2D friction;
 	SoundIndex shootSound;
 	SoundIndex thrustLoop;
-	ObjectManager* pObjectManager;
+	ObjectManager* pObjectManager; // Pointer to objectmanager required when an object creates another object
 	Circle2D collisionShape;
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM);

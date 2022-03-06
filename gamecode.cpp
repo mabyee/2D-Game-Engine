@@ -296,7 +296,6 @@ ErrorType Game::StartOfGame()
 	return SUCCESS;
 }
 
-
 // Called each frame when in the RUNNING state.
 // Checks for user pressing escape (which puts the game in the PAUSED state)
 // Flips and clears the back buffer

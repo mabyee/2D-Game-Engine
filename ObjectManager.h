@@ -13,4 +13,5 @@ public:
 	void DeleteAll();
 	void DeleteInactiveObjects();
 	void CheckAllCollisions();
+	void GetObjectManager();
 };
