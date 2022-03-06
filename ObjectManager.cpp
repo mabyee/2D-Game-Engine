@@ -32,6 +32,8 @@ void ObjectManager::AddObject(GameObject* pNewObject)
 	}
 }
 
+
+
 void ObjectManager::DeleteAll()
 {
 	for (GameObject* pNext : pObjectList)
@@ -54,4 +56,21 @@ void ObjectManager::DeleteInactiveObjects()
 	}
 	auto it = std::remove(pObjectList.begin(), pObjectList.end(), nullptr);				// Moving nullptr to end
 	pObjectList.erase(it, pObjectList.end());											// Deleting end (all nullptr)
+}
+
+void ObjectManager::CheckAllCollisions()
+{
+	std::list<GameObject*>::iterator it1;
+	std::list<GameObject*>::iterator it2;
+	for (it1 = pObjectList.begin(); it1 != pObjectList.end(); it1++)
+	{
+		for (it2 = std::next(it1); it2 != pObjectList.end(); it2++)
+		{
+			if ((*it1) && (*it2) && (*it1)->IsActive() && (*it2)->IsActive() && ((*it1)->GetShape().Intersects((*it2)->GetShape())))
+			{
+				(*it1)->HandleCollision((**it2));
+				(*it2)->HandleCollision((**it1));
+			}
+		}
+	}
 }

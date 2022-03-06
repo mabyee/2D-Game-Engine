@@ -2,6 +2,7 @@
 #include "spaceship.h"
 #include "myinputs.h"
 #include "bullet.h"
+#include "enemy.h"
 
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
@@ -68,5 +69,18 @@ void Spaceship::Update(double gt)
 			pObjectManager->AddObject(pBullet);
 			pSE->Play(shootSound);
 		}
+	}
+}
+IShape2D& Spaceship::GetShape()
+{
+	collisionShape.PlaceAt(position, 32);
+	return collisionShape;
+ }
+
+void Spaceship::HandleCollision(GameObject& other)
+{
+	if (typeid(other) == typeid(Enemy))
+	{
+		Deactivate();
 	}
 }

@@ -1,4 +1,5 @@
 #include "bullet.h"
+#include "enemy.h"
 
 void Bullet::Initialise(Vector2D initialPos, float shipAngle, float bulletSpeed)
 {
@@ -18,4 +19,18 @@ void Bullet::Update(double gt)
 		active = false;
 	}
 	timer = timer - gt;
+}
+
+IShape2D& Bullet::GetShape()
+{
+	collisionShape.PlaceAt(position, 5);
+	return collisionShape;
+}
+
+void Bullet::HandleCollision(GameObject& other)
+{
+	if (typeid(other) == typeid(Enemy))
+	{
+		Deactivate();
+	}
 }
