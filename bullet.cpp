@@ -5,10 +5,11 @@ void Bullet::Initialise(Vector2D initialPos, float shipAngle, float bulletSpeed)
 {
 	position.set(initialPos);
 	velocity.setBearing(shipAngle, bulletSpeed);
-	LoadImg(L"ship.bmp");
+	LoadImg(L"bullet.bmp");
 	active = true;
-	scale = 0.2f;
-	timer = 2.0f;
+	scale = 2.0f;
+	timer = 3.0f;
+	angle = shipAngle;
 }
 
 void Bullet::Update(double gt)
