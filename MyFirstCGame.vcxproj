@@ -157,6 +157,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="Shapes.cpp" />
+    <ClCompile Include="SoundFX.cpp" />
     <ClCompile Include="spaceship.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="wincode.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="gametimer.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="SoundFX.h" />
     <ClInclude Include="spaceship.h" />
     <ClInclude Include="mydrawengine.h" />
     <ClInclude Include="myinputs.h" />

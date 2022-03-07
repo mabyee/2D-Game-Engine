@@ -7,7 +7,7 @@
 #include "explosion.h"
 
 //Initialise Spaceship
-void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
+void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
 {
 	health = 100;
 	position.set(initialPos);
@@ -16,10 +16,8 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
 	angle = 0;
 	active = true;
 	scale = 1.0f;
-	MySoundEngine* pSE = MySoundEngine::GetInstance();
-	thrustLoop = pSE->LoadWav(L"thrustloop2.wav");
-	shootSound = pSE->LoadWav(L"shoot.wav");
 	pObjectManager = pOM;
+	pSoundFX = sound;
 }
 
 //Update Spaceship
@@ -27,8 +25,8 @@ void Spaceship::Update(double gt)
 {
 	if (health <= 0)
 	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Stop(thrustLoop);
+		pSoundFX->StopThrust();
+		pSoundFX->PlayExplosion();
 		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
@@ -47,8 +45,7 @@ void Spaceship::Update(double gt)
 	}
 	if (pInputs->KeyPressed(DIK_W))
 	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(thrustLoop, true);
+		pSoundFX->StartThrust();
 
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
@@ -62,13 +59,11 @@ void Spaceship::Update(double gt)
 
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
 	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Stop(thrustLoop);
+		pSoundFX->StopThrust();
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Play(thrustLoop, true);
+		pSoundFX->StartThrust();
 		
 		acceleration.setBearing(angle, -300.0f);
 		velocity = velocity + acceleration * gt;
@@ -78,9 +73,7 @@ void Spaceship::Update(double gt)
 	position = position + velocity * gt;
 
 	if (pInputs->NewKeyPressed(DIK_SPACE))
-	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		
+	{		
 		if (pObjectManager)
 		{
 			Bullet* pBullet = new Bullet();
@@ -89,15 +82,15 @@ void Spaceship::Update(double gt)
 			gun = gun + position;
 			pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
 			pObjectManager->AddObject(pBullet);
-			pSE->Play(shootSound);
+			pSoundFX->PlayShot();
 		}
 	}
 	// checking if is in bounds (wraping around)
-	if (position.XValue > 1500 || position.XValue < -1500)
+	if (position.XValue >= 1500 || position.XValue <= -1500)
 	{
 		position.XValue = position.XValue * -1;
 	}
-	if (position.YValue > 1000 || position.YValue < -1000)
+	if (position.YValue >= 1000 || position.YValue <= -1000)
 	{
 		position.YValue = position.YValue * -1;
 	}
@@ -113,6 +106,7 @@ void Spaceship::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Enemy))
 	{
 		health = health - 50;
+		pSoundFX->StartAlarm();
 	}
 	if (typeid(other) == typeid(Bullet))
 	{

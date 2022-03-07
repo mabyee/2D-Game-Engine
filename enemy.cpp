@@ -3,7 +3,7 @@
 #include "spaceship.h"
 #include "explosion.h"
 
-void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM)
+void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound)
 {
 	health = 50;
 	position.set(initialPos);
@@ -13,12 +13,14 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM)
 	scale = 3.0f;
 	LoadImg(L"botboy.bmp");
 	pObjectManager = pOM;
+	pSoundFX = sound;
 }
 
 void Enemy::Update(double gt)
 {
 	if (health <= 0)
 	{
+		pSoundFX->PlayExplosion();
 		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 3.0f, 1.0f, Vector2D(0, 0));
@@ -30,7 +32,7 @@ void Enemy::Update(double gt)
 		Vector2D vel;
 		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600);
 		vel.setBearing(rand() % 628 / 100.0f, rand() % 100 + 100);
-		pRock->Initialise(pos, vel, pObjectManager);
+		pRock->Initialise(pos, vel, pObjectManager, pSoundFX);
 		pObjectManager->AddObject(pRock);
 	}
 	else
@@ -63,6 +65,10 @@ void Enemy::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(Spaceship))
 	{
-		health = health - 100;
+		health = 0;
+	}
+	if (typeid(other) == typeid(Enemy))
+	{
+		health = 0;
 	}
 }

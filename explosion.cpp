@@ -1,4 +1,5 @@
 #include "explosion.h"
+#include "SoundFX.h"
 
 void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = Vector2D(0,0))
 {

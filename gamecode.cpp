@@ -8,6 +8,7 @@
 #include "enemy.h"
 #include "ObjectManager.h"
 #include "brickwall.h"
+#include "SoundFX.h"
 
 Game::Game()
 {
@@ -270,9 +271,13 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
+	
+	SoundFX* pTheSoundFX = new SoundFX();
+	pTheSoundFX->LoadSounds();
+	
+	
 	Spaceship* pShip = new Spaceship();
 	
-
 	for (int i = 0; i < 5; i++)
 	{
 		Enemy* pRock = new Enemy();
@@ -280,13 +285,13 @@ ErrorType Game::StartOfGame()
 		Vector2D vel;
 		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600);
 		vel.setBearing(rand() % 628 / 100.0f, rand() % 100 + 100);
-		pRock->Initialise(pos, vel, &ObjectManager);
+		pRock->Initialise(pos, vel, &ObjectManager, pTheSoundFX);
 		ObjectManager.AddObject(pRock);
 	}
 
 	Vector2D startPos(300, 300);
 
-	pShip->Initialise(startPos, &ObjectManager);
+	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
 	ObjectManager.AddObject(pShip);
 
