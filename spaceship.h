@@ -5,6 +5,7 @@
 class Spaceship:public GameObject
 {
 private:
+	int health;
 	Vector2D velocity;
 	Vector2D acceleration;
 	Vector2D friction;

@@ -9,6 +9,7 @@
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
 {
+	health = 100;
 	position.set(initialPos);
 	velocity.set(0,0);
 	LoadImg(L"ship.bmp");
@@ -24,6 +25,16 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM)
 //Update Spaceship
 void Spaceship::Update(double gt)
 {
+	if (health <= 0)
+	{
+		MySoundEngine* pSE = MySoundEngine::GetInstance();
+		pSE->Stop(thrustLoop);
+		Deactivate();
+		Explosion* pExp = new Explosion();
+		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
+		pObjectManager->AddObject(pExp);
+	}
+
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
 	if (pInputs->KeyPressed(DIK_A))
@@ -43,7 +54,7 @@ void Spaceship::Update(double gt)
 		velocity = velocity + acceleration * gt;
 		Explosion* pExp = new Explosion();
 		Vector2D jet;
-		jet.setBearing(angle + 3.14f, 36.0f);
+		jet.setBearing(angle + 3.14f, 16.0f);
 		jet = jet + position;
 		pExp->Initialise(jet, 0.4f, 0.5f, Vector2D(0,0));
 		pObjectManager->AddObject(pExp);
@@ -70,13 +81,25 @@ void Spaceship::Update(double gt)
 	{
 		MySoundEngine* pSE = MySoundEngine::GetInstance();
 		
-		Bullet* pBullet = new Bullet();
-		pBullet->Initialise(position, angle, 700.0f, pObjectManager);
 		if (pObjectManager)
 		{
+			Bullet* pBullet = new Bullet();
+			Vector2D gun;
+			gun.setBearing(angle + 3.14f, -32.0f);
+			gun = gun + position;
+			pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
 			pObjectManager->AddObject(pBullet);
 			pSE->Play(shootSound);
 		}
+	}
+	// checking if is in bounds (wraping around)
+	if (position.XValue > 1500 || position.XValue < -1500)
+	{
+		position.XValue = position.XValue * -1;
+	}
+	if (position.YValue > 1000 || position.YValue < -1000)
+	{
+		position.YValue = position.YValue * -1;
 	}
 }
 IShape2D& Spaceship::GetShape()
@@ -89,11 +112,10 @@ void Spaceship::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Enemy))
 	{
-		MySoundEngine* pSE = MySoundEngine::GetInstance();
-		pSE->Stop(thrustLoop);
-		Deactivate();
-		Explosion* pExp = new Explosion();
-		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
-		pObjectManager->AddObject(pExp);
+		health = health - 50;
+	}
+	if (typeid(other) == typeid(Bullet))
+	{
+		health = health - 10;
 	}
 }
