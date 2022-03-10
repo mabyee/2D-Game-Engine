@@ -43,11 +43,11 @@ void Spaceship::Update(double gt)
 	pInputs->SampleKeyboard();
 	if (pInputs->KeyPressed(DIK_A))
 	{
-		angle = angle - 0.05;
+		angle = angle - 0.05 * gt * 50;
 	}
 	if (pInputs->KeyPressed(DIK_D))
 	{
-		angle = angle + 0.05;
+		angle = angle + 0.05 * gt * 50;
 	}
 	if (pInputs->KeyPressed(DIK_W))
 	{
