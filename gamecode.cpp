@@ -271,11 +271,10 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	
+
 	SoundFX* pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
-	
-	
+		
 	Spaceship* pShip = new Spaceship();
 	
 	for (int i = 0; i < 5; i++)
@@ -324,7 +323,6 @@ ErrorType Game::Update()
    // Your code goes here *************************************************
    // *********************************************************************
 
-	
 	gt.mark();
 
 	ObjectManager.UpdateAll(gt.mdFrameTime);
@@ -348,6 +346,8 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 	
+	// delete pTheSoundFX;
+	// pTheSoundFX = nullptr;
 	ObjectManager.DeleteAll();
 	return SUCCESS;
 }

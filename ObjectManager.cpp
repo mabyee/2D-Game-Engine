@@ -32,8 +32,6 @@ void ObjectManager::AddObject(GameObject* pNewObject)
 	}
 }
 
-
-
 void ObjectManager::DeleteAll()
 {
 	for (GameObject* pNext : pObjectList)

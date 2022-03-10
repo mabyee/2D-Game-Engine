@@ -9,6 +9,9 @@
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
 {
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	pDrawEngine->theCamera.PlaceAt(position);
+	pDrawEngine->theCamera.SetZoom(0.8f);
 	health = 100;
 	position.set(initialPos);
 	velocity.set(0,0);
@@ -23,14 +26,17 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sou
 //Update Spaceship
 void Spaceship::Update(double gt)
 {
+
 	if (health <= 0)
 	{
+		// loading sound
 		pSoundFX->StopThrust();
 		pSoundFX->PlayExplosion();
 		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		// create new ship and add blinking effect (respawn)
 	}
 
 	MyInputs* pInputs = MyInputs::GetInstance();
@@ -46,7 +52,6 @@ void Spaceship::Update(double gt)
 	if (pInputs->KeyPressed(DIK_W))
 	{
 		pSoundFX->StartThrust();
-
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
 		Explosion* pExp = new Explosion();
@@ -85,15 +90,19 @@ void Spaceship::Update(double gt)
 			pSoundFX->PlayShot();
 		}
 	}
+	// placing camera center at location of spaceship
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	pDrawEngine->theCamera.PlaceAt(position);
+	
 	// checking if is in bounds (wraping around)
-	if (position.XValue >= 1500 || position.XValue <= -1500)
-	{
-		position.XValue = position.XValue * -1;
-	}
-	if (position.YValue >= 1000 || position.YValue <= -1000)
-	{
-		position.YValue = position.YValue * -1;
-	}
+	//if (position.XValue >= 1500 || position.XValue <= -1500)
+	//{
+	//	position.XValue = position.XValue * -1;
+	//}
+	//if (position.YValue >= 1000 || position.YValue <= -1000)
+	//{
+	//	position.YValue = position.YValue * -1;
+	//}
 }
 IShape2D& Spaceship::GetShape()
 {

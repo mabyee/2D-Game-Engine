@@ -17,7 +17,7 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 	images[6] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion7.bmp");
 	images[7] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion8.bmp");
 
-	currentImage = 0;
+	currentImage = images[0];
 	active = true;
 }
 

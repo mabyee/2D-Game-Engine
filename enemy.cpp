@@ -39,14 +39,14 @@ void Enemy::Update(double gt)
 	{
 		position = position + velocity * gt;
 		// checking if is in bounds (wraping around)
-		if (position.XValue > 1500 || position.XValue < -1500)
-		{
-			position.XValue = position.XValue * -1;
-		}
-		if (position.YValue > 1000 || position.YValue < -1000)
-		{
-			position.YValue = position.YValue * -1;
-		}
+		//if (position.XValue > 1500 || position.XValue < -1500)
+		//{
+		//	position.XValue = position.XValue * -1;
+		//}
+		//if (position.YValue > 1000 || position.YValue < -1000)
+		//{
+		//	position.YValue = position.YValue * -1;
+		//}
 	}
 	
 }
