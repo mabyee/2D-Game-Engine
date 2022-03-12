@@ -9,9 +9,8 @@
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
 {
-	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	pDrawEngine->theCamera.PlaceAt(position);
-	pDrawEngine->theCamera.SetZoom(0.8f);
+	//MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	//pDrawEngine->theCamera.PlaceAt(position);
 	health = 100;
 	position.set(initialPos);
 	velocity.set(0,0);
@@ -83,7 +82,7 @@ void Spaceship::Update(double gt)
 		{
 			Bullet* pBullet = new Bullet();
 			Vector2D gun;
-			gun.setBearing(angle + 3.14f, -32.0f);
+			gun.setBearing(angle + 3.14f, -36.0f);
 			gun = gun + position;
 			pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
 			pObjectManager->AddObject(pBullet);
@@ -91,18 +90,18 @@ void Spaceship::Update(double gt)
 		}
 	}
 	// placing camera center at location of spaceship
-	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	pDrawEngine->theCamera.PlaceAt(position);
+	//MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	//pDrawEngine->theCamera.PlaceAt(position);
 	
 	// checking if is in bounds (wraping around)
-	//if (position.XValue >= 1500 || position.XValue <= -1500)
-	//{
-	//	position.XValue = position.XValue * -1;
-	//}
-	//if (position.YValue >= 1000 || position.YValue <= -1000)
-	//{
-	//	position.YValue = position.YValue * -1;
-	//}
+	if (position.XValue >= 1500 || position.XValue <= -1500)
+	{
+		position.XValue = position.XValue * -1;
+	}
+	if (position.YValue >= 1000 || position.YValue <= -1000)
+	{
+		position.YValue = position.YValue * -1;
+	}
 }
 IShape2D& Spaceship::GetShape()
 {

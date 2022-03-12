@@ -1,11 +1,12 @@
 #include "brickwall.h"
 
-void BrickWall::Initialise(Vector2D initialPos)
+void BrickWall::Initialise(Vector2D initialPos, Vector2D endPos, int r, int g, int b)
 {
-	//Rectangle2D rectangleTest;
-	//rectangleTest.PlaceAt(bottomCorner, topCorner);
-	//int colour = _XRGB(255, 0, 0);
-	//MyDrawEngine::GetInstance()->FillRect(rectangleTest, colour);
+	rectangleStart = initialPos;
+	rectangleEnd = endPos;
+	active = true;
+	rectangle.PlaceAt(rectangleStart, rectangleEnd);
+	int colour = _XRGB(r, g, b);
 }
 
 void BrickWall::Update(double gt)
@@ -13,7 +14,18 @@ void BrickWall::Update(double gt)
 
 }
 
-void BrickWall::MakeWall()
+void BrickWall::Render()
+{
+	MyDrawEngine::GetInstance()->FillRect(rectangle, colour);
+}
+
+IShape2D& BrickWall::GetShape()
+{
+	collisionShape.PlaceAt(rectangleStart,rectangleEnd);
+	return collisionShape;
+}
+
+void BrickWall::HandleCollision(GameObject& other)
 {
 
 }

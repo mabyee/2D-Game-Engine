@@ -76,7 +76,7 @@ void Camera::Reset()
 {
 	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 	int height = 0;
-	int width =0;
+	int width = 0;
 
 	if(pDrawEngine)			// Draw engine is initialised
 	{
@@ -85,7 +85,7 @@ void Camera::Reset()
 	}
 	else					// Use windows instead
 	{
-		width=GetSystemMetrics(SM_CXSCREEN);
+		width = GetSystemMetrics(SM_CXSCREEN);
 		height = GetSystemMetrics(SM_CYSCREEN);
 	}
 

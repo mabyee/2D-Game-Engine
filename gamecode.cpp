@@ -271,9 +271,17 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
+	Vector2D brickWallStartPos;
+	Vector2D brickWallEndPos;
+	brickWallStartPos.set(-400, 200);
+	brickWallEndPos.set(400, 210);
 
-	SoundFX* pTheSoundFX = new SoundFX();
+	BrickWall* pBrickWall = new BrickWall();
+	pBrickWall->Initialise(brickWallStartPos,brickWallEndPos,155,20,5);
+
+	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
+	
 		
 	Spaceship* pShip = new Spaceship();
 	
@@ -292,6 +300,7 @@ ErrorType Game::StartOfGame()
 
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
+	ObjectManager.AddObject(pBrickWall);
 	ObjectManager.AddObject(pShip);
 
 	gt.mark();
@@ -346,8 +355,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 	
-	// delete pTheSoundFX;
-	// pTheSoundFX = nullptr;
+	delete pTheSoundFX;
 	ObjectManager.DeleteAll();
 	return SUCCESS;
 }

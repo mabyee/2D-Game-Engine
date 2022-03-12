@@ -15,6 +15,8 @@ protected:
 	bool active;
 	float scale;
 	void LoadImg(const wchar_t* filename);
+	int screenWidth;
+	int screenHeight;
 public:
 	GameObject();
 	virtual ~GameObject();

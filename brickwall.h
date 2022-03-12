@@ -4,12 +4,16 @@
 class BrickWall: public GameObject
 {
 private:
-	Rectangle2D rectangleTest;
+	Rectangle2D rectangle;
 	int colour;
-	Vector2D bottomCorner;
-	Vector2D topCorner;
+	Rectangle2D collisionShape;
+	bool active;
+	Vector2D rectangleStart;
+	Vector2D rectangleEnd;
 public:
-	void Initialise(Vector2D initialPos);
+	void Initialise(Vector2D initialPos, Vector2D endPos, int r, int g, int b);
 	void Update(double gt);
-	void MakeWall();
+	void Render() override;
+	void HandleCollision(GameObject& other);
+	IShape2D& GetShape();
 };
