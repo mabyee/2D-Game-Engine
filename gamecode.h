@@ -42,6 +42,7 @@ private:
 	GameTimer gt;
 	ObjectManager ObjectManager;
 	GameObject* pNewObject;				// Pointer to superclass
+	SoundFX* pTheSoundFX;
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;
