@@ -7,18 +7,15 @@ void BrickWall::Initialise(Vector2D initialPos, Vector2D endPos, int r, int g, i
 	active = true;
 	rectangle.PlaceAt(rectangleStart, rectangleEnd);
 	colour = _XRGB(r, g, b);
-	MyDrawEngine::GetInstance()->FillRect(rectangle, colour); // draws for 1 second on game start (as expected)
 }
 
 void BrickWall::Update(double gt)
 {
-	MyDrawEngine::GetInstance()->FillRect(rectangle, colour); // doesnt work
 }
 
 void BrickWall::Render()
 {
-	MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-	pDE->FillRect(rectangle, colour); // doesnt work
+	MyDrawEngine::GetInstance()->FillRect(rectangle, colour);
 }
 
 IShape2D& BrickWall::GetShape()

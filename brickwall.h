@@ -7,7 +7,6 @@ private:
 	Rectangle2D rectangle;
 	int colour;
 	Rectangle2D collisionShape;
-	bool active;
 	Vector2D rectangleStart;
 	Vector2D rectangleEnd;
 public:

@@ -276,13 +276,10 @@ ErrorType Game::StartOfGame()
 	brickWallStartPos.set(-400, 200);
 	brickWallEndPos.set(400, 210);
 
-	BrickWall* pBrickWall = new BrickWall();
-	pBrickWall->Initialise(brickWallStartPos,brickWallEndPos,155,20,5);
-
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
 	
-		
+	BrickWall* pBrickWall = new BrickWall();
 	Spaceship* pShip = new Spaceship();
 	
 	for (int i = 0; i < 5; i++)
@@ -298,6 +295,7 @@ ErrorType Game::StartOfGame()
 
 	Vector2D startPos(300, 300);
 
+	pBrickWall->Initialise(brickWallStartPos, brickWallEndPos, 155, 20, 5);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
 	ObjectManager.AddObject(pBrickWall);
