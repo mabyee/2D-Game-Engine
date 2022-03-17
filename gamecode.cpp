@@ -271,10 +271,6 @@ ErrorType Game::StartOfGame()
 {
    // Code to set up your game *********************************************
    // **********************************************************************
-	Vector2D brickWallStartPos;
-	Vector2D brickWallEndPos;
-	brickWallStartPos.set(-400, 200);
-	brickWallEndPos.set(400, 210);
 
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
@@ -295,8 +291,9 @@ ErrorType Game::StartOfGame()
 
 	Vector2D startPos(300, 300);
 
-	pBrickWall->Initialise(brickWallStartPos, brickWallEndPos, 155, 20, 5);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
+	pBrickWall->Initialise(startPos);
+
 
 	ObjectManager.AddObject(pBrickWall);
 	ObjectManager.AddObject(pShip);

@@ -4,15 +4,11 @@
 class BrickWall: public GameObject
 {
 private:
-	Rectangle2D rectangle;
-	int colour;
-	Rectangle2D collisionShape;
-	Vector2D rectangleStart;
-	Vector2D rectangleEnd;
+	Circle2D collisionShape;
 public:
-	void Initialise(Vector2D initialPos, Vector2D endPos, int r, int g, int b);
+	void Initialise(Vector2D initialPos);
 	void Update(double gt);
-	void Render() override;
+	void Render();
 	void HandleCollision(GameObject& other);
 	IShape2D& GetShape();
 };

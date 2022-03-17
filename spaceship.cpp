@@ -25,7 +25,6 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sou
 //Update Spaceship
 void Spaceship::Update(double gt)
 {
-
 	if (health <= 0)
 	{
 		// loading sound

@@ -1,12 +1,12 @@
 #include "brickwall.h"
 
-void BrickWall::Initialise(Vector2D initialPos, Vector2D endPos, int r, int g, int b)
+void BrickWall::Initialise(Vector2D initialPos)
 {
-	rectangleStart = initialPos;
-	rectangleEnd = endPos;
+	position = initialPos;
 	active = true;
-	rectangle.PlaceAt(rectangleStart, rectangleEnd);
-	colour = _XRGB(r, g, b);
+	LoadImg(L"Wall.bmp");
+	scale = 5.0f;
+	angle = 1;
 }
 
 void BrickWall::Update(double gt)
@@ -15,12 +15,11 @@ void BrickWall::Update(double gt)
 
 void BrickWall::Render()
 {
-	MyDrawEngine::GetInstance()->FillRect(rectangle, colour);
 }
 
 IShape2D& BrickWall::GetShape()
 {
-	collisionShape.PlaceAt(rectangleStart,rectangleEnd);
+	collisionShape.PlaceAt(position, 32);
 	return collisionShape;
 }
 
