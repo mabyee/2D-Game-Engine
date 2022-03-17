@@ -13,10 +13,6 @@ void BrickWall::Update(double gt)
 {
 }
 
-void BrickWall::Render()
-{
-}
-
 IShape2D& BrickWall::GetShape()
 {
 	collisionShape.PlaceAt(position, 32);

@@ -2,6 +2,7 @@
 #include "bullet.h"
 #include "spaceship.h"
 #include "explosion.h"
+#include "brickwall.h"
 
 void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound)
 {
@@ -70,6 +71,10 @@ void Enemy::HandleCollision(GameObject& other)
 		health = 0;
 	}
 	if (typeid(other) == typeid(Enemy))
+	{
+		health = 0;
+	}
+	if (typeid(other) == typeid(BrickWall))
 	{
 		health = 0;
 	}

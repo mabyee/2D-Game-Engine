@@ -290,10 +290,10 @@ ErrorType Game::StartOfGame()
 	}
 
 	Vector2D startPos(300, 300);
+	Vector2D poss(500, 500);
 
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
-	pBrickWall->Initialise(startPos);
-
+	pBrickWall->Initialise(poss);
 
 	ObjectManager.AddObject(pBrickWall);
 	ObjectManager.AddObject(pShip);

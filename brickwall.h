@@ -8,7 +8,6 @@ private:
 public:
 	void Initialise(Vector2D initialPos);
 	void Update(double gt);
-	void Render();
 	void HandleCollision(GameObject& other);
 	IShape2D& GetShape();
 };
