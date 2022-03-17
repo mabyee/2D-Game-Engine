@@ -289,11 +289,54 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pRock);
 	}
 
-	Vector2D startPos(300, 300);
-	Vector2D poss(500, 500);
+	// creating walls ----------------------------------------------------------------------------------------
+	// TODO, FIND BETTER WAY OF HANDLING THIS
+	float ang;
+	Vector2D pos;
+	for (int i = 0; i < 20; i++)
+	{
+		BrickWall* pBrickWall = new BrickWall();
+		pos.set(-500 + i * 44, 0);
+		ang = 0.0f;
+		pBrickWall->Initialise(pos, ang);
+		ObjectManager.AddObject(pBrickWall);
+	}
+	for (int i = 0; i < 14; i++)
+	{
+		BrickWall* pBrickWall = new BrickWall();
+		pos.set(380, 0 + i * 44);
+		ang = 0.0f;
+		pBrickWall->Initialise(pos, ang);
+		ObjectManager.AddObject(pBrickWall);
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		BrickWall* pBrickWall = new BrickWall();
+		pos.set(380+i*44, 616);
+		ang = 0.0f;
+		pBrickWall->Initialise(pos, ang);
+		ObjectManager.AddObject(pBrickWall);
+	}
+	for (int i = 0; i < 6; i++)
+	{
+		BrickWall* pBrickWall = new BrickWall();
+		pos.set(-500, 44 + i * 44);
+		ang = 0.0f;
+		pBrickWall->Initialise(pos, ang);
+		ObjectManager.AddObject(pBrickWall);
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		BrickWall* pBrickWall = new BrickWall();
+		pos.set(-500 + i * 44, 308);
+		ang = 0.0f;
+		pBrickWall->Initialise(pos, ang);
+		ObjectManager.AddObject(pBrickWall);
+	}
 
+	// finished creating walls ------------------------------------------------------------------------------
+	Vector2D startPos(300, 300);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
-	pBrickWall->Initialise(poss);
 
 	ObjectManager.AddObject(pBrickWall);
 	ObjectManager.AddObject(pShip);

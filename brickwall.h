@@ -4,9 +4,9 @@
 class BrickWall: public GameObject
 {
 private:
-	Circle2D collisionShape;
+	Rectangle2D collisionShape;
 public:
-	void Initialise(Vector2D initialPos);
+	void Initialise(Vector2D pos, float ang);
 	void Update(double gt);
 	void HandleCollision(GameObject& other);
 	IShape2D& GetShape();

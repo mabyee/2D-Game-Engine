@@ -1,12 +1,12 @@
 #include "brickwall.h"
 
-void BrickWall::Initialise(Vector2D initialPos)
+void BrickWall::Initialise(Vector2D pos, float ang)
 {
-	position = initialPos;
+	position = pos;
 	active = true;
 	LoadImg(L"Wall.bmp");
-	scale = 5.0f;
-	angle = 1;
+	scale = 1.5f;
+	angle = ang;
 }
 
 void BrickWall::Update(double gt)
@@ -15,7 +15,7 @@ void BrickWall::Update(double gt)
 
 IShape2D& BrickWall::GetShape()
 {
-	collisionShape.PlaceAt(position, 32);
+	collisionShape.PlaceAt(position - Vector2D(22, 22), position + Vector2D(22, 22));
 	return collisionShape;
 }
 
