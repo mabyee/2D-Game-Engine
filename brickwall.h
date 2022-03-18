@@ -11,5 +11,4 @@ public:
 	void Update(double gt);
 	void HandleCollision(GameObject& other);
 	IShape2D& GetShape();
-	Vector2D GetPosition();
 };

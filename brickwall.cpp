@@ -32,8 +32,3 @@ void BrickWall::HandleCollision(GameObject& other)
 		health = health - 5;
 	}
 }
-
-Vector2D BrickWall::GetPosition()
-{
-	return position;
-}

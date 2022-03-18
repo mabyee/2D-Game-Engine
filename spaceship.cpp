@@ -73,8 +73,8 @@ void Spaceship::Update(double gt)
 		velocity = velocity + acceleration * gt;
 	}
 	velocity = velocity + friction * gt;
-	friction = -0.5 * velocity;						// -2 for more friction, 0 to disable friction
-	position = position + velocity * gt;
+	friction = -3 * velocity;						// -2 for more friction, 0 to disable friction
+	position = position + velocity*2 * gt;
 
 	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{		
@@ -94,7 +94,7 @@ void Spaceship::Update(double gt)
 	//pDrawEngine->theCamera.PlaceAt(position);
 	
 	// checking if is in bounds (wraping around)
-	if (position.XValue >= 1500 || position.XValue <= -1500)
+	if (position.XValue >= 1600 || position.XValue <= -1600)
 	{
 		position.XValue = position.XValue * -1;
 	}
