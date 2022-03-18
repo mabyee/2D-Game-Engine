@@ -43,6 +43,7 @@ private:
 	ObjectManager ObjectManager;
 	GameObject* pNewObject;				// Pointer to superclass
 	SoundFX* pTheSoundFX;
+	const int BLOCK_SIZE = 88;
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;

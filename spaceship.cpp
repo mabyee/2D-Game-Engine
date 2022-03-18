@@ -122,6 +122,6 @@ void Spaceship::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		health = health - 100;
+		//effect on wall hit
 	}
 }

@@ -11,6 +11,7 @@ void ObjectManager::UpdateAll(double gt)
 	}
 }
 
+
 void ObjectManager::RenderAll()
 {
 	for (auto const& i : pObjectList) 
@@ -20,6 +21,7 @@ void ObjectManager::RenderAll()
 			i->Render();
 		}
 	}
+
 	MyDrawEngine::GetInstance()->WriteInt(50, 50, pObjectList.size(), MyDrawEngine::GREEN);			// Keeps count of objects being tracked
 
 }

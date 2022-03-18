@@ -38,18 +38,25 @@ void Enemy::Update(double gt)
 	}
 	else
 	{
-		screenWidth = GetSystemMetrics(SM_CXSCREEN);
-		screenHeight = GetSystemMetrics(SM_CYSCREEN);
 		position = position + velocity * gt;
-		// checking if is in bounds (wraping around)
-		if (position.XValue > screenWidth || position.XValue < -screenWidth)
+
+		if (position.YValue > 1000 && velocity.YValue > 0)
 		{
-			position.XValue = position.XValue * -1;
+			velocity.YValue = -velocity.YValue;
 		}
-		if (position.YValue > screenHeight || position.YValue < -screenHeight)
+		if (position.YValue < -1000 && velocity.YValue < 0)
 		{
-			position.YValue = position.YValue * -1;
+			velocity.YValue = -velocity.YValue;
 		}
+		if (position.XValue > 1600 && velocity.XValue > 0)
+		{
+			velocity.XValue = -velocity.XValue;
+		}
+		if (position.XValue < -1600 && velocity.XValue < 0)
+		{
+			velocity.XValue = -velocity.XValue;
+		}
+		
 	}
 	
 }
@@ -76,6 +83,10 @@ void Enemy::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		health = 0;
+		Vector2D normal = (position - other.GetPosition()).unitVector();
+		if (normal * velocity < 0)
+		{
+			velocity = velocity - 2 * (velocity * normal) * normal;
+		}
 	}
 }

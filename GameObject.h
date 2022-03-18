@@ -26,4 +26,5 @@ public:
 	virtual void HandleCollision(GameObject& other) = 0;
 	bool IsActive() const;
 	void Deactivate();
+	Vector2D GetPosition();
 };

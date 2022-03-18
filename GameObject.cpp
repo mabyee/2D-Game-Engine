@@ -43,3 +43,8 @@ GameObject::~GameObject()
 {
 
 }
+
+Vector2D GameObject::GetPosition()
+{
+	return position;
+}

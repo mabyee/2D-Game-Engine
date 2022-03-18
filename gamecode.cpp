@@ -277,7 +277,123 @@ ErrorType Game::StartOfGame()
 	
 	BrickWall* pBrickWall = new BrickWall();
 	Spaceship* pShip = new Spaceship();
+
+	// creating walls ----------------------------------------------------------------------------------------
+	// TODO, FIND BETTER WAY OF HANDLING THIS
+	int numberRows = 23;
+	int numberCol = 37;
+	const int TILES = 851; //851 = amount of tiles on map, 37 columns by 23 rows
+	float ang = 0.0f;
+	int j = 0;
+	Vector2D pos;
+	Vector2D initialArr[TILES]; 
+	Vector2D endArr[TILES];
 	
+	// Filling initialArr with every possible tile on the map
+	for (int i = -1600; i < 1600; i = i + BLOCK_SIZE) //width
+	{
+		for (int k = -1000; k < 1000; k = k + BLOCK_SIZE) //height
+		{
+			if ((i <= -200 || i >= 200) || (k <= -200 || k >= 200)) // leaving middle of map blank
+			{
+				initialArr[j] = Vector2D(i, k);
+			}
+			j++;
+		}
+	}
+
+	// Deciding where to place walls
+	endArr[0] = initialArr[0];
+	for (int i = 0; i < TILES;i++) //loop through entire initialArr
+	{
+		int n = rand() % 3 + 1; // 33% chance of creating a wall
+		if (n == 1)
+		{
+			endArr[i] = initialArr[i];
+		}	
+	}
+
+	for (int i = 0; i < TILES; i++)
+	{
+		if (endArr[i] == Vector2D(0, 0))
+		{
+		}
+		else
+		{ //if the wall does not have a wall next to it, delete it
+			if (endArr[i].XValue == endArr[i + 1].XValue || endArr[i].YValue == endArr[i + numberRows].YValue || endArr[i].YValue == endArr[i - numberRows].YValue || endArr[i].XValue == endArr[i - 1].XValue)
+			{
+			}
+			else
+			{
+				endArr[i] = Vector2D(0, 0);
+			}
+		}
+	}
+
+	// Placing walls where vector != (0,0)
+	for (int i = 0; i < TILES; i++)
+	{
+		
+		if (endArr[i] == Vector2D(0, 0))
+		{
+		
+		}
+		else
+		{
+			BrickWall* pBrickWall = new BrickWall();
+			pos = endArr[i];
+			ang = 0.0f;
+			pBrickWall->Initialise(pos, ang);
+			ObjectManager.AddObject(pBrickWall);
+		}
+	}
+
+	//float ang;
+	//Vector2D pos;
+	//for (int i = 0; i < 20; i++)
+	//{
+	//	BrickWall* pBrickWall = new BrickWall();
+	//	pos.set(-500 + i * 44, 0);
+	//	ang = 0.0f;
+	//	pBrickWall->Initialise(pos, ang);
+	//	ObjectManager.AddObject(pBrickWall);
+	//}
+	//for (int i = 0; i < 14; i++)
+	//{
+	//	BrickWall* pBrickWall = new BrickWall();
+	//	pos.set(380, 0 + i * 44);
+	//	ang = 0.0f;
+	//	pBrickWall->Initialise(pos, ang);
+	//	ObjectManager.AddObject(pBrickWall);
+	//}
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	BrickWall* pBrickWall = new BrickWall();
+	//	pos.set(380+i*44, 616);
+	//	ang = 0.0f;
+	//	pBrickWall->Initialise(pos, ang);
+	//	ObjectManager.AddObject(pBrickWall);
+	//}
+	//for (int i = 0; i < 6; i++)
+	//{
+	//	BrickWall* pBrickWall = new BrickWall();
+	//	pos.set(-500, 44 + i * 44);
+	//	ang = 0.0f;
+	//	pBrickWall->Initialise(pos, ang);
+	//	ObjectManager.AddObject(pBrickWall);
+	//}
+	//for (int i = 0; i < 10; i++)
+	//{
+	//	BrickWall* pBrickWall = new BrickWall();
+	//	pos.set(-500 + i * 44, 308);
+	//	ang = 0.0f;
+	//	pBrickWall->Initialise(pos, ang);
+	//	ObjectManager.AddObject(pBrickWall);
+	//}
+
+	// finished creating walls ------------------------------------------------------------------------------
+
+	// spawning enemies
 	for (int i = 0; i < 5; i++)
 	{
 		Enemy* pRock = new Enemy();
@@ -289,53 +405,8 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pRock);
 	}
 
-	// creating walls ----------------------------------------------------------------------------------------
-	// TODO, FIND BETTER WAY OF HANDLING THIS
-	float ang;
-	Vector2D pos;
-	for (int i = 0; i < 20; i++)
-	{
-		BrickWall* pBrickWall = new BrickWall();
-		pos.set(-500 + i * 44, 0);
-		ang = 0.0f;
-		pBrickWall->Initialise(pos, ang);
-		ObjectManager.AddObject(pBrickWall);
-	}
-	for (int i = 0; i < 14; i++)
-	{
-		BrickWall* pBrickWall = new BrickWall();
-		pos.set(380, 0 + i * 44);
-		ang = 0.0f;
-		pBrickWall->Initialise(pos, ang);
-		ObjectManager.AddObject(pBrickWall);
-	}
-	for (int i = 0; i < 6; i++)
-	{
-		BrickWall* pBrickWall = new BrickWall();
-		pos.set(380+i*44, 616);
-		ang = 0.0f;
-		pBrickWall->Initialise(pos, ang);
-		ObjectManager.AddObject(pBrickWall);
-	}
-	for (int i = 0; i < 6; i++)
-	{
-		BrickWall* pBrickWall = new BrickWall();
-		pos.set(-500, 44 + i * 44);
-		ang = 0.0f;
-		pBrickWall->Initialise(pos, ang);
-		ObjectManager.AddObject(pBrickWall);
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		BrickWall* pBrickWall = new BrickWall();
-		pos.set(-500 + i * 44, 308);
-		ang = 0.0f;
-		pBrickWall->Initialise(pos, ang);
-		ObjectManager.AddObject(pBrickWall);
-	}
 
-	// finished creating walls ------------------------------------------------------------------------------
-	Vector2D startPos(300, 300);
+	Vector2D startPos(0, 0);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
 	ObjectManager.AddObject(pBrickWall);
