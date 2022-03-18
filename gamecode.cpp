@@ -285,9 +285,11 @@ ErrorType Game::StartOfGame()
 	const int TILES = 851; //851 = amount of tiles on map, 37 columns by 23 rows
 	float ang = 0.0f;
 	int j = 0;
+	int spawnCounter = 0;
 	Vector2D pos;
 	Vector2D initialArr[TILES]; 
 	Vector2D endArr[TILES];
+	Vector2D spawnArr[TILES];
 	
 	// Filling initialArr with every possible tile on the map
 	for (int i = -1600; i < 1600; i = i + BLOCK_SIZE) //width
@@ -310,7 +312,12 @@ ErrorType Game::StartOfGame()
 		if (n == 1)
 		{
 			endArr[i] = initialArr[i];
-		}	
+		}
+		else
+		{
+			spawnArr[spawnCounter] = initialArr[i];
+			spawnCounter++;
+		}
 	}
 
 	for (int i = 0; i < TILES; i++)
@@ -333,10 +340,8 @@ ErrorType Game::StartOfGame()
 	// Placing walls where vector != (0,0)
 	for (int i = 0; i < TILES; i++)
 	{
-		
 		if (endArr[i] == Vector2D(0, 0))
 		{
-		
 		}
 		else
 		{
@@ -399,7 +404,7 @@ ErrorType Game::StartOfGame()
 		Enemy* pRock = new Enemy();
 		Vector2D pos;
 		Vector2D vel;
-		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600);
+		pos = spawnArr[rand() % 350]; // random available spawn point
 		vel.setBearing(rand() % 628 / 100.0f, rand() % 100 + 100);
 		pRock->Initialise(pos, vel, &ObjectManager, pTheSoundFX);
 		ObjectManager.AddObject(pRock);
