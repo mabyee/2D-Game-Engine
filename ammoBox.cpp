@@ -1,5 +1,5 @@
 #include "ammoBox.h"
-#include "spaceship.h"
+#include "soldier.h"
 
 void ammoBox::Initialise(Vector2D pos, ObjectManager* pOM)
 {
@@ -16,7 +16,7 @@ void ammoBox::Update(double gt)
 }
 void ammoBox::HandleCollision(GameObject& other)
 {
-	if (typeid(other) == typeid(Spaceship))
+	if (typeid(other) == typeid(Soldier))
 	{
 		Deactivate();
 	}

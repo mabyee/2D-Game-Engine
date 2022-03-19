@@ -6,6 +6,7 @@ void SoundFX::LoadSounds()
 	Shoot = pSoundEngine->LoadWav(L"shoot.wav");
 	Thrust = pSoundEngine->LoadWav(L"thrustloop2.wav");
 	Alarm = pSoundEngine->LoadWav(L"alert.wav");
+	Chirp = pSoundEngine->LoadWav(L"chirp.wav");
 	Explosions[0] = pSoundEngine->LoadWav(L"explosion1.wav");
 	Explosions[1] = pSoundEngine->LoadWav(L"explosion2.wav");
 	Explosions[2] = pSoundEngine->LoadWav(L"explosion3.wav");
@@ -41,4 +42,9 @@ void SoundFX::StopThrust()
 void SoundFX::StartAlarm()
 {
 	MySoundEngine::GetInstance()->Play(Alarm);
+}
+
+void SoundFX::PlayChirp()
+{
+	MySoundEngine::GetInstance()->Play(Chirp);
 }

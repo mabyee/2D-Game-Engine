@@ -278,8 +278,7 @@ ErrorType Game::StartOfGame()
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
 	
-	BrickWall* pBrickWall = new BrickWall();
-	Spaceship* pShip = new Spaceship();
+	Soldier* pSoldier = new Soldier();
 
 	// creating walls ----------------------------------------------------------------------------------------
 	// TODO, FIND BETTER WAY OF HANDLING THIS
@@ -414,7 +413,7 @@ ErrorType Game::StartOfGame()
 	}
 
 	Vector2D startPos(0, 0);
-	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
+	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
 	// AmmoBoxes
 	for (int i = 0; i < 3; i++)
@@ -440,10 +439,8 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pComputer);
 	}
 
-
-	ObjectManager.AddObject(pBrickWall);
 	ObjectManager.AddObject(pHUD);
-	ObjectManager.AddObject(pShip);
+	ObjectManager.AddObject(pSoldier);
 
 	gt.mark();
 	gt.mark();

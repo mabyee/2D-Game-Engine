@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "spaceship.h"
+#include "soldier.h"
 
 class HUD:public GameObject
 {
@@ -10,7 +10,7 @@ private:
 	Vector2D SizeY;
 	Rectangle2D HUDShape;
 	Circle2D collisionShape;
-	Spaceship* pSpaceship;
+	Soldier* pSoldier;
 public:
 	void Initialise();
 	void Update(double gt);

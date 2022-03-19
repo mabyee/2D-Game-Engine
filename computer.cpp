@@ -1,5 +1,5 @@
 #include "computer.h"
-#include "spaceship.h"
+#include "soldier.h"
 
 void computer::Initialise(Vector2D pos, float size, float time)
 {
@@ -28,9 +28,9 @@ void computer::Initialise(Vector2D pos, float size, float time)
 void computer::Update(double gt)
 {
 	currentImage += gt * animationSpeed;
-	if (currentImage >= 15)
+	if (currentImage >= 24)
 	{
-		currentImage = 5;
+		currentImage = 13;
 	}
 	position = position + velocity * gt;
 }
@@ -46,7 +46,7 @@ void computer::Render()
 
 void computer::HandleCollision(GameObject& other)
 {
-	if (typeid(other) == typeid(Spaceship))
+	if (typeid(other) == typeid(Soldier))
 	{
 		Deactivate();
 	}

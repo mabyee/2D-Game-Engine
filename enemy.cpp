@@ -1,6 +1,6 @@
 #include "enemy.h"
 #include "bullet.h"
-#include "spaceship.h"
+#include "soldier.h"
 #include "explosion.h"
 #include "brickwall.h"
 
@@ -73,7 +73,7 @@ void Enemy::HandleCollision(GameObject& other)
 	{
 		health = health - 10;
 	}
-	if (typeid(other) == typeid(Spaceship))
+	if (typeid(other) == typeid(Soldier))
 	{
 		health = 0;
 	}

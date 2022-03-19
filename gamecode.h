@@ -9,7 +9,7 @@
 #include "mydrawengine.h"
 #include "gametimer.h"
 #include "mysoundengine.h"
-#include "spaceship.h"
+#include "soldier.h"
 #include "GameObject.h"
 
 // This is a hack for reading keyboard in situations where you don't want to

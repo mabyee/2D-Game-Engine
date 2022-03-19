@@ -10,6 +10,7 @@ private:
 	SoundIndex Thrust;
 	SoundIndex Shoot;
 	SoundIndex Alarm;
+	SoundIndex Chirp;
 public:
 	void LoadSounds();
 	void PlayShot();
@@ -17,5 +18,6 @@ public:
 	void StartThrust();
 	void StopThrust();
 	void StartAlarm();
+	void PlayChirp();
 };
 

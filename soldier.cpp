@@ -1,5 +1,5 @@
 #pragma once
-#include "spaceship.h"
+#include "soldier.h"
 #include "myinputs.h"
 #include "bullet.h"
 #include "enemy.h"
@@ -7,17 +7,17 @@
 #include "explosion.h"
 #include "brickwall.h"
 #include "ammoBox.h"
+#include "computer.h"
 
-//Initialise Spaceship
-void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
+//Initialise Soldier
+void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
 {
-	//MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	//pDrawEngine->theCamera.PlaceAt(position);
+	animationSpeed = 8.0f;
 	health = 100;
 	position.set(initialPos);
 	velocity.set(0,0);
 	LoadImg(L"ship.bmp");
-	angle = 0;
+	angle = 0.0f;
 	active = true;
 	scale = 1.0f;
 	pObjectManager = pOM;
@@ -26,10 +26,23 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sou
 	HealthBar.PlaceAt(0,0,20,10);
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
+
+	//loading images of soldier
+	soldierImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"walking0.png");
+	soldierImages[1] = MyDrawEngine::GetInstance()->LoadPicture(L"walking1.png");
+	soldierImages[2] = MyDrawEngine::GetInstance()->LoadPicture(L"walking2.png");
+	soldierImages[3] = MyDrawEngine::GetInstance()->LoadPicture(L"walking3.png");
+	soldierImages[4] = MyDrawEngine::GetInstance()->LoadPicture(L"walking4.png");
+	soldierImages[5] = MyDrawEngine::GetInstance()->LoadPicture(L"walking5.png");
+	soldierImages[6] = MyDrawEngine::GetInstance()->LoadPicture(L"walking6.png");
+	soldierImages[7] = MyDrawEngine::GetInstance()->LoadPicture(L"walking7.png");
+	soldierImages[8] = MyDrawEngine::GetInstance()->LoadPicture(L"walking8.png");
+
+	currentImage = soldierImages[0];
 }
 
-//Update Spaceship
-void Spaceship::Update(double gt)
+//Update Soldier
+void Soldier::Update(double gt)
 {
 	if (health <= 0)
 	{
@@ -40,10 +53,8 @@ void Spaceship::Update(double gt)
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
-		// create new ship and add blinking effect (respawn)
+		// create new soldier and add blinking effect (respawn)
 	}
-
-
 
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -57,27 +68,30 @@ void Spaceship::Update(double gt)
 	}
 	if (pInputs->KeyPressed(DIK_W))
 	{
-		pSoundFX->StartThrust();
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
-		Explosion* pExp = new Explosion();
-		Vector2D jet;
-		jet.setBearing(angle + 3.14f, 16.0f);
-		jet = jet + position;
-		pExp->Initialise(jet, 0.4f, 0.5f, Vector2D(0,0));
-		pObjectManager->AddObject(pExp);
+		//walking animation
+		if (currentImage >= 11)
+		{
+			currentImage = 5;
+		}
+		currentImage += gt * animationSpeed;
 	}
 
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
 	{
-		pSoundFX->StopThrust();
+		currentImage = 8; //sets idle position image
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
-		pSoundFX->StartThrust();
-		
 		acceleration.setBearing(angle, -300.0f);
 		velocity = velocity + acceleration * gt;
+		//walking animation reversed
+		if (currentImage <= 5)
+		{
+			currentImage = 11;
+		}
+		currentImage -= gt * animationSpeed;
 	}
 	velocity = velocity + friction * gt;
 	friction = -3 * velocity;						// -2 for more friction, 0 to disable friction
@@ -89,7 +103,7 @@ void Spaceship::Update(double gt)
 		{
 			Bullet* pBullet = new Bullet();
 			Vector2D gun;
-			gun.setBearing(angle + 3.14f, -36.0f);
+			gun.setBearing(angle + 3.14f, -20.0f);
 			gun = gun + position;
 			pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
 			pObjectManager->AddObject(pBullet);
@@ -97,7 +111,7 @@ void Spaceship::Update(double gt)
 			ammo = ammo - 1;
 		}
 	}
-	// placing camera center at location of spaceship
+	// placing camera center at location of soldier
 	//MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 	//pDrawEngine->theCamera.PlaceAt(position);
 	
@@ -118,18 +132,28 @@ void Spaceship::Update(double gt)
 
 
 }
-IShape2D& Spaceship::GetShape()
+
+void Soldier::Render()
 {
-	collisionShape.PlaceAt(position, 32);
+	if (active)
+	{
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->DrawAt(position, currentImage, scale, angle, 0.0f);
+
+	}
+}
+
+IShape2D& Soldier::GetShape()
+{
+	collisionShape.PlaceAt(position, 26);
 	return collisionShape;
  }
 
-void Spaceship::HandleCollision(GameObject& other)
+void Soldier::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Enemy))
 	{
 		health = health - 50;
-		pSoundFX->StartAlarm();
 	}
 	if (typeid(other) == typeid(Bullet))
 	{
@@ -142,6 +166,10 @@ void Spaceship::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(ammoBox))
 	{
 		ammo = ammo + 20;
+	}
+	if (typeid(other) == typeid(computer))
+	{
 		health = 100;
+		pSoundFX->PlayChirp();
 	}
 }

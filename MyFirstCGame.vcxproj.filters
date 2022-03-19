@@ -45,7 +45,7 @@
     <ClCompile Include="wincode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="spaceship.cpp">
+    <ClCompile Include="soldier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -113,7 +113,7 @@
     <ClInclude Include="vector2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="spaceship.h">
+    <ClInclude Include="soldier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">

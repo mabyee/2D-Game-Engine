@@ -4,15 +4,15 @@
 #include "ObjectManager.h"
 #include "brickwall.h"
 
-void Bullet::Initialise(Vector2D initialPos, float shipAngle, float bulletSpeed, ObjectManager* pOM)
+void Bullet::Initialise(Vector2D initialPos, float soldierAngle, float bulletSpeed, ObjectManager* pOM)
 {
 	position.set(initialPos);
-	velocity.setBearing(shipAngle, bulletSpeed);
+	velocity.setBearing(soldierAngle, bulletSpeed);
 	LoadImg(L"bullet.bmp");
 	active = true;
 	scale = 2.0f;
 	timer = 5.0f;
-	angle = shipAngle;
+	angle = soldierAngle;
 	pObjectManager = pOM;
 }
 
