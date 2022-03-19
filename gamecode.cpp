@@ -403,13 +403,13 @@ ErrorType Game::StartOfGame()
 	// spawning enemies
 	for (int i = 0; i < 5; i++)
 	{
-		Enemy* pRock = new Enemy();
+		Enemy* pRobot = new Enemy();
 		Vector2D pos;
 		Vector2D vel;
 		pos = spawnArr[rand() % 350]; // random available spawn point
-		vel.setBearing(rand() % 628 / 100.0f, rand() % 100 + 100);
-		pRock->Initialise(pos, vel, &ObjectManager, pTheSoundFX);
-		ObjectManager.AddObject(pRock);
+		vel.set(rand() % 628 / 100.0f, rand() % 100 + 100);
+		pRobot->Initialise(pos, vel, &ObjectManager, pTheSoundFX);
+		ObjectManager.AddObject(pRobot);
 	}
 
 	Vector2D startPos(0, 0);

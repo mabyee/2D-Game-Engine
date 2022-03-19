@@ -6,15 +6,27 @@
 
 void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound)
 {
+	animationSpeed = 5.0f;
 	health = 50;
 	position.set(initialPos);
 	active = true;
-	angle = 0;
+	angle =  position.XValue-3.14f;
 	velocity = vel;
-	scale = 3.0f;
-	LoadImg(L"botboy.bmp");
+	scale = 1.5f;
 	pObjectManager = pOM;
 	pSoundFX = sound;
+
+	//loading images of enemy
+	enemyImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"robot0.png");
+	enemyImages[1] = MyDrawEngine::GetInstance()->LoadPicture(L"robot1.png");
+	enemyImages[2] = MyDrawEngine::GetInstance()->LoadPicture(L"robot2.png");
+	enemyImages[3] = MyDrawEngine::GetInstance()->LoadPicture(L"robot3.png");
+	enemyImages[4] = MyDrawEngine::GetInstance()->LoadPicture(L"robot4.png");
+	enemyImages[5] = MyDrawEngine::GetInstance()->LoadPicture(L"robot5.png");
+	enemyImages[6] = MyDrawEngine::GetInstance()->LoadPicture(L"robot6.png");
+	enemyImages[7] = MyDrawEngine::GetInstance()->LoadPicture(L"robot7.png");
+
+	currentImage = enemyImages[0];
 }
 
 void Enemy::Update(double gt)
@@ -26,19 +38,16 @@ void Enemy::Update(double gt)
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 3.0f, 1.0f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
-
-		// If one dies, another spawns at a random location
-		Enemy* pRock = new Enemy();			
-		Vector2D pos;
-		Vector2D vel;
-		pos.setBearing(rand() % 628 / 100.0f, rand() % 400 + 600);
-		vel.setBearing(rand() % 628 / 100.0f, rand() % 100 + 100);
-		pRock->Initialise(pos, vel, pObjectManager, pSoundFX);
-		pObjectManager->AddObject(pRock);
 	}
 	else
 	{
 		position = position + velocity * gt;
+		angle = angle + 2.0f * gt;
+		if (currentImage >= 9)
+		{
+			currentImage = 2;
+		}
+		currentImage += gt * animationSpeed;
 
 		if (position.YValue > 1000 && velocity.YValue > 0)
 		{
@@ -59,6 +68,16 @@ void Enemy::Update(double gt)
 		
 	}
 	
+}
+
+void Enemy::Render()
+{
+	if (active)
+	{
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->DrawAt(position, currentImage, scale, angle, 0.0f);
+
+	}
 }
 
 IShape2D& Enemy::GetShape()

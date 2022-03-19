@@ -24,7 +24,7 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 void Explosion::Update(double gt)
 {
 	currentImage += gt * animationSpeed;
-	if (currentImage >= 8)
+	if (currentImage >= 39)
 	{
 		Deactivate();
 	}

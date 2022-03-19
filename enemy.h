@@ -5,6 +5,12 @@
 class Enemy : public GameObject
 {
 private:
+	// enemy walking animation
+	float animationSpeed;
+	float currentImage;
+	PictureIndex enemyImages[8];
+
+
 	Vector2D velocity;
 	Circle2D collisionShape;
 	ObjectManager* pObjectManager;
@@ -13,6 +19,7 @@ private:
 public:
 	void Initialise(Vector2D initialPos, Vector2D velocity, ObjectManager* pOM, SoundFX* sound);
 	void Update(double gt);
+	void Render()override;
 	IShape2D& GetShape();
 	void HandleCollision(GameObject& other);
 };
