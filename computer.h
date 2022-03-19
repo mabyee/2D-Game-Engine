@@ -5,12 +5,12 @@ class computer : public GameObject
 {
 private:
 	Vector2D velocity;
-	Circle2D collisionShape;
+	Rectangle2D collisionShape;
 	float animationSpeed;
 	float currentImage;
-	PictureIndex images[8];
+	PictureIndex computerImages[12];
 public:
-	void Initialise(Vector2D pos, float size, float time, Vector2D vel);
+	void Initialise(Vector2D pos, float size, float time);
 	void Update(double gt);
 	void Render() override;
 	void HandleCollision(GameObject& other);

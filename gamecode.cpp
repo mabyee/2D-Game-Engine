@@ -413,14 +413,10 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pRock);
 	}
 
-	//spawn computer
-	//computer* pComputer = new computer();
-	//pComputer->Initialise(Vector2D(50,50),1.0f,1.0f,Vector2D(0,0));
-
 	Vector2D startPos(0, 0);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
-	// spawning ammo boxes
+	// AmmoBoxes
 	for (int i = 0; i < 3; i++)
 	{
 		ammoBox* pAmmoBox = new ammoBox();		
@@ -429,12 +425,22 @@ ErrorType Game::StartOfGame()
 		pAmmoBox->Initialise(pos, &ObjectManager);
 		ObjectManager.AddObject(pAmmoBox);
 	}
-	
 
+	// HUD
 	HUD* pHUD = new HUD();
 	pHUD->Initialise();
 
-	//ObjectManager.AddObject(pComputer);
+	// Computer
+	for (int i = 0; i < 3; i++)
+	{
+		computer* pComputer = new computer();
+		Vector2D pos;
+		pos = spawnArr[rand() % 350]; // random available spawn point
+		pComputer->Initialise(pos, 0.4f, 1.0f);
+		ObjectManager.AddObject(pComputer);
+	}
+
+
 	ObjectManager.AddObject(pBrickWall);
 	ObjectManager.AddObject(pHUD);
 	ObjectManager.AddObject(pShip);

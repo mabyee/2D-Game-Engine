@@ -18,7 +18,7 @@ void ammoBox::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Spaceship))
 	{
-		Deactivate(); //remove
+		Deactivate();
 	}
 }
 IShape2D& ammoBox::GetShape()
