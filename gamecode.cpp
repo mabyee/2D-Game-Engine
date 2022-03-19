@@ -11,6 +11,8 @@
 #include "SoundFX.h"
 #include "computer.h"
 #include "HUD.h"
+#include "ammoBox.h"
+
 Game::Game()
 {
    // No-op
@@ -418,8 +420,18 @@ ErrorType Game::StartOfGame()
 	Vector2D startPos(0, 0);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
-	HUD* pHUD = new HUD();
+	// spawning ammo boxes
+	for (int i = 0; i < 3; i++)
+	{
+		ammoBox* pAmmoBox = new ammoBox();		
+		Vector2D pos;
+		pos = spawnArr[rand() % 350]; // random available spawn point
+		pAmmoBox->Initialise(pos, &ObjectManager);
+		ObjectManager.AddObject(pAmmoBox);
+	}
+	
 
+	HUD* pHUD = new HUD();
 	pHUD->Initialise();
 
 	//ObjectManager.AddObject(pComputer);

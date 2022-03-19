@@ -6,6 +6,7 @@
 #include "gamecode.h"
 #include "explosion.h"
 #include "brickwall.h"
+#include "ammoBox.h"
 
 //Initialise Spaceship
 void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
@@ -137,5 +138,10 @@ void Spaceship::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(BrickWall))
 	{
 		//effect on wall hit
+	}
+	if (typeid(other) == typeid(ammoBox))
+	{
+		ammo = ammo + 20;
+		health = 100;
 	}
 }

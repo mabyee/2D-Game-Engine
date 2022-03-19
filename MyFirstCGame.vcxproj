@@ -143,6 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ammoBox.cpp" />
     <ClCompile Include="brickwall.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="wincode.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ammoBox.h" />
     <ClInclude Include="brickwall.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
