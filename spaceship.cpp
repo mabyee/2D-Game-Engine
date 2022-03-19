@@ -21,6 +21,10 @@ void Spaceship::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sou
 	scale = 1.0f;
 	pObjectManager = pOM;
 	pSoundFX = sound;
+	ammo = 20;
+	HealthBar.PlaceAt(0,0,20,10);
+	colourRed = _XRGB(255, 0, 0);
+	colourGreen = _XRGB(0, 255, 0);
 }
 
 //Update Spaceship
@@ -37,6 +41,8 @@ void Spaceship::Update(double gt)
 		pObjectManager->AddObject(pExp);
 		// create new ship and add blinking effect (respawn)
 	}
+
+
 
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -78,7 +84,7 @@ void Spaceship::Update(double gt)
 
 	if (pInputs->NewKeyPressed(DIK_SPACE))
 	{		
-		if (pObjectManager)
+		if (pObjectManager && ammo>0)
 		{
 			Bullet* pBullet = new Bullet();
 			Vector2D gun;
@@ -87,6 +93,7 @@ void Spaceship::Update(double gt)
 			pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
 			pObjectManager->AddObject(pBullet);
 			pSoundFX->PlayShot();
+			ammo = ammo - 1;
 		}
 	}
 	// placing camera center at location of spaceship
@@ -102,6 +109,13 @@ void Spaceship::Update(double gt)
 	{
 		position.YValue = position.YValue * -1;
 	}
+	MyDrawEngine::GetInstance()->WriteInt(1900, 1400, ammo, MyDrawEngine::LIGHTRED); //ammo count in HUD
+	DamageBar.PlaceAt(position+Vector2D(-50,50), position+Vector2D(50,65));
+	HealthBar.PlaceAt(position + Vector2D(-50, 50), position + Vector2D(-50 + health, 65)); 
+	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
+	MyDrawEngine::GetInstance()->FillRect(HealthBar, colourGreen, 0.0f); //healthbar red area
+
+
 }
 IShape2D& Spaceship::GetShape()
 {

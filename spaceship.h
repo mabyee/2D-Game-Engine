@@ -5,6 +5,11 @@
 class Spaceship:public GameObject
 {
 private:
+	unsigned int colourRed;
+	unsigned int colourGreen;
+	Rectangle2D HealthBar;
+	Rectangle2D DamageBar;
+	int ammo;
 	int health;
 	Vector2D velocity;
 	Vector2D acceleration;

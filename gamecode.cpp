@@ -9,7 +9,8 @@
 #include "ObjectManager.h"
 #include "brickwall.h"
 #include "SoundFX.h"
-
+#include "computer.h"
+#include "HUD.h"
 Game::Game()
 {
    // No-op
@@ -410,11 +411,20 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pRock);
 	}
 
+	//spawn computer
+	//computer* pComputer = new computer();
+	//pComputer->Initialise(Vector2D(50,50),1.0f,1.0f,Vector2D(0,0));
 
 	Vector2D startPos(0, 0);
 	pShip->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
+	HUD* pHUD = new HUD();
+
+	pHUD->Initialise();
+
+	//ObjectManager.AddObject(pComputer);
 	ObjectManager.AddObject(pBrickWall);
+	ObjectManager.AddObject(pHUD);
 	ObjectManager.AddObject(pShip);
 
 	gt.mark();
@@ -448,8 +458,8 @@ ErrorType Game::Update()
 
 	gt.mark();
 
-	ObjectManager.UpdateAll(gt.mdFrameTime);
 	ObjectManager.RenderAll();
+	ObjectManager.UpdateAll(gt.mdFrameTime);
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
    
