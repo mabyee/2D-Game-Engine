@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ammoBox.cpp" />
+    <ClCompile Include="boss.cpp" />
     <ClCompile Include="brickwall.cpp" />
     <ClCompile Include="bullet.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -162,11 +163,13 @@
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="SoundFX.cpp" />
     <ClCompile Include="soldier.cpp" />
+    <ClCompile Include="stinger.cpp" />
     <ClCompile Include="vector2D.cpp" />
     <ClCompile Include="wincode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ammoBox.h" />
+    <ClInclude Include="boss.h" />
     <ClInclude Include="brickwall.h" />
     <ClInclude Include="bullet.h" />
     <ClInclude Include="camera.h" />
@@ -187,6 +190,7 @@
     <ClInclude Include="mysoundengine.h" />
     <ClInclude Include="objecttypes.h" />
     <ClInclude Include="Shapes.h" />
+    <ClInclude Include="stinger.h" />
     <ClInclude Include="vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

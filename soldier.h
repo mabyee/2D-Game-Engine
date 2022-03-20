@@ -17,6 +17,7 @@ private:
 	Rectangle2D DamageBar;
 
 	//soldier attributes
+	int stingerAmmo;
 	int ammo;
 	int health;
 

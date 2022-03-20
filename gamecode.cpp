@@ -275,13 +275,7 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 
-	pTheSoundFX = new SoundFX();
-	pTheSoundFX->LoadSounds();
-	
-	Soldier* pSoldier = new Soldier();
-
 	// creating walls ----------------------------------------------------------------------------------------
-	// TODO, FIND BETTER WAY OF HANDLING THIS
 	int numberRows = 23;
 	int numberCol = 37;
 	const int TILES = 851; //851 = amount of tiles on map, 37 columns by 23 rows
@@ -317,8 +311,12 @@ ErrorType Game::StartOfGame()
 		}
 		else
 		{
-			spawnArr[spawnCounter] = initialArr[i];
-			spawnCounter++;
+			if (initialArr[i] != Vector2D(0, 0))
+			{
+				spawnArr[spawnCounter] = initialArr[i];
+				spawnCounter++;
+			}
+			
 		}
 	}
 
@@ -326,10 +324,7 @@ ErrorType Game::StartOfGame()
 	{
 		if (endArr[i] != Vector2D(0, 0))
 		{//if the wall does not have a wall next to it, delete it
-			if (endArr[i].XValue == endArr[i + 1].XValue || endArr[i].YValue == endArr[i + numberRows].YValue || endArr[i].YValue == endArr[i - numberRows].YValue || endArr[i].XValue == endArr[i - 1].XValue)
-			{
-			}
-			else
+			if (endArr[i].XValue != endArr[i + 1].XValue && endArr[i].YValue != endArr[i + numberRows].YValue && endArr[i].YValue != endArr[i - numberRows].YValue && endArr[i].XValue != endArr[i - 1].XValue)
 			{
 				endArr[i] = Vector2D(0, 0);
 			}
@@ -348,53 +343,13 @@ ErrorType Game::StartOfGame()
 			ObjectManager.AddObject(pBrickWall);
 		}
 	}
-
-	//float ang;
-	//Vector2D pos;
-	//for (int i = 0; i < 20; i++)
-	//{
-	//	BrickWall* pBrickWall = new BrickWall();
-	//	pos.set(-500 + i * 44, 0);
-	//	ang = 0.0f;
-	//	pBrickWall->Initialise(pos, ang);
-	//	ObjectManager.AddObject(pBrickWall);
-	//}
-	//for (int i = 0; i < 14; i++)
-	//{
-	//	BrickWall* pBrickWall = new BrickWall();
-	//	pos.set(380, 0 + i * 44);
-	//	ang = 0.0f;
-	//	pBrickWall->Initialise(pos, ang);
-	//	ObjectManager.AddObject(pBrickWall);
-	//}
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	BrickWall* pBrickWall = new BrickWall();
-	//	pos.set(380+i*44, 616);
-	//	ang = 0.0f;
-	//	pBrickWall->Initialise(pos, ang);
-	//	ObjectManager.AddObject(pBrickWall);
-	//}
-	//for (int i = 0; i < 6; i++)
-	//{
-	//	BrickWall* pBrickWall = new BrickWall();
-	//	pos.set(-500, 44 + i * 44);
-	//	ang = 0.0f;
-	//	pBrickWall->Initialise(pos, ang);
-	//	ObjectManager.AddObject(pBrickWall);
-	//}
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	BrickWall* pBrickWall = new BrickWall();
-	//	pos.set(-500 + i * 44, 308);
-	//	ang = 0.0f;
-	//	pBrickWall->Initialise(pos, ang);
-	//	ObjectManager.AddObject(pBrickWall);
-	//}
-
 	// finished creating walls ------------------------------------------------------------------------------
 
-	// spawning enemies
+	// Loading soundFX
+	pTheSoundFX = new SoundFX();
+	pTheSoundFX->LoadSounds();
+
+	// Spawning enemies
 	for (int i = 0; i < 5; i++)
 	{
 		Enemy* pRobot = new Enemy();
@@ -406,6 +361,8 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pRobot);
 	}
 
+	// Spawning soldier
+	Soldier* pSoldier = new Soldier();
 	Vector2D startPos(0, 0);
 	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX);
 

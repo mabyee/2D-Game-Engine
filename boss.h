@@ -2,10 +2,11 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 #include "SoundFX.h"
-class Enemy : public GameObject
+
+class Boss:public GameObject
 {
 private:
-	// enemy walking animation
+	// boss walking animation
 	float animationSpeed;
 	float currentImage;
 	PictureIndex enemyImages[8];
@@ -22,3 +23,4 @@ public:
 	IShape2D& GetShape();
 	void HandleCollision(GameObject& other);
 };
+

@@ -78,6 +78,12 @@
     <ClCompile Include="ammoBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="boss.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stinger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera.h">
@@ -144,6 +150,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ammoBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="boss.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stinger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

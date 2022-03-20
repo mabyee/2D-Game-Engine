@@ -3,6 +3,7 @@
 #include "soldier.h"
 #include "explosion.h"
 #include "brickwall.h"
+#include "stinger.h"
 
 void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound)
 {
@@ -10,7 +11,6 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, So
 	health = 50;
 	position.set(initialPos);
 	active = true;
-	angle =  position.XValue-3.14f;
 	velocity = vel;
 	scale = 1.5f;
 	pObjectManager = pOM;
@@ -107,5 +107,9 @@ void Enemy::HandleCollision(GameObject& other)
 		{
 			velocity = velocity - 2 * (velocity * normal) * normal;
 		}
+	}
+	if (typeid(other) == typeid(Stinger))
+	{
+		health = 0;
 	}
 }

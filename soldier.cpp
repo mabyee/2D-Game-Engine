@@ -8,6 +8,7 @@
 #include "brickwall.h"
 #include "ammoBox.h"
 #include "computer.h"
+#include "stinger.h"
 
 //Initialise Soldier
 void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
@@ -22,7 +23,8 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	scale = 1.0f;
 	pObjectManager = pOM;
 	pSoundFX = sound;
-	ammo = 20;
+	ammo = 30;
+	stingerAmmo = 4;
 	HealthBar.PlaceAt(0,0,20,10);
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
@@ -97,7 +99,7 @@ void Soldier::Update(double gt)
 	friction = -3 * velocity;						// -2 for more friction, 0 to disable friction
 	position = position + velocity*2 * gt;
 
-	if (pInputs->NewKeyPressed(DIK_SPACE))
+	if (pInputs->NewKeyPressed(DIK_SPACE)) // shoot
 	{		
 		if (pObjectManager && ammo>0)
 		{
@@ -111,9 +113,19 @@ void Soldier::Update(double gt)
 			ammo = ammo - 1;
 		}
 	}
-	// placing camera center at location of soldier
-	//MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	//pDrawEngine->theCamera.PlaceAt(position);
+
+	if (pInputs->NewKeyPressed(DIK_E)) // place stinger
+	{
+		if (pObjectManager && stingerAmmo >= 1)
+		{
+			Stinger* pStinger = new Stinger();
+			pStinger->Initialise(position,pObjectManager);
+			pObjectManager->AddObject(pStinger);
+			// place object that does damage, costs 5 ammo, explodes on collision
+			stingerAmmo = stingerAmmo - 1;
+		}
+	}
+
 	
 	// checking if is in bounds (wraping around)
 	if (position.XValue >= 1600 || position.XValue <= -1600)
@@ -125,6 +137,8 @@ void Soldier::Update(double gt)
 		position.YValue = position.YValue * -1;
 	}
 	MyDrawEngine::GetInstance()->WriteInt(1900, 1400, ammo, MyDrawEngine::LIGHTRED); //ammo count in HUD
+	MyDrawEngine::GetInstance()->WriteInt(1850, 1400, stingerAmmo, MyDrawEngine::LIGHTBLUE); //stinger ammo count in HUD
+
 	DamageBar.PlaceAt(position+Vector2D(-50,50), position+Vector2D(50,65));
 	HealthBar.PlaceAt(position + Vector2D(-50, 50), position + Vector2D(-50 + health, 65)); 
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
@@ -170,6 +184,7 @@ void Soldier::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(ammoBox))
 	{
 		ammo = ammo + 20;
+		stingerAmmo = stingerAmmo + 3;
 	}
 	if (typeid(other) == typeid(computer))
 	{
