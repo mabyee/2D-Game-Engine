@@ -161,7 +161,11 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		//effect on wall hit
+		Vector2D normal = (position - other.GetPosition()).unitVector();
+		if (normal * velocity < 0)
+		{
+			velocity = velocity - 2* (velocity * normal) * normal;
+		}
 	}
 	if (typeid(other) == typeid(ammoBox))
 	{

@@ -324,11 +324,8 @@ ErrorType Game::StartOfGame()
 
 	for (int i = 0; i < TILES; i++)
 	{
-		if (endArr[i] == Vector2D(0, 0))
-		{
-		}
-		else
-		{ //if the wall does not have a wall next to it, delete it
+		if (endArr[i] != Vector2D(0, 0))
+		{//if the wall does not have a wall next to it, delete it
 			if (endArr[i].XValue == endArr[i + 1].XValue || endArr[i].YValue == endArr[i + numberRows].YValue || endArr[i].YValue == endArr[i - numberRows].YValue || endArr[i].XValue == endArr[i - 1].XValue)
 			{
 			}
@@ -342,10 +339,7 @@ ErrorType Game::StartOfGame()
 	// Placing walls where vector != (0,0)
 	for (int i = 0; i < TILES; i++)
 	{
-		if (endArr[i] == Vector2D(0, 0))
-		{
-		}
-		else
+		if (endArr[i] != Vector2D(0, 0))
 		{
 			BrickWall* pBrickWall = new BrickWall();
 			pos = endArr[i];
