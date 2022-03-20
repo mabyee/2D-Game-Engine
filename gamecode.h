@@ -44,6 +44,10 @@ private:
 	GameObject* pNewObject;				// Pointer to superclass
 	SoundFX* pTheSoundFX;
 	const int BLOCK_SIZE = 88;
+	const int LAST_X = 2200;
+	const int FIRST_X = -2200;
+	const int LAST_Y = 1320;
+	const int FIRST_Y = -1320;
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;

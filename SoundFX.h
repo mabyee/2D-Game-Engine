@@ -11,6 +11,8 @@ private:
 	SoundIndex Shoot;
 	SoundIndex Alarm;
 	SoundIndex Chirp;
+	SoundIndex stingerDrop;
+	SoundIndex healthPickup;
 public:
 	void LoadSounds();
 	void PlayShot();
@@ -19,5 +21,7 @@ public:
 	void StopThrust();
 	void StartAlarm();
 	void PlayChirp();
+	void PlayStingerDrop();
+	void PlayHealthPickup();
 };
 

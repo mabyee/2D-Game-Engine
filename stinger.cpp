@@ -39,7 +39,7 @@ void Stinger::Render()
 
 IShape2D& Stinger::GetShape()
 {
-	collisionShape.PlaceAt(position, 16);
+	collisionShape.PlaceAt(position, 24);
 	return collisionShape;
 }
 

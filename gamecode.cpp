@@ -12,6 +12,7 @@
 #include "computer.h"
 #include "HUD.h"
 #include "ammoBox.h"
+#include "outerwall.h"
 
 Game::Game()
 {
@@ -275,10 +276,15 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 
+	// Spawning soldier
+	Soldier* pSoldier = new Soldier();
+	Vector2D startPos(0, 0);
+	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX);
+
 	// creating walls ----------------------------------------------------------------------------------------
-	int numberRows = 23;
-	int numberCol = 37;
-	const int TILES = 851; //851 = amount of tiles on map, 37 columns by 23 rows
+	int numberRows = 30;
+	int numberCol = 50;
+	const int TILES = 1581; //1500 = amount of tiles on map, 50 columns by 30 rows
 	float ang = 0.0f;
 	int j = 0;
 	int spawnCounter = 0;
@@ -288,23 +294,43 @@ ErrorType Game::StartOfGame()
 	Vector2D spawnArr[TILES];
 	
 	// Filling initialArr with every possible tile on the map
-	for (int i = -1600; i < 1600; i = i + BLOCK_SIZE) //width
+	for (int i = -2200; i <= 2200; i = i + BLOCK_SIZE) //width
 	{
-		for (int k = -1000; k < 1000; k = k + BLOCK_SIZE) //height
+		for (int k = -1320; k <= 1320; k = k + BLOCK_SIZE) //height
 		{
-			if ((i <= -200 || i >= 200) || (k <= -200 || k >= 200)) // leaving middle of map blank
+			if ((i <= -300 || i >= 300) || (k <= -300 || k >= 300)) // leaving middle of map blank
 			{
 				initialArr[j] = Vector2D(i, k);
 			}
 			j++;
 		}
 	}
+	// placing outer bound walls
+	for (int i = 0; i < TILES; i++)
+	{
+		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y)
+		{
+			outerwall* pOuterWall = new outerwall();
+			pos = initialArr[i];
+			ang = 0.0f;
+			pOuterWall->Initialise(pos, ang);
+			ObjectManager.AddObject(pOuterWall);
 
-	// Deciding where to place walls
+		}
+		if (initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
+		{
+			outerwall* pOuterWall = new outerwall();
+			pos = initialArr[i];
+			ang = 0.0f;
+			pOuterWall->Initialise(pos, ang);
+			ObjectManager.AddObject(pOuterWall);
+		}
+	}
+	// Deciding where to else to place walls
 	endArr[0] = initialArr[0];
 	for (int i = 0; i < TILES;i++) //loop through entire initialArr
 	{
-		int n = rand() % 3 + 1; // 33% chance of creating a wall
+		int n = rand() % 4 + 1; // 33% chance of creating a wall
 		if (n == 1)
 		{
 			endArr[i] = initialArr[i];
@@ -323,8 +349,14 @@ ErrorType Game::StartOfGame()
 	for (int i = 0; i < TILES; i++)
 	{
 		if (endArr[i] != Vector2D(0, 0))
-		{//if the wall does not have a wall next to it, delete it
+		{
+			//if the wall does not have a wall next to it, delete it
 			if (endArr[i].XValue != endArr[i + 1].XValue && endArr[i].YValue != endArr[i + numberRows].YValue && endArr[i].YValue != endArr[i - numberRows].YValue && endArr[i].XValue != endArr[i - 1].XValue)
+			{
+				endArr[i] = Vector2D(0, 0);
+			}
+			//deleting any overlapping walls on outside
+			if (endArr[i].XValue == FIRST_X || endArr[i].XValue == LAST_X || endArr[i].YValue == FIRST_Y || endArr[i].YValue == LAST_Y)
 			{
 				endArr[i] = Vector2D(0, 0);
 			}
@@ -360,11 +392,6 @@ ErrorType Game::StartOfGame()
 		pRobot->Initialise(pos, vel, &ObjectManager, pTheSoundFX);
 		ObjectManager.AddObject(pRobot);
 	}
-
-	// Spawning soldier
-	Soldier* pSoldier = new Soldier();
-	Vector2D startPos(0, 0);
-	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX);
 
 	// AmmoBoxes
 	for (int i = 0; i < 3; i++)

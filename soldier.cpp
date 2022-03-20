@@ -9,6 +9,7 @@
 #include "ammoBox.h"
 #include "computer.h"
 #include "stinger.h"
+#include "outerwall.h"
 
 //Initialise Soldier
 void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
@@ -57,6 +58,10 @@ void Soldier::Update(double gt)
 		pObjectManager->AddObject(pExp);
 		// create new soldier and add blinking effect (respawn)
 	}
+	// placing camera center at location of soldier
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	pDrawEngine->theCamera.PlaceAt(Vector2D(position.XValue,-position.YValue));
+	pDrawEngine->theCamera.SetZoom(1.3f);
 
 	MyInputs* pInputs = MyInputs::GetInstance();
 	pInputs->SampleKeyboard();
@@ -118,6 +123,7 @@ void Soldier::Update(double gt)
 	{
 		if (pObjectManager && stingerAmmo >= 1)
 		{
+			pSoundFX->PlayStingerDrop();
 			Stinger* pStinger = new Stinger();
 			pStinger->Initialise(position,pObjectManager);
 			pObjectManager->AddObject(pStinger);
@@ -127,20 +133,17 @@ void Soldier::Update(double gt)
 	}
 
 	
-	// checking if is in bounds (wraping around)
-	if (position.XValue >= 1600 || position.XValue <= -1600)
-	{
-		position.XValue = position.XValue * -1;
-	}
-	if (position.YValue >= 1000 || position.YValue <= -1000)
-	{
-		position.YValue = position.YValue * -1;
-	}
+	// checking if is in bounds (wraping around) add back incase of teleporter wall
+	//if (position.XValue >= 1600 || position.XValue <= -1600)
+	//{
+	//	position.XValue = position.XValue * -1;
+	//}
+
 	MyDrawEngine::GetInstance()->WriteInt(1900, 1400, ammo, MyDrawEngine::LIGHTRED); //ammo count in HUD
 	MyDrawEngine::GetInstance()->WriteInt(1850, 1400, stingerAmmo, MyDrawEngine::LIGHTBLUE); //stinger ammo count in HUD
 
-	DamageBar.PlaceAt(position+Vector2D(-50,50), position+Vector2D(50,65));
-	HealthBar.PlaceAt(position + Vector2D(-50, 50), position + Vector2D(-50 + health, 65)); 
+	DamageBar.PlaceAt(position+Vector2D(-50.0f,50.0f), position+Vector2D(50.0f,65.0f));
+	HealthBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(-50.0f + health, 65.0f)); 
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
 	MyDrawEngine::GetInstance()->FillRect(HealthBar, colourGreen, 0.0f); //healthbar red area
 
@@ -178,17 +181,27 @@ void Soldier::HandleCollision(GameObject& other)
 		Vector2D normal = (position - other.GetPosition()).unitVector();
 		if (normal * velocity < 0)
 		{
-			velocity = velocity - 2* (velocity * normal) * normal;
+			velocity = velocity - 1.5 * (velocity * normal) * normal;
 		}
 	}
 	if (typeid(other) == typeid(ammoBox))
 	{
 		ammo = ammo + 20;
 		stingerAmmo = stingerAmmo + 3;
+		pSoundFX->PlayHealthPickup();
+
 	}
 	if (typeid(other) == typeid(computer))
 	{
 		health = 100;
 		pSoundFX->PlayChirp();
+	}
+	if (typeid(other) == typeid(outerwall))
+	{
+		Vector2D normal = (position - other.GetPosition()).unitVector();
+		if (normal * velocity < 0)
+		{
+			velocity = velocity - 1.5 * (velocity * normal) * normal;
+		}
 	}
 }
