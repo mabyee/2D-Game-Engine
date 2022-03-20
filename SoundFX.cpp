@@ -7,6 +7,8 @@ void SoundFX::LoadSounds()
 	Thrust = pSoundEngine->LoadWav(L"thrustloop2.wav");
 	Alarm = pSoundEngine->LoadWav(L"alert.wav");
 	Chirp = pSoundEngine->LoadWav(L"chirp.wav");
+	healthPickup = pSoundEngine->LoadWav(L"healthPickup.wav");
+	stingerDrop = pSoundEngine->LoadWav(L"stingerDrop.wav");
 	Explosions[0] = pSoundEngine->LoadWav(L"explosion1.wav");
 	Explosions[1] = pSoundEngine->LoadWav(L"explosion2.wav");
 	Explosions[2] = pSoundEngine->LoadWav(L"explosion3.wav");
@@ -47,4 +49,14 @@ void SoundFX::StartAlarm()
 void SoundFX::PlayChirp()
 {
 	MySoundEngine::GetInstance()->Play(Chirp);
+}
+
+void SoundFX::PlayStingerDrop()
+{
+	MySoundEngine::GetInstance()->Play(stingerDrop);
+}
+
+void SoundFX::PlayHealthPickup()
+{
+	MySoundEngine::GetInstance()->Play(healthPickup);
 }

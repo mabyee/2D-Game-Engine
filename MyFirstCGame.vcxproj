@@ -160,11 +160,13 @@
     <ClCompile Include="mysoundengine.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="outerwall.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="SoundFX.cpp" />
     <ClCompile Include="soldier.cpp" />
     <ClCompile Include="stinger.cpp" />
     <ClCompile Include="vector2D.cpp" />
+    <ClCompile Include="wall.cpp" />
     <ClCompile Include="wincode.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +185,7 @@
     <ClInclude Include="HUD.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="outerwall.h" />
     <ClInclude Include="SoundFX.h" />
     <ClInclude Include="soldier.h" />
     <ClInclude Include="mydrawengine.h" />
@@ -192,6 +195,7 @@
     <ClInclude Include="Shapes.h" />
     <ClInclude Include="stinger.h" />
     <ClInclude Include="vector2D.h" />
+    <ClInclude Include="wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
