@@ -11,6 +11,7 @@
 #include "mysoundengine.h"
 #include "soldier.h"
 #include "GameObject.h"
+#include "score.h"
 
 // This is a hack for reading keyboard in situations where you don't want to
 // use a full input system.
@@ -43,11 +44,13 @@ private:
 	ObjectManager ObjectManager;
 	GameObject* pNewObject;				// Pointer to superclass
 	SoundFX* pTheSoundFX;
+	Score Score;
 	const int BLOCK_SIZE = 88;
-	const int LAST_X = 1584;
+	const int LAST_X = 1568;
 	const int FIRST_X = -1600;
 	const int LAST_Y = 936;
 	const int FIRST_Y = -1000;
+
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;

@@ -14,4 +14,6 @@ public:
 	void DeleteInactiveObjects();
 	void CheckAllCollisions();
 	void GetObjectManager();
+	ObjectManager();
+	~ObjectManager();
 };

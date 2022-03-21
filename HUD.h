@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "soldier.h"
 
-class HUD:public GameObject
+class HUD
 {
 private:
 	unsigned int colour;
@@ -14,8 +14,7 @@ private:
 public:
 	void Initialise();
 	void Update(double gt);
-	void Render() override;
-	IShape2D& GetShape();
-	void HandleCollision(GameObject& other);
+	HUD();
+	~HUD();
 };
 

@@ -371,7 +371,8 @@ ErrorType Game::StartOfGame()
 		}
 	}
 	// finished creating walls ------------------------------------------------------------------------------
-
+	// Initialising score
+	
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
@@ -384,14 +385,14 @@ ErrorType Game::StartOfGame()
 		Vector2D vel;
 		pos = spawnArr[rand() % 350]; // random available spawn point
 		vel.set(rand() % 628 / 100.0f, rand() % 100 + 100);
-		pRobot->Initialise(pos, vel, &ObjectManager, pTheSoundFX);
+		pRobot->Initialise(pos, vel, &ObjectManager, pTheSoundFX, &Score);
 		ObjectManager.AddObject(pRobot);
 	}
 
 	// Spawning soldier
 	Soldier* pSoldier = new Soldier();
 	Vector2D startPos(0, 0);
-	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX);
+	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX, &Score);
 
 	// AmmoBoxes
 	for (int i = 0; i < 3; i++)
@@ -417,8 +418,8 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pComputer);
 	}
 
-	ObjectManager.AddObject(pHUD);
 	ObjectManager.AddObject(pSoldier);
+	
 
 	gt.mark();
 	gt.mark();
@@ -451,11 +452,15 @@ ErrorType Game::Update()
 
 	gt.mark();
 
+
 	ObjectManager.RenderAll();
 	ObjectManager.UpdateAll(gt.mdFrameTime);
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
-   
+	
+	MyDrawEngine::GetInstance()->WriteText(1020, 100, L"Score:", MyDrawEngine::WHITE);
+	MyDrawEngine::GetInstance()->WriteInt(1100, 100, Score.GetScore(), MyDrawEngine::YELLOW); //Displaying Score
+
 	// *********************************************************************
    // *********************************************************************
 
@@ -471,7 +476,7 @@ ErrorType Game::EndOfGame()
 {
    // Add code here to tidy up ********************************************
    // *********************************************************************
-	
+
 	delete pTheSoundFX;
 	ObjectManager.DeleteAll();
 	return SUCCESS;

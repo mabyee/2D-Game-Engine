@@ -4,8 +4,9 @@
 #include "explosion.h"
 #include "brickwall.h"
 #include "stinger.h"
+#include "outerwall.h"
 
-void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound)
+void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
 	animationSpeed = 5.0f;
 	health = 50;
@@ -15,6 +16,7 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, So
 	scale = 1.5f;
 	pObjectManager = pOM;
 	pSoundFX = sound;
+	pScore = pCurrentScore;
 
 	//loading images of enemy
 	enemyImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"robot0.png");
@@ -91,14 +93,22 @@ void Enemy::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Bullet))
 	{
 		health = health - 10;
+		int score = 5;
+		pScore->AddScore(score);
 	}
 	if (typeid(other) == typeid(Soldier))
 	{
 		health = 0;
+		int score = 50;
+		pScore->AddScore(score);
 	}
 	if (typeid(other) == typeid(Enemy))
 	{
-		health = 0;
+		Vector2D normal = (position - other.GetPosition()).unitVector();
+		if (normal * velocity < 0)
+		{
+			velocity = velocity - 2 * (velocity * normal) * normal;
+		}
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
@@ -111,5 +121,16 @@ void Enemy::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Stinger))
 	{
 		health = 0;
+		int score = 150;
+		pScore->AddScore(score);
+	}
+
+	if (typeid(other) == typeid(outerwall))
+	{
+		Vector2D normal = (position - other.GetPosition()).unitVector();
+		if (normal * velocity < 0)
+		{
+			velocity = velocity - 2 * (velocity * normal) * normal;
+		}
 	}
 }

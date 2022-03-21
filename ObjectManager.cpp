@@ -1,5 +1,13 @@
 #include "ObjectManager.h"
 
+ObjectManager::ObjectManager()
+{
+}
+
+ObjectManager::~ObjectManager()
+{
+}
+
 void ObjectManager::UpdateAll(double gt) 
 {
 	for (auto const& i : pObjectList)

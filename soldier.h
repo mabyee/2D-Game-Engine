@@ -2,6 +2,8 @@
 #include "GameObject.h"
 #include "ObjectManager.h"
 #include "SoundFX.h"
+#include "score.h"
+
 class Soldier:public GameObject
 {
 private:
@@ -34,8 +36,9 @@ private:
 	//other
 	ObjectManager* pObjectManager; // Pointer to objectmanager required when an object creates another object
 	Circle2D collisionShape;
+	Score* pScore;
 public:
-	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound);
+	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pScore);
 	void Update(double gt);
 	void Render() override;
 	IShape2D& GetShape();

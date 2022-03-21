@@ -12,7 +12,7 @@
 #include "outerwall.h"
 
 //Initialise Soldier
-void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
+void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
 	animationSpeed = 8.0f;
 	health = 100;
@@ -22,6 +22,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	angle = 0.0f;
 	active = true;
 	scale = 1.0f;
+	pScore = pCurrentScore;
 	pObjectManager = pOM;
 	pSoundFX = sound;
 	ammo = 30;
@@ -137,9 +138,10 @@ void Soldier::Update(double gt)
 	//{
 	//	position.XValue = position.XValue * -1;
 	//}
-
-	MyDrawEngine::GetInstance()->WriteInt(1900, 1400, ammo, MyDrawEngine::LIGHTRED); //ammo count in HUD
-	MyDrawEngine::GetInstance()->WriteInt(1850, 1400, stingerAmmo, MyDrawEngine::LIGHTBLUE); //stinger ammo count in HUD
+	MyDrawEngine::GetInstance()->WriteText(1750, 1400, L"Ammo:", MyDrawEngine::WHITE);
+	MyDrawEngine::GetInstance()->WriteText(1600, 1400, L"Stingers:", MyDrawEngine::WHITE);
+	MyDrawEngine::GetInstance()->WriteInt(1820, 1400, ammo, MyDrawEngine::LIGHTRED); //ammo count in HUD
+	MyDrawEngine::GetInstance()->WriteInt(1680, 1400, stingerAmmo, MyDrawEngine::LIGHTBLUE); //stinger ammo count in HUD
 
 	DamageBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(50.0f, 65.0f));
 	HealthBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(-50.0f + health, 65.0f));
@@ -193,6 +195,8 @@ void Soldier::HandleCollision(GameObject& other)
 	{
 		health = 100;
 		pSoundFX->PlayChirp();
+		int score = 10;
+		pScore->AddScore(score);
 	}
 	if (typeid(other) == typeid(outerwall))
 	{
