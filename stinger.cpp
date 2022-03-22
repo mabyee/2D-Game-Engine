@@ -20,9 +20,9 @@ void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM)
 
 void Stinger::Update(double gt)
 {
-	if (currentImageStinger >= 35)
+	if (currentImageStinger >= 37)
 	{
-		currentImageStinger = 33;
+		currentImageStinger = 35;
 	}
 	currentImageStinger += gt * animationSpeedStinger;
 }

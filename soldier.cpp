@@ -79,9 +79,9 @@ void Soldier::Update(double gt)
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation
-		if (currentImage >= 18)
+		if (currentImage >= 20)
 		{
-			currentImage = 12;
+			currentImage = 14;
 		}
 		currentImage += gt * animationSpeed;
 	}
@@ -95,15 +95,15 @@ void Soldier::Update(double gt)
 		acceleration.setBearing(angle, -300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation reversed
-		if (currentImage <= 13)
+		if (currentImage <= 14)
 		{
-			currentImage = 18;
+			currentImage = 20;
 		}
 		currentImage -= gt * animationSpeed;
 	}
 	velocity = velocity + friction * gt;
-	friction = -3 * velocity;						// -2 for more friction, 0 to disable friction
-	position = position + velocity*2 * gt;
+	friction = -6 * velocity;						// -2 for more friction, 0 to disable friction
+	position = position + velocity*3 * gt;
 
 	if (pInputs->NewKeyPressed(DIK_SPACE)) // shoot
 	{		

@@ -10,7 +10,6 @@
 #include "brickwall.h"
 #include "SoundFX.h"
 #include "computer.h"
-#include "HUD.h"
 #include "ammoBox.h"
 #include "outerwall.h"
 
@@ -371,8 +370,8 @@ ErrorType Game::StartOfGame()
 		}
 	}
 	// finished creating walls ------------------------------------------------------------------------------
-	// Initialising score
-	
+	// Loading background
+	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"groundMap.png");
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
@@ -405,8 +404,7 @@ ErrorType Game::StartOfGame()
 	}
 
 	// HUD
-	HUD* pHUD = new HUD();
-	pHUD->Initialise();
+	HUD.Initialise();
 
 	// Computer
 	for (int i = 0; i < 3; i++)
@@ -419,7 +417,6 @@ ErrorType Game::StartOfGame()
 	}
 
 	ObjectManager.AddObject(pSoldier);
-	
 
 	gt.mark();
 	gt.mark();
@@ -452,14 +449,13 @@ ErrorType Game::Update()
 
 	gt.mark();
 
-
+	MyDrawEngine::GetInstance()->DrawAt(Vector2D(0,0), backgroundImage, 1.0f, 0.0f, 0.0f); // Drawing background
 	ObjectManager.RenderAll();
 	ObjectManager.UpdateAll(gt.mdFrameTime);
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
 	
-	MyDrawEngine::GetInstance()->WriteText(1020, 100, L"Score:", MyDrawEngine::WHITE);
-	MyDrawEngine::GetInstance()->WriteInt(1100, 100, Score.GetScore(), MyDrawEngine::YELLOW); //Displaying Score
+	HUD.Update(Score.GetScore()); // Drawing HUD
 
 	// *********************************************************************
    // *********************************************************************
@@ -477,6 +473,7 @@ ErrorType Game::EndOfGame()
    // Add code here to tidy up ********************************************
    // *********************************************************************
 
+	Score.ResetScore();
 	delete pTheSoundFX;
 	ObjectManager.DeleteAll();
 	return SUCCESS;

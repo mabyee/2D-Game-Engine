@@ -1,21 +1,23 @@
 #include "HUD.h"
-HUD::HUD()
-{
-}
+#include "GameObject.h"
 
-HUD::~HUD()
-{
-}
+//HUD::HUD()
+//{
+//}
+//
+//HUD::~HUD()
+//{
+//}
 
 void HUD::Initialise()
 {
-	colour = _XRGB(255, 100, 10);
-	SizeX = Vector2D(-400, -850);
-	SizeY = Vector2D(400, -1000);
-	HUDShape.PlaceAt(SizeX, SizeY);
+	HUDimage = MyDrawEngine::GetInstance()->LoadPicture(L"HUD.png");
 }
 
-void HUD::Update(double gt)
+void HUD::Update(int score)
 {
-	MyDrawEngine::GetInstance()->FillRect(HUDShape, colour, 0.0f);
+	pos = MyDrawEngine::GetInstance()->GetViewport().GetCentre();
+	MyDrawEngine::GetInstance()->DrawAt(Vector2D(pos.XValue + 450, pos.YValue - 500), HUDimage, 8.0f, 0.0f, 0.5f); //incorporate ammo count here, remove from soldier class
+	MyDrawEngine::GetInstance()->WriteText(1020, 100, L"Score:", MyDrawEngine::WHITE);
+	MyDrawEngine::GetInstance()->WriteInt(1100, 100, score, MyDrawEngine::YELLOW); //Displaying Score
 }

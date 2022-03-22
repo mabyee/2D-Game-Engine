@@ -45,9 +45,9 @@ void Enemy::Update(double gt)
 	{
 		position = position + velocity * gt;
 		angle = angle + 2.0f * gt;
-		if (currentImage >= 10)
+		if (currentImage >= 11)
 		{
-			currentImage = 3;
+			currentImage = 4;
 		}
 		currentImage += gt * animationSpeed;
 

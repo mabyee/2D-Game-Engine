@@ -1,20 +1,15 @@
 #pragma once
 #include "GameObject.h"
-#include "soldier.h"
 
 class HUD
 {
 private:
-	unsigned int colour;
-	Vector2D SizeX;
-	Vector2D SizeY;
-	Rectangle2D HUDShape;
-	Circle2D collisionShape;
-	Soldier* pSoldier;
+	PictureIndex HUDimage;
+	Vector2D pos;
 public:
 	void Initialise();
-	void Update(double gt);
-	HUD();
-	~HUD();
+	void Update(int score);
+	//HUD();
+	//~HUD();
 };
 
