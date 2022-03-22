@@ -137,11 +137,7 @@ void Soldier::Update(double gt)
 	//if (position.XValue >= 1600 || position.XValue <= -1600)
 	//{
 	//	position.XValue = position.XValue * -1;
-	//}
-	MyDrawEngine::GetInstance()->WriteText(1750, 1400, L"Ammo:", MyDrawEngine::WHITE);
-	MyDrawEngine::GetInstance()->WriteText(1600, 1400, L"Stingers:", MyDrawEngine::WHITE);
-	MyDrawEngine::GetInstance()->WriteInt(1820, 1400, ammo, MyDrawEngine::LIGHTRED); //ammo count in HUD
-	MyDrawEngine::GetInstance()->WriteInt(1680, 1400, stingerAmmo, MyDrawEngine::LIGHTBLUE); //stinger ammo count in HUD
+	//
 
 	DamageBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(50.0f, 65.0f));
 	HealthBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(-50.0f + health, 65.0f));
@@ -206,4 +202,19 @@ void Soldier::HandleCollision(GameObject& other)
 			velocity = velocity - 1.5 * (velocity * normal) * normal;
 		}
 	}
+}
+
+int Soldier::GetAmmo()
+{
+	return ammo;
+}
+
+int Soldier::GetStingerAmmo()
+{
+	return stingerAmmo;
+}
+
+int Soldier::GetHealth()
+{
+	return health;
 }

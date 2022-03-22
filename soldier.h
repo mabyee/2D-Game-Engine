@@ -43,4 +43,7 @@ public:
 	void Render() override;
 	IShape2D& GetShape();
 	void HandleCollision(GameObject& other);
+	int GetAmmo();
+	int GetStingerAmmo();
+	int GetHealth();
 };

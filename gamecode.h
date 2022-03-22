@@ -47,6 +47,7 @@ private:
 	SoundFX* pTheSoundFX;
 	Score Score;
 	HUD HUD;
+	Soldier* pSoldier;
 	const int BLOCK_SIZE = 88;
 	const int LAST_X = 1568;
 	const int FIRST_X = -1600;

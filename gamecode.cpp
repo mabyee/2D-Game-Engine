@@ -389,7 +389,7 @@ ErrorType Game::StartOfGame()
 	}
 
 	// Spawning soldier
-	Soldier* pSoldier = new Soldier();
+	pSoldier = new Soldier();
 	Vector2D startPos(0, 0);
 	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX, &Score);
 
@@ -455,7 +455,7 @@ ErrorType Game::Update()
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
 	
-	HUD.Update(Score.GetScore()); // Drawing HUD
+	HUD.Update(Score.GetScore(),pSoldier->GetHealth(),pSoldier->GetAmmo(),pSoldier->GetStingerAmmo()); // Drawing HUD
 
 	// *********************************************************************
    // *********************************************************************
