@@ -23,7 +23,9 @@ public:
 	virtual void Render();
 	virtual void Update(double gt) = 0;
 	virtual IShape2D& GetShape() = 0;
+	virtual IShape2D& GetDetectionRadius() = 0;
 	virtual void HandleCollision(GameObject& other) = 0;
+	virtual void HandleDetection(GameObject& other) = 0;
 	bool IsActive() const;
 	void Deactivate();
 	Vector2D GetPosition();

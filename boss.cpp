@@ -1,5 +1,5 @@
 #include "boss.h"
-#include <math.h>
+
 
 
 void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
@@ -63,6 +63,11 @@ IShape2D& Boss::GetShape()
 	collisionShape.PlaceAt(position, scale*20); //collision scales with scale
 	return collisionShape;
 }
+IShape2D& Boss::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 400); //collision scales with scale
+	return detectionRadius;
+}
 
 void Boss::HandleCollision(GameObject& other)
 {
@@ -71,4 +76,8 @@ void Boss::HandleCollision(GameObject& other)
 		health = health + 0.1; //heals when damaging the player
 		scale = scale + 0.02; //grows as he damages the player
 	}
+}
+void Boss::HandleDetection(GameObject& other)
+{
+
 }

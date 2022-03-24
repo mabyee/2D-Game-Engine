@@ -14,6 +14,18 @@ void ammoBox::Update(double gt)
 {
 
 }
+
+IShape2D& ammoBox::GetShape()
+{
+	collisionShape.PlaceAt(position, 16);
+	return collisionShape;
+}
+IShape2D& ammoBox::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 1);
+	return detectionRadius;
+}
+
 void ammoBox::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Soldier))
@@ -21,8 +33,7 @@ void ammoBox::HandleCollision(GameObject& other)
 		Deactivate();
 	}
 }
-IShape2D& ammoBox::GetShape()
+void ammoBox::HandleDetection(GameObject& other)
 {
-	collisionShape.PlaceAt(position, 16);
-	return collisionShape;
+
 }

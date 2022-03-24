@@ -156,6 +156,11 @@ IShape2D& Soldier::GetShape()
 	collisionShape.PlaceAt(position, 26);
 	return collisionShape;
  }
+IShape2D& Soldier::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 1);
+	return detectionRadius;
+}
 
 void Soldier::HandleCollision(GameObject& other)
 {
@@ -202,6 +207,11 @@ void Soldier::HandleCollision(GameObject& other)
 		MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 		pDrawEngine->theCamera.SetZoom(3.0f);
 	}
+}
+
+void Soldier::HandleDetection(GameObject& other)
+{
+
 }
 
 int Soldier::GetAmmo()

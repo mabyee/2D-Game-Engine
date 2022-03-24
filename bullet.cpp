@@ -31,6 +31,11 @@ IShape2D& Bullet::GetShape()
 	collisionShape.PlaceAt(position, 5);
 	return collisionShape;
 }
+IShape2D& Bullet::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 1);
+	return detectionRadius;
+}
 
 void Bullet::HandleCollision(GameObject& other)
 {
@@ -48,4 +53,8 @@ void Bullet::HandleCollision(GameObject& other)
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
 	}
+}
+void Bullet::HandleDetection(GameObject& other)
+{
+
 }

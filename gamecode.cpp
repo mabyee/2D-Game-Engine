@@ -13,6 +13,7 @@
 #include "ammoBox.h"
 #include "outerwall.h"
 #include "boss.h"
+#include "turret.h"
 
 Game::Game()
 {
@@ -376,6 +377,10 @@ ErrorType Game::StartOfGame()
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
+	
+	// Spawning turrets
+	Turret* pTurret = new Turret();
+	pTurret->Initialise(Vector2D(100,100),&ObjectManager, pTheSoundFX, &Score);
 
 	// Spawning enemies
 	for (int i = 0; i < 5; i++)
@@ -396,7 +401,7 @@ ErrorType Game::StartOfGame()
 
 	// Spawning boss
 	Boss* pBoss = new Boss();
-	pBoss->Initialise(Vector2D(50, 50), &ObjectManager, pTheSoundFX, pSoldier);
+	pBoss->Initialise(Vector2D(500, 500), &ObjectManager, pTheSoundFX, pSoldier);
 
 	// AmmoBoxes
 	for (int i = 0; i < 3; i++)
@@ -421,6 +426,7 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pComputer);
 	}
 
+	ObjectManager.AddObject(pTurret);
 	ObjectManager.AddObject(pBoss);
 	ObjectManager.AddObject(pSoldier);
 

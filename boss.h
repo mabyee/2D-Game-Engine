@@ -14,6 +14,7 @@ private:
 
 	float speed;
 	Circle2D collisionShape;
+	Circle2D detectionRadius;
 	ObjectManager* pObjectManager;
 	SoundFX* pSoundFX;
 	int health;
@@ -24,5 +25,7 @@ public:
 	void Render()override;
 	IShape2D& GetShape();
 	void HandleCollision(GameObject& other);
+	IShape2D& GetDetectionRadius();
+	void HandleDetection(GameObject& other);
 };
 

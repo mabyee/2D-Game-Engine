@@ -32,3 +32,12 @@ void BrickWall::HandleCollision(GameObject& other)
 		health = health - 5;
 	}
 }
+IShape2D& BrickWall::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position,0);
+	return detectionRadius;
+}
+
+void BrickWall::HandleDetection(GameObject& other)
+{
+}

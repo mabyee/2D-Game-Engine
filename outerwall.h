@@ -9,4 +9,5 @@ public:
 	void Initialise(Vector2D pos, float ang);
 	void Update(double gt);
 	void HandleCollision(GameObject& other);
+	void HandleDetection(GameObject& other);
 };

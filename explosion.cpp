@@ -44,9 +44,18 @@ void Explosion::HandleCollision(GameObject& other)
 {
 
 }
+void Explosion::HandleDetection(GameObject& other)
+{
+
+}
 
 IShape2D& Explosion::GetShape()
 {
 	collisionShape.PlaceAt(position, 16);
 	return collisionShape;
+}
+IShape2D& Explosion::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 1);
+	return detectionRadius;
 }

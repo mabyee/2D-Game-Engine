@@ -79,6 +79,11 @@ void ObjectManager::CheckAllCollisions()
 				(*it1)->HandleCollision((**it2));
 				(*it2)->HandleCollision((**it1));
 			}
+			if ((*it1) && (*it2) && (*it1)->IsActive() && (*it2)->IsActive() && ((*it1)->GetDetectionRadius().Intersects((*it2)->GetDetectionRadius())))
+			{
+				(*it1)->HandleDetection((**it2));
+				(*it2)->HandleDetection((**it1));
+			}
 		}
 	}
 }

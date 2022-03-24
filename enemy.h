@@ -14,6 +14,7 @@ private:
 
 	Vector2D velocity;
 	Circle2D collisionShape;
+	Circle2D detectionRadius;
 	ObjectManager* pObjectManager;
 	SoundFX* pSoundFX;
 	int health;
@@ -23,5 +24,7 @@ public:
 	void Update(double gt);
 	void Render()override;
 	IShape2D& GetShape();
+	IShape2D& GetDetectionRadius();
+	void HandleDetection(GameObject& other);
 	void HandleCollision(GameObject& other);
 };

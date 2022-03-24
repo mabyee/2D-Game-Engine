@@ -36,13 +36,16 @@ private:
 	//other
 	ObjectManager* pObjectManager; // Pointer to objectmanager required when an object creates another object
 	Circle2D collisionShape;
+	Circle2D detectionRadius;
 	Score* pScore;
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pScore);
 	void Update(double gt);
 	void Render() override;
 	IShape2D& GetShape();
+	IShape2D& GetDetectionRadius();
 	void HandleCollision(GameObject& other);
+	void HandleDetection(GameObject& other);
 	int GetAmmo();
 	int GetStingerAmmo();
 	int GetHealth();

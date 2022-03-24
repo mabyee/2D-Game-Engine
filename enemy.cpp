@@ -87,6 +87,11 @@ IShape2D& Enemy::GetShape()
 	collisionShape.PlaceAt(position, 16);
 	return collisionShape;
 }
+IShape2D& Enemy::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 350);
+	return detectionRadius;
+}
 
 void Enemy::HandleCollision(GameObject& other)
 {
@@ -133,4 +138,8 @@ void Enemy::HandleCollision(GameObject& other)
 			velocity = velocity - 2 * (velocity * normal) * normal;
 		}
 	}
+}
+void Enemy::HandleDetection(GameObject& other)
+{
+
 }

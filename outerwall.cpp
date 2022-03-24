@@ -13,7 +13,10 @@ void outerwall::HandleCollision(GameObject& other)
 {
 
 }
+void outerwall::HandleDetection(GameObject& other)
+{
 
+}
 void outerwall::Update(double gt)
 {
 

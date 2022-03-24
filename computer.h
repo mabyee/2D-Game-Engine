@@ -6,6 +6,7 @@ class computer : public GameObject
 private:
 	Vector2D velocity;
 	Rectangle2D collisionShape;
+	Circle2D detectionRadius;
 	float animationSpeed;
 	float currentImage;
 	PictureIndex computerImages[12];
@@ -15,5 +16,7 @@ public:
 	void Render() override;
 	void HandleCollision(GameObject& other);
 	IShape2D& GetShape();
+	void HandleDetection(GameObject& other);
+	IShape2D& GetDetectionRadius();
 };
 

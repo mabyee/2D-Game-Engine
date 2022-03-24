@@ -51,9 +51,17 @@ void computer::HandleCollision(GameObject& other)
 		Deactivate();
 	}
 }
+void computer::HandleDetection(GameObject& other)
+{
+}
 
 IShape2D& computer::GetShape()
 {
 	collisionShape.PlaceAt(position-Vector2D(30,15), position+Vector2D(30,15));
 	return collisionShape;
+}
+IShape2D& computer::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position,1);
+	return detectionRadius;
 }

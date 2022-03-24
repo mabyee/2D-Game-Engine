@@ -15,3 +15,12 @@ void Wall::Update(double gt)
 {
 
 }
+IShape2D& Wall::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 0);
+	return detectionRadius;
+}
+
+void Wall::HandleDetection(GameObject& other)
+{
+}

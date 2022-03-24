@@ -42,6 +42,11 @@ IShape2D& Stinger::GetShape()
 	collisionShape.PlaceAt(position, 24);
 	return collisionShape;
 }
+IShape2D& Stinger::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 1);
+	return detectionRadius;
+}
 
 void Stinger::HandleCollision(GameObject& other)
 {
@@ -53,4 +58,8 @@ void Stinger::HandleCollision(GameObject& other)
 	{
 		Deactivate();
 	}
+}
+void Stinger::HandleDetection(GameObject& other)
+{
+
 }
