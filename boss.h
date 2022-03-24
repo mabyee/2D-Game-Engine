@@ -12,7 +12,7 @@ private:
 	float currentImage;
 	PictureIndex bossImages[8];
 
-	Vector2D velocity;
+	float speed;
 	Circle2D collisionShape;
 	ObjectManager* pObjectManager;
 	SoundFX* pSoundFX;

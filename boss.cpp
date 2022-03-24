@@ -1,4 +1,5 @@
 #include "boss.h"
+#include <math.h>
 
 
 void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
@@ -6,7 +7,7 @@ void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, S
 	animationSpeed = 6.0f;
 	health = 500;
 	position.set(initialPos);
-	velocity.set(0, 0);
+	speed = 3.0f;
 	angle = 0.0f;
 	active = true;
 	scale = 4.0f;
@@ -31,10 +32,13 @@ void Boss::Update(double gt)
 	if (active)
 	{
 		Vector2D soldierPos = pSoldier->GetPosition();
-		int soldierX = soldierPos.XValue;
-		int soldierY = soldierPos.YValue;
-		
-		position = position + velocity * gt;
+		float dirX = soldierPos.XValue - position.XValue;
+		float dirY = soldierPos.YValue - position.YValue;
+		float hyp = sqrt(dirX * dirX + dirY * dirY);
+		dirX /= hyp;
+		dirY /= hyp;
+		position.XValue += dirX * speed;
+		position.YValue += dirY * speed;
 
 		if (currentImage >= 27)
 		{
