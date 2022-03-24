@@ -10,6 +10,7 @@
 #include "computer.h"
 #include "stinger.h"
 #include "outerwall.h"
+#include "boss.h"
 
 //Initialise Soldier
 void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
@@ -18,7 +19,6 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	health = 100;
 	position.set(initialPos);
 	velocity.set(0,0);
-	LoadImg(L"ship.bmp");
 	angle = 0.0f;
 	active = true;
 	scale = 1.0f;
@@ -49,14 +49,8 @@ void Soldier::Update(double gt)
 {
 	if (health <= 0)
 	{
-		// loading sound
-		pSoundFX->StopThrust();
-		pSoundFX->PlayExplosion();
 		Deactivate();
-		Explosion* pExp = new Explosion();
-		pExp->Initialise(position, 2.0f, 0.5f, Vector2D(0, 0));
-		pObjectManager->AddObject(pExp);
-		// create new soldier and add blinking effect (respawn)
+		// create new soldier and add blinking effect (respawn) TODO
 	}
 
 	// placing camera center at location of soldier
@@ -79,25 +73,25 @@ void Soldier::Update(double gt)
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation
-		if (currentImage >= 20)
+		if (currentImage >= 19)
 		{
-			currentImage = 14;
+			currentImage = 13;
 		}
 		currentImage += gt * animationSpeed;
 	}
 
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
 	{
-		currentImage = 16; //sets idle position image
+		currentImage = 15; //sets idle position image
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
 		acceleration.setBearing(angle, -300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation reversed
-		if (currentImage <= 14)
+		if (currentImage <= 13)
 		{
-			currentImage = 20;
+			currentImage = 19;
 		}
 		currentImage -= gt * animationSpeed;
 	}
@@ -201,6 +195,12 @@ void Soldier::HandleCollision(GameObject& other)
 		{
 			velocity = velocity - 1.5 * (velocity * normal) * normal;
 		}
+	}
+	if (typeid(other) == typeid(Boss))
+	{
+		health = health - 0.1;
+		MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+		pDrawEngine->theCamera.SetZoom(3.0f);
 	}
 }
 

@@ -12,6 +12,7 @@
 #include "computer.h"
 #include "ammoBox.h"
 #include "outerwall.h"
+#include "boss.h"
 
 Game::Game()
 {
@@ -387,11 +388,15 @@ ErrorType Game::StartOfGame()
 		pRobot->Initialise(pos, vel, &ObjectManager, pTheSoundFX, &Score);
 		ObjectManager.AddObject(pRobot);
 	}
-
+	
 	// Spawning soldier
 	pSoldier = new Soldier();
 	Vector2D startPos(0, 0);
 	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX, &Score);
+
+	// Spawning boss
+	Boss* pBoss = new Boss();
+	pBoss->Initialise(Vector2D(50, 50), &ObjectManager, pTheSoundFX, pSoldier);
 
 	// AmmoBoxes
 	for (int i = 0; i < 3; i++)
@@ -416,6 +421,7 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pComputer);
 	}
 
+	ObjectManager.AddObject(pBoss);
 	ObjectManager.AddObject(pSoldier);
 
 	gt.mark();

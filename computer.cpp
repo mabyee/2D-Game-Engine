@@ -28,9 +28,9 @@ void computer::Initialise(Vector2D pos, float size, float time)
 void computer::Update(double gt)
 {
 	currentImage += gt * animationSpeed;
-	if (currentImage >= 34)
+	if (currentImage >= 30)
 	{
-		currentImage = 23;
+		currentImage = 41;
 	}
 	position = position + velocity * gt;
 }
