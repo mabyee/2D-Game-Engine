@@ -26,7 +26,7 @@ IShape2D& Turret::GetShape()
 }
 IShape2D& Turret::GetDetectionRadius()
 {
-	detectionRadius.PlaceAt(position, 350);
+	detectionRadius.PlaceAt(position, 500);
 	return detectionRadius;
 }
 void Turret::HandleCollision(GameObject& other)
@@ -44,7 +44,7 @@ void Turret::HandleDetection(GameObject& other)
 
 		if (cooldown <= 0)
 		{
-			Bullet* pBullet = new Bullet();
+			Bullet* pBullet = new Bullet();//change bullet to something else to avoid counting score
 			Vector2D gun;
 			gun.setBearing(angle + 3.14f, -20.0f);
 			gun = gun + position;

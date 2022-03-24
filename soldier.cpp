@@ -73,25 +73,25 @@ void Soldier::Update(double gt)
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation
-		if (currentImage >= 19)
+		if (currentImage >= 20)
 		{
-			currentImage = 13;
+			currentImage = 14;
 		}
 		currentImage += gt * animationSpeed;
 	}
 
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
 	{
-		currentImage = 15; //sets idle position image
+		currentImage = 16; //sets idle position image
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
 		acceleration.setBearing(angle, -300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation reversed
-		if (currentImage <= 13)
+		if (currentImage <= 14)
 		{
-			currentImage = 19;
+			currentImage = 20;
 		}
 		currentImage -= gt * animationSpeed;
 	}

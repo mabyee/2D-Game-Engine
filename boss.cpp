@@ -40,9 +40,9 @@ void Boss::Update(double gt)
 		position.XValue += dirX * speed;
 		position.YValue += dirY * speed;
 
-		if (currentImage >= 27)
+		if (currentImage >= 28)
 		{
-			currentImage = 20;
+			currentImage = 21;
 		}
 		currentImage += gt * animationSpeed;
 	}
