@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "enemy.h"
 #include "bullet.h"
 #include "soldier.h"

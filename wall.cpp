@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "wall.h"
 
 void Wall::Initialise(Vector2D pos, float ang)

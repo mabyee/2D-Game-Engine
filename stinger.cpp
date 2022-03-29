@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "stinger.h"
 #include "enemy.h"
 #include "boss.h"

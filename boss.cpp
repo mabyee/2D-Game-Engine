@@ -1,6 +1,8 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "boss.h"
-
-
 
 void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
 {
