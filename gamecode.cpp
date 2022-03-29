@@ -334,8 +334,14 @@ ErrorType Game::StartOfGame()
 		{
 			if (initialArr[i] != Vector2D(0, 0))
 			{
-				spawnArr[spawnCounter] = initialArr[i];
-				spawnCounter++;
+				if (initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X || initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y)
+				{
+				}
+				else
+				{
+					spawnArr[spawnCounter] = initialArr[i];
+					spawnCounter++;
+				}	
 			}
 			
 		}
@@ -379,8 +385,14 @@ ErrorType Game::StartOfGame()
 	pTheSoundFX->LoadSounds();
 	
 	// Spawning turrets
-	Turret* pTurret = new Turret();
-	pTurret->Initialise(Vector2D(100,100),&ObjectManager, pTheSoundFX, &Score);
+	for (int i = 0; i < 2; i++)
+	{
+		Turret* pTurret = new Turret();
+		Vector2D pos;
+		pos = spawnArr[rand() % 450]; // random available spawn point
+		pTurret->Initialise(pos, &ObjectManager, pTheSoundFX, &Score);
+		ObjectManager.AddObject(pTurret);
+	}
 
 	// Spawning enemies
 	for (int i = 0; i < 5; i++)
@@ -388,7 +400,7 @@ ErrorType Game::StartOfGame()
 		Enemy* pRobot = new Enemy();
 		Vector2D pos;
 		Vector2D vel;
-		pos = spawnArr[rand() % 350]; // random available spawn point
+		pos = spawnArr[rand() % 450]; // random available spawn point
 		vel.set(rand() % 628 / 100.0f, rand() % 100 + 100);
 		pRobot->Initialise(pos, vel, &ObjectManager, pTheSoundFX, &Score);
 		ObjectManager.AddObject(pRobot);
@@ -404,11 +416,11 @@ ErrorType Game::StartOfGame()
 	pBoss->Initialise(Vector2D(500, 500), &ObjectManager, pTheSoundFX, pSoldier);
 
 	// AmmoBoxes
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		ammoBox* pAmmoBox = new ammoBox();		
 		Vector2D pos;
-		pos = spawnArr[rand() % 350]; // random available spawn point
+		pos = spawnArr[rand() % 450]; // random available spawn point
 		pAmmoBox->Initialise(pos, &ObjectManager);
 		ObjectManager.AddObject(pAmmoBox);
 	}
@@ -417,16 +429,15 @@ ErrorType Game::StartOfGame()
 	HUD.Initialise();
 
 	// Computer
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		computer* pComputer = new computer();
 		Vector2D pos;
-		pos = spawnArr[rand() % 350]; // random available spawn point
+		pos = spawnArr[rand() % 450]; // random available spawn point
 		pComputer->Initialise(pos, 0.4f, 1.0f);
 		ObjectManager.AddObject(pComputer);
 	}
 
-	ObjectManager.AddObject(pTurret);
 	ObjectManager.AddObject(pBoss);
 	ObjectManager.AddObject(pSoldier);
 
