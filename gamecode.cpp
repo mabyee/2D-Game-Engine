@@ -1,4 +1,3 @@
-// GameCode.cpp		
 #include "gamecode.h"
 #include "myinputs.h"
 #include <time.h>

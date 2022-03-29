@@ -19,4 +19,3 @@ public:
 	IShape2D& GetShape();
 	IShape2D& GetDetectionRadius();
 };
-
