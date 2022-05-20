@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "enemy.h"
 #include "bullet.h"
 #include "soldier.h"
@@ -19,14 +23,15 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, So
 	pScore = pCurrentScore;
 
 	//loading images of enemy
-	enemyImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"robot0.png");
-	enemyImages[1] = MyDrawEngine::GetInstance()->LoadPicture(L"robot1.png");
-	enemyImages[2] = MyDrawEngine::GetInstance()->LoadPicture(L"robot2.png");
-	enemyImages[3] = MyDrawEngine::GetInstance()->LoadPicture(L"robot3.png");
-	enemyImages[4] = MyDrawEngine::GetInstance()->LoadPicture(L"robot4.png");
-	enemyImages[5] = MyDrawEngine::GetInstance()->LoadPicture(L"robot5.png");
-	enemyImages[6] = MyDrawEngine::GetInstance()->LoadPicture(L"robot6.png");
-	enemyImages[7] = MyDrawEngine::GetInstance()->LoadPicture(L"robot7.png");
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	enemyImages[0] = pDrawEngine->LoadPicture(L"robot0.png");
+	enemyImages[1] = pDrawEngine->LoadPicture(L"robot1.png");
+	enemyImages[2] = pDrawEngine->LoadPicture(L"robot2.png");
+	enemyImages[3] = pDrawEngine->LoadPicture(L"robot3.png");
+	enemyImages[4] = pDrawEngine->LoadPicture(L"robot4.png");
+	enemyImages[5] = pDrawEngine->LoadPicture(L"robot5.png");
+	enemyImages[6] = pDrawEngine->LoadPicture(L"robot6.png");
+	enemyImages[7] = pDrawEngine->LoadPicture(L"robot7.png");
 
 	currentImage = enemyImages[0];
 }
@@ -97,7 +102,7 @@ void Enemy::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Bullet))
 	{
-		health = health - 10;
+		health -= 10;
 		int score = 5;
 		pScore->AddScore(score);
 	}

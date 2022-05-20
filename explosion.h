@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #pragma once
 #include "GameObject.h"
 
@@ -19,4 +23,3 @@ public:
 	IShape2D& GetShape();
 	IShape2D& GetDetectionRadius();
 };
-

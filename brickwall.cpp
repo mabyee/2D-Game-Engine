@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "brickwall.h"
 #include "bullet.h"
 

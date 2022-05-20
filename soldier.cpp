@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #pragma once
 #include "soldier.h"
 #include "myinputs.h"
@@ -32,14 +36,15 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	colourGreen = _XRGB(0, 255, 0);
 
 	//loading images of soldier
-	soldierImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"walking0.png");
-	soldierImages[1] = MyDrawEngine::GetInstance()->LoadPicture(L"walking1.png");
-	soldierImages[2] = MyDrawEngine::GetInstance()->LoadPicture(L"walking2.png");
-	soldierImages[3] = MyDrawEngine::GetInstance()->LoadPicture(L"walking3.png");
-	soldierImages[4] = MyDrawEngine::GetInstance()->LoadPicture(L"walking4.png");
-	soldierImages[5] = MyDrawEngine::GetInstance()->LoadPicture(L"walking5.png");
-	soldierImages[6] = MyDrawEngine::GetInstance()->LoadPicture(L"walking6.png");
-	soldierImages[7] = MyDrawEngine::GetInstance()->LoadPicture(L"walking7.png");
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	soldierImages[0] = pDrawEngine->LoadPicture(L"walking0.png");
+	soldierImages[1] = pDrawEngine->LoadPicture(L"walking1.png");
+	soldierImages[2] = pDrawEngine->LoadPicture(L"walking2.png");
+	soldierImages[3] = pDrawEngine->LoadPicture(L"walking3.png");
+	soldierImages[4] = pDrawEngine->LoadPicture(L"walking4.png");
+	soldierImages[5] = pDrawEngine->LoadPicture(L"walking5.png");
+	soldierImages[6] = pDrawEngine->LoadPicture(L"walking6.png");
+	soldierImages[7] = pDrawEngine->LoadPicture(L"walking7.png");
 
 	currentImage = soldierImages[0];
 }

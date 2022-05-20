@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "outerwall.h"
 
 void outerwall::Initialise(Vector2D pos, float ang)

@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "stinger.h"
 #include "enemy.h"
 #include "boss.h"
@@ -11,9 +15,10 @@ void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM)
 	scale = 2.0f;
 
 	//loading images of stinger
-	stingerImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"stinger0.png");
-	stingerImages[1] = MyDrawEngine::GetInstance()->LoadPicture(L"stinger1.png");
-	stingerImages[2] = MyDrawEngine::GetInstance()->LoadPicture(L"stinger2.png");
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	stingerImages[0] = pDrawEngine->LoadPicture(L"stinger0.png");
+	stingerImages[1] = pDrawEngine->LoadPicture(L"stinger1.png");
+	stingerImages[2] = pDrawEngine->LoadPicture(L"stinger2.png");
 
 	currentImageStinger = stingerImages[0];
 }

@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "explosion.h"
 #include "SoundFX.h"
 
@@ -8,14 +12,17 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 	scale = size;
 	velocity = vel;
 	angle = (rand() % 628 / 100.0f);
-	images[0] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion1.bmp");
-	images[1] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion2.bmp");
-	images[2] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion3.bmp");
-	images[3] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion4.bmp");
-	images[4] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion5.bmp");
-	images[5] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion6.bmp");
-	images[6] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion7.bmp");
-	images[7] = MyDrawEngine::GetInstance()->LoadPicture(L"explosion8.bmp");
+
+	//loading images of explosion
+	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
+	images[0] = pDrawEngine->LoadPicture(L"explosion1.bmp");
+	images[1] = pDrawEngine->LoadPicture(L"explosion2.bmp");
+	images[2] = pDrawEngine->LoadPicture(L"explosion3.bmp");
+	images[3] = pDrawEngine->LoadPicture(L"explosion4.bmp");
+	images[4] = pDrawEngine->LoadPicture(L"explosion5.bmp");
+	images[5] = pDrawEngine->LoadPicture(L"explosion6.bmp");
+	images[6] = pDrawEngine->LoadPicture(L"explosion7.bmp");
+	images[7] = pDrawEngine->LoadPicture(L"explosion8.bmp");
 
 	currentImage = images[0];
 	active = true;
@@ -24,7 +31,7 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 void Explosion::Update(double gt)
 {
 	currentImage += gt * animationSpeed;
-	if (currentImage >= 47)
+	if (currentImage >= 51)
 	{
 		Deactivate();
 	}

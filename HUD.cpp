@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #include "HUD.h"
 #include "GameObject.h"
 
@@ -24,8 +28,8 @@ void HUD::Update(int score, int health, int ammo, int stingerAmmo)
 	MyDrawEngine::GetInstance()->WriteInt(screenWidth/2, 100, score, MyDrawEngine::YELLOW); //Displaying Score
 	MyDrawEngine::GetInstance()->WriteText(screenWidth-670, screenHeight - 40, L"Ammo:", MyDrawEngine::WHITE);
 	MyDrawEngine::GetInstance()->WriteText(screenWidth-800, screenHeight - 40, L"Stingers:", MyDrawEngine::WHITE);
-	MyDrawEngine::GetInstance()->WriteInt(screenWidth-720, screenHeight - 40, ammo, MyDrawEngine::WHITE); //ammo count in HUD
-	MyDrawEngine::GetInstance()->WriteInt(screenWidth-600, screenHeight - 40, stingerAmmo, MyDrawEngine::WHITE); //stinger ammo count in HUD
+	MyDrawEngine::GetInstance()->WriteInt(screenWidth-720, screenHeight - 40, stingerAmmo, MyDrawEngine::WHITE); //ammo count in HUD
+	MyDrawEngine::GetInstance()->WriteInt(screenWidth-600, screenHeight - 40, ammo, MyDrawEngine::WHITE); //stinger ammo count in HUD
 	MyDrawEngine::GetInstance()->WriteText(screenWidth - 800, screenHeight - 75, L"Health:", MyDrawEngine::WHITE);
 	MyDrawEngine::GetInstance()->WriteInt(screenWidth - 720, screenHeight - 75, health, MyDrawEngine::WHITE); //ammo count in HUD
 }

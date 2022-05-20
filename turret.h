@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file...
+*/
 #pragma once
 #include "GameObject.h"
 #include "SoundFX.h"
@@ -16,6 +20,9 @@ private:
 	Score* pScore;
 	ObjectManager* pObjectManager;
 	float cooldown;
+	bool functional;
+	PictureIndex turretFire[3];
+	int currentImage;
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore);
 	void Update(double gt);
