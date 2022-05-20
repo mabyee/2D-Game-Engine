@@ -3,19 +3,15 @@ Created by Henri Puennel, W19019002.
 This file...
 */
 #pragma once
-#include "GameObject.h"
 #include "ObjectManager.h"
 #include "SoundFX.h"
 #include "score.h"
+#include "AnimatedGameObject.h"
 
-class Soldier:public GameObject
+class Soldier:public AnimatedGameObject
 {
 private:
-	// soldier walking animation
-	float animationSpeed;
-	float currentImage;
-	PictureIndex soldierImages[9];
-
+	int walk, idle;
 	//health bar colours and shapes
 	unsigned int colourRed;
 	unsigned int colourGreen;

@@ -16,10 +16,10 @@ This file...
 #include "outerwall.h"
 #include "boss.h"
 
+
 //Initialise Soldier
 void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
-	animationSpeed = 8.0f;
 	health = 100;
 	position.set(initialPos);
 	velocity.set(0,0);
@@ -35,18 +35,22 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
 
-	//loading images of soldier
-	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	soldierImages[0] = pDrawEngine->LoadPicture(L"walking0.png");
-	soldierImages[1] = pDrawEngine->LoadPicture(L"walking1.png");
-	soldierImages[2] = pDrawEngine->LoadPicture(L"walking2.png");
-	soldierImages[3] = pDrawEngine->LoadPicture(L"walking3.png");
-	soldierImages[4] = pDrawEngine->LoadPicture(L"walking4.png");
-	soldierImages[5] = pDrawEngine->LoadPicture(L"walking5.png");
-	soldierImages[6] = pDrawEngine->LoadPicture(L"walking6.png");
-	soldierImages[7] = pDrawEngine->LoadPicture(L"walking7.png");
-
-	currentImage = soldierImages[0];
+	//new animation engine
+	walk = AddAnimation();
+	AddImage(walk, L"walking0.png");
+	AddImage(walk, L"walking1.png");
+	AddImage(walk, L"walking2.png");
+	AddImage(walk, L"walking3.png");
+	AddImage(walk, L"walking4.png");
+	AddImage(walk, L"walking5.png");
+	AddImage(walk, L"walking6.png");
+	AddImage(walk, L"walking7.png");
+	NextAnimation(walk, walk);
+	SetAnimationSpeed(walk, 9.0f);
+	SetCurrentAnimation(walk);
+	
+	idle = AddAnimation();
+	AddImage(idle, L"walking4.png");
 }
 
 //Update Soldier
@@ -56,9 +60,10 @@ void Soldier::Update(double gt)
 	{
 		Deactivate();
 		// create new soldier and add blinking effect (respawn) TODO
+
 	}
 
-	// placing camera center at location of soldier
+	// placing camera center at location of soldier and zooming in slightly
 	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 	pDrawEngine->theCamera.PlaceAt(Vector2D(position.XValue, -position.YValue));
 	pDrawEngine->theCamera.SetZoom(1.3f);
@@ -78,30 +83,24 @@ void Soldier::Update(double gt)
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
 		//walking animation
-		if (currentImage >= 20)
-		{
-			currentImage = 14;
-		}
-		currentImage += gt * animationSpeed;
+		SetCurrentAnimation(walk);
 	}
 
 	if ((!pInputs->KeyPressed(DIK_W)) && (!pInputs->KeyPressed(DIK_S)))
 	{
-		currentImage = 16; //sets idle position image
+		//idle animation
+		SetCurrentAnimation(idle);
 	}
 	if (pInputs->KeyPressed(DIK_S))
 	{
 		acceleration.setBearing(angle, -300.0f);
 		velocity = velocity + acceleration * gt;
-		//walking animation reversed
-		if (currentImage <= 14)
-		{
-			currentImage = 20;
-		}
-		currentImage -= gt * animationSpeed;
+		//walking animation
+		SetCurrentAnimation(walk);
+
 	}
 	velocity = velocity + friction * gt;
-	friction = -6 * velocity;						// -2 for more friction, 0 to disable friction
+	friction = -6 * velocity;		// -10 for more friction, 0 to disable friction
 	position = position + velocity*3 * gt;
 
 	if (pInputs->NewKeyPressed(DIK_SPACE)) // shoot
@@ -143,7 +142,7 @@ void Soldier::Update(double gt)
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
 	MyDrawEngine::GetInstance()->FillRect(HealthBar, colourGreen, 0.0f); //healthbar red area
 
-
+	Animate(gt);
 }
 
 void Soldier::Render()
@@ -151,7 +150,7 @@ void Soldier::Render()
 	if (active)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, currentImage, scale, angle, 0.0f);
+		pDE->DrawAt(position, image, scale, angle, 0.0f);
 
 	}
 }

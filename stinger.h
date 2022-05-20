@@ -5,15 +5,12 @@ This file...
 #pragma once
 #include "GameObject.h"
 #include "ObjectManager.h"
+#include "AnimatedGameObject.h"
 
-class Stinger :public GameObject
+class Stinger :public AnimatedGameObject
 {
 private:
-	// stinger animation
-	float animationSpeedStinger;
-	float currentImageStinger;
-	PictureIndex stingerImages[3];
-
+	int blink;
 	Circle2D collisionShape;
 	Circle2D detectionRadius;
 	ObjectManager* pObjectManager;

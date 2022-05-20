@@ -276,7 +276,7 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 
-	// creating walls ----------------------------------------------------------------------------------------
+// Procedurally generating the level ------------------------------------------------------------------------
 	int numberRows = 23;
 	int numberCol = 37;
 	const int TILES = 851;
@@ -288,7 +288,7 @@ ErrorType Game::StartOfGame()
 	Vector2D endArr[TILES];
 	Vector2D spawnArr[TILES];
 	
-	// Filling initialArr with every possible tile on the map
+	// Filling initialArr with every possible tile on the map (making a tile grid)
 	for (int i = -1600; i <= 1600; i = i + BLOCK_SIZE) //width
 	{
 		for (int k = -1000; k <= 1000; k = k + BLOCK_SIZE) //height
@@ -378,7 +378,7 @@ ErrorType Game::StartOfGame()
 	}
 	// finished creating walls ------------------------------------------------------------------------------
 	// Loading background
-	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"groundMap.png");
+	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"backgroundFloor.bmp");
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
@@ -471,7 +471,7 @@ ErrorType Game::Update()
 
 	gt.mark();
 
-	MyDrawEngine::GetInstance()->DrawAt(Vector2D(0,0), backgroundImage, 1.0f, 0.0f, 0.0f); // Drawing background
+	MyDrawEngine::GetInstance()->DrawAt(Vector2D(0,0), backgroundImage, 0.95f, 0.0f, 0.0f); // Drawing background
 	ObjectManager.RenderAll();
 	ObjectManager.UpdateAll(gt.mdFrameTime);
 	ObjectManager.DeleteInactiveObjects();

@@ -144,6 +144,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ammoBox.cpp" />
+    <ClCompile Include="AnimatedGameObject.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="brickwall.cpp" />
     <ClCompile Include="bullet.cpp" />
@@ -173,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ammoBox.h" />
+    <ClInclude Include="AnimatedGameObject.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="brickwall.h" />
     <ClInclude Include="bullet.h" />

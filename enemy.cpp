@@ -12,7 +12,6 @@ This file...
 
 void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
-	animationSpeed = 5.0f;
 	health = 50;
 	position.set(initialPos);
 	active = true;
@@ -23,17 +22,20 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, So
 	pScore = pCurrentScore;
 
 	//loading images of enemy
-	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	enemyImages[0] = pDrawEngine->LoadPicture(L"robot0.png");
-	enemyImages[1] = pDrawEngine->LoadPicture(L"robot1.png");
-	enemyImages[2] = pDrawEngine->LoadPicture(L"robot2.png");
-	enemyImages[3] = pDrawEngine->LoadPicture(L"robot3.png");
-	enemyImages[4] = pDrawEngine->LoadPicture(L"robot4.png");
-	enemyImages[5] = pDrawEngine->LoadPicture(L"robot5.png");
-	enemyImages[6] = pDrawEngine->LoadPicture(L"robot6.png");
-	enemyImages[7] = pDrawEngine->LoadPicture(L"robot7.png");
+	move = AddAnimation();
 
-	currentImage = enemyImages[0];
+	AddImage(move, L"robot0.png");
+	AddImage(move, L"robot1.png");
+	AddImage(move, L"robot2.png");
+	AddImage(move, L"robot3.png");
+	AddImage(move, L"robot4.png");
+	AddImage(move, L"robot5.png");
+	AddImage(move, L"robot6.png");
+	AddImage(move, L"robot7.png");
+
+	NextAnimation(move, move);
+	SetAnimationSpeed(move, 8.0f);
+	SetCurrentAnimation(move);
 }
 
 void Enemy::Update(double gt)
@@ -50,11 +52,8 @@ void Enemy::Update(double gt)
 	{
 		position = position + velocity * gt;
 		angle = angle + 2.0f * gt;
-		if (currentImage >= 12)
-		{
-			currentImage = 5;
-		}
-		currentImage += gt * animationSpeed;
+		SetCurrentAnimation(move);
+		Animate(gt);
 
 		if (position.YValue > 1000 && velocity.YValue > 0)
 		{
@@ -82,7 +81,7 @@ void Enemy::Render()
 	if (active)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, currentImage, scale, angle, 0.0f);
+		pDE->DrawAt(position, image, scale, angle, 0.0f);
 
 	}
 }

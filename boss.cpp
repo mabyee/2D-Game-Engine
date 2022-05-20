@@ -6,7 +6,6 @@ This file...
 
 void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
 {
-	animationSpeed = 6.0f;
 	health = 500;
 	position.set(initialPos);
 	speed = 3.0f;
@@ -17,16 +16,19 @@ void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, S
 	pSoundFX = sound;
 	pSoldier = solPos;
 	//loading images of boss
-	bossImages[0] = MyDrawEngine::GetInstance()->LoadPicture(L"puff1.bmp");
-	bossImages[1] = MyDrawEngine::GetInstance()->LoadPicture(L"puff2.bmp");
-	bossImages[2] = MyDrawEngine::GetInstance()->LoadPicture(L"puff3.bmp");
-	bossImages[3] = MyDrawEngine::GetInstance()->LoadPicture(L"puff4.bmp");
-	bossImages[4] = MyDrawEngine::GetInstance()->LoadPicture(L"puff5.bmp");
-	bossImages[5] = MyDrawEngine::GetInstance()->LoadPicture(L"puff6.bmp");
-	bossImages[6] = MyDrawEngine::GetInstance()->LoadPicture(L"puff7.bmp");
-	bossImages[7] = MyDrawEngine::GetInstance()->LoadPicture(L"puff8.bmp");
+	move = AddAnimation();
 
-	currentImage = bossImages[0];
+	AddImage(move, L"puff1.bmp");
+	AddImage(move, L"puff2.bmp");
+	AddImage(move, L"puff3.bmp");
+	AddImage(move, L"puff4.bmp");
+	AddImage(move, L"puff5.bmp");
+	AddImage(move, L"puff6.bmp");
+	AddImage(move, L"puff7.bmp");
+	AddImage(move, L"puff8.bmp");
+	NextAnimation(move, move);
+	SetAnimationSpeed(move, 6.0f);
+	SetCurrentAnimation(move);
 }
 
 void Boss::Update(double gt)
@@ -42,11 +44,8 @@ void Boss::Update(double gt)
 		position.XValue += dirX * speed;
 		position.YValue += dirY * speed;
 
-		if (currentImage >= 28)
-		{
-			currentImage = 21;
-		}
-		currentImage += gt * animationSpeed;
+		SetCurrentAnimation(move);
+		Animate(gt);
 	}
 }
 
@@ -55,7 +54,7 @@ void Boss::Render()
 	if (active)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, currentImage, scale, angle, 0.1f);
+		pDE->DrawAt(position, image, scale, angle, 0.1f);
 
 	}
 }

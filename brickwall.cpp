@@ -9,8 +9,8 @@ void BrickWall::Initialise(Vector2D pos, float ang)
 {
 	position = pos;
 	active = true;
-	LoadImg(L"Wall.bmp");
-	scale = 3.0f;
+	LoadImg(L"innerWall0.png");
+	scale = 0.7f;
 	angle = ang;
 	health = 100;
 }
@@ -20,6 +20,18 @@ void BrickWall::Update(double gt)
 	if (health <= 0)
 	{
 		Deactivate();
+	}
+	if (health < 80 & health > 50) //wall damage
+	{
+		LoadImg(L"innerWall1.png");
+	}
+	if (health < 49 & health > 20)
+	{
+		LoadImg(L"innerWall2.png");
+	}
+	if (health < 19 & health >= 0)
+	{
+		LoadImg(L"innerWall3.png");
 	}
 }
 

@@ -7,15 +7,12 @@ This file...
 #include "ObjectManager.h"
 #include "SoundFX.h"
 #include "soldier.h"
+#include "AnimatedGameObject.h"
 
-class Boss:public GameObject
+class Boss:public AnimatedGameObject
 {
 private:
-	// boss moving animation
-	float animationSpeed;
-	float currentImage;
-	PictureIndex bossImages[8];
-
+	int move;
 	float speed;
 	Circle2D collisionShape;
 	Circle2D detectionRadius;

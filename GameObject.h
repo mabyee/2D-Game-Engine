@@ -9,11 +9,11 @@ This file...
 #include "gametimer.h"
 #include "mysoundengine.h"
 #include <typeinfo>
+#include "Animation.h"
 
 class GameObject {
-private:
-	PictureIndex image;
 protected:
+	PictureIndex image;
 	Vector2D position;
 	float angle;
 	bool active;
@@ -33,4 +33,7 @@ public:
 	bool IsActive() const;
 	void Deactivate();
 	Vector2D GetPosition();
+
+	virtual void AddImage(Animation* anim, const wchar_t* filename);
+	virtual void SetCurrentImage(int image);
 };

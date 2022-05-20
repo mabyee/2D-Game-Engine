@@ -7,15 +7,12 @@ This file...
 #include "ObjectManager.h"
 #include "SoundFX.h"
 #include "score.h"
+#include "AnimatedGameObject.h"
 
-class Enemy : public GameObject
+class Enemy : public AnimatedGameObject
 {
 private:
-	// enemy walking animation
-	float animationSpeed;
-	float currentImage;
-	PictureIndex enemyImages[8];
-
+	int move;
 	Vector2D velocity;
 	Circle2D collisionShape;
 	Circle2D detectionRadius;

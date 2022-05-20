@@ -7,29 +7,28 @@ This file...
 #include "boss.h"
 #include "soldier.h"
 
+
 void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM)
 {
-	animationSpeedStinger = 3.0f;
 	position.set(initialPos);
 	active = true;
 	scale = 2.0f;
 
 	//loading images of stinger
-	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	stingerImages[0] = pDrawEngine->LoadPicture(L"stinger0.png");
-	stingerImages[1] = pDrawEngine->LoadPicture(L"stinger1.png");
-	stingerImages[2] = pDrawEngine->LoadPicture(L"stinger2.png");
+	blink = AddAnimation();
 
-	currentImageStinger = stingerImages[0];
+	AddImage(blink,L"stinger0.png");
+	AddImage(blink, L"stinger1.png");
+	AddImage(blink, L"stinger2.png");
+	NextAnimation(blink, blink);
+	SetAnimationSpeed(blink, 3.0f);
+	SetCurrentAnimation(blink);
 }
 
 void Stinger::Update(double gt)
 {
-	if (currentImageStinger >= 43)
-	{
-		currentImageStinger = 45;
-	}
-	currentImageStinger += gt * animationSpeedStinger;
+	SetCurrentAnimation(blink);
+	Animate(gt);
 }
 
 void Stinger::Render()
@@ -37,8 +36,7 @@ void Stinger::Render()
 	if (active)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, currentImageStinger, scale, angle, 0.0f);
-
+		pDE->DrawAt(position, image, scale, angle, 0.0f);
 	}
 }
 

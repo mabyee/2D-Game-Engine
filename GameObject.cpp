@@ -4,6 +4,7 @@ This file...
 */
 #include "GameObject.h"
 
+
 void GameObject::Update(double gt)
 {
 	if (active)
@@ -11,6 +12,9 @@ void GameObject::Update(double gt)
 
 	}
 }
+
+void GameObject::AddImage(Animation* anim, const wchar_t* filename) {};
+void GameObject::SetCurrentImage(int image) {};
 
 void GameObject::Render()
 {

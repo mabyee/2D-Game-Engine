@@ -4,16 +4,16 @@ This file...
 */
 #pragma once
 #include "GameObject.h"
+#include "AnimatedGameObject.h"
 
-class Explosion : public GameObject
+class Explosion : public AnimatedGameObject
 {
 private:
 	Vector2D velocity;
 	Circle2D collisionShape;
 	Circle2D detectionRadius;
-	float animationSpeed;
-	float currentImage;
-	PictureIndex images[8];
+	int explode;
+	float timer;
 public:
 	void Initialise(Vector2D pos, float size, float time, Vector2D vel);
 	void Update(double gt);

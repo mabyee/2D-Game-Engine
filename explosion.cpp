@@ -8,34 +8,38 @@ This file...
 void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = Vector2D(0,0))
 {
 	position = pos;
-	animationSpeed = 8 / time;
 	scale = size;
 	velocity = vel;
 	angle = (rand() % 628 / 100.0f);
+	active = true;
 
 	//loading images of explosion
-	MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
-	images[0] = pDrawEngine->LoadPicture(L"explosion1.bmp");
-	images[1] = pDrawEngine->LoadPicture(L"explosion2.bmp");
-	images[2] = pDrawEngine->LoadPicture(L"explosion3.bmp");
-	images[3] = pDrawEngine->LoadPicture(L"explosion4.bmp");
-	images[4] = pDrawEngine->LoadPicture(L"explosion5.bmp");
-	images[5] = pDrawEngine->LoadPicture(L"explosion6.bmp");
-	images[6] = pDrawEngine->LoadPicture(L"explosion7.bmp");
-	images[7] = pDrawEngine->LoadPicture(L"explosion8.bmp");
+	explode = AddAnimation();
 
-	currentImage = images[0];
-	active = true;
+	AddImage(explode, L"explosion1.bmp");
+	AddImage(explode, L"explosion2.bmp");
+	AddImage(explode, L"explosion3.bmp");
+	AddImage(explode, L"explosion4.bmp");
+	AddImage(explode, L"explosion5.bmp");
+	AddImage(explode, L"explosion6.bmp");
+	AddImage(explode, L"explosion7.bmp");
+	AddImage(explode, L"explosion8.bmp");
+
+	NextAnimation(explode, explode);
+	SetAnimationSpeed(explode, 10.0f);
+	SetCurrentAnimation(explode);
 }
 
 void Explosion::Update(double gt)
 {
-	currentImage += gt * animationSpeed;
-	if (currentImage >= 51)
+	timer += gt;
+	SetCurrentAnimation(explode);
+	Animate(gt);
+	if (timer >= 0.7f)
 	{
 		Deactivate();
+		timer = 0.0f;
 	}
-	position = position + velocity * gt;
 }
 
 void Explosion::Render()
@@ -43,7 +47,7 @@ void Explosion::Render()
 	if (active)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, currentImage, scale, angle, 0.0f);
+		pDE->DrawAt(position, image, scale, angle, 0.0f);
 	}
 }
 
