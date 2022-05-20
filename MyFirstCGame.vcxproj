@@ -163,6 +163,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="outerwall.cpp" />
+    <ClCompile Include="RoamingRobot.cpp" />
     <ClCompile Include="score.cpp" />
     <ClCompile Include="Shapes.cpp" />
     <ClCompile Include="SoundFX.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="outerwall.h" />
+    <ClInclude Include="RoamingRobot.h" />
     <ClInclude Include="score.h" />
     <ClInclude Include="SoundFX.h" />
     <ClInclude Include="soldier.h" />

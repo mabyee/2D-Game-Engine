@@ -22,10 +22,7 @@ void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, S
 	AddImage(move, L"cloud2.png");
 	AddImage(move, L"cloud3.png");
 	AddImage(move, L"cloud4.png");
-	//AddImage(move, L"puff5.bmp");
-	//AddImage(move, L"puff6.bmp");
-	//AddImage(move, L"puff7.bmp");
-	//AddImage(move, L"puff8.bmp");
+
 	NextAnimation(move, move);
 	SetAnimationSpeed(move, 6.0f);
 	SetCurrentAnimation(move);
