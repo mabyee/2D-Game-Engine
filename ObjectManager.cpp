@@ -40,7 +40,7 @@ void ObjectManager::RenderAll()
 
 void ObjectManager::AddObject(GameObject* pNewObject)
 {
-	if (pNewObject)											// checking if nullptr
+	if (pNewObject)	// checking if nullptr
 	{
 		pObjectList.push_back(pNewObject);
 	}
