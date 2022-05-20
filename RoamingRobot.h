@@ -7,8 +7,9 @@
 class RoamingRobot:public AnimatedGameObject
 {
 private:
-	int run, idle, death, shoot;
-	float speed;
+	int rightRun, rightIdle, rightDeath, rightShoot, leftRun, leftIdle, leftDeath, leftShoot;
+	float movementSpeed;
+	int direction;
 	Circle2D collisionShape;
 	Circle2D detectionRadius;
 	ObjectManager* pObjectManager;

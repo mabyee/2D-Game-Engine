@@ -1,90 +1,164 @@
 #include "RoamingRobot.h"
+#include "bullet.h"
+#include "soldier.h"
+
 void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
 {
+	movementSpeed = 0.0f;
 	health = 150;
 	position.set(initialPos);
 	active = true;
-	scale = 1.0f;
+	scale = 0.5f;
 	pObjectManager = pOM;
 	pSoundFX = sound;
 	pSoldier = solPos;
+	direction = 1;
 
-	//adding images for different animation states
-	run = AddAnimation();
-	AddImage(run, L"boss-run0.png");
-	AddImage(run, L"boss-run1.png");
-	AddImage(run, L"boss-run2.png");
-	AddImage(run, L"boss-run3.png");
-	AddImage(run, L"boss-run4.png");
-	AddImage(run, L"boss-run5.png");
-	AddImage(run, L"boss-run6.png");
-	AddImage(run, L"boss-run7.png");
-	AddImage(run, L"boss-run8.png");
+	//adding flipped images for different animation states
+	rightRun = AddAnimation();
+	AddImage(rightRun, L"robot-run0.png");
+	AddImage(rightRun, L"robot-run1.png");
+	AddImage(rightRun, L"robot-run2.png");
+	AddImage(rightRun, L"robot-run3.png");
+	AddImage(rightRun, L"robot-run4.png");
+	AddImage(rightRun, L"robot-run5.png");
+	AddImage(rightRun, L"robot-run6.png");
+	AddImage(rightRun, L"robot-run7.png");
 
-	NextAnimation(run, run);
-	SetAnimationSpeed(run, 6.0f);
+	NextAnimation(rightRun, rightRun);
+	SetAnimationSpeed(rightRun, 6.0f);
 
-	idle = AddAnimation();
-	AddImage(idle, L"boss-idle0.png");
-	AddImage(idle, L"boss-idle1.png");
-	AddImage(idle, L"boss-idle2.png");
-	AddImage(idle, L"boss-idle3.png");
-	NextAnimation(idle, idle);
-	SetAnimationSpeed(idle, 6.0f);
+	rightIdle = AddAnimation();
+	AddImage(rightIdle, L"robot-idle0.png");
+	AddImage(rightIdle, L"robot-idle1.png");
+	AddImage(rightIdle, L"robot-idle2.png");
+	AddImage(rightIdle, L"robot-idle3.png");
+	NextAnimation(rightIdle, rightIdle);
+	SetAnimationSpeed(rightIdle, 6.0f);
 
-	shoot = AddAnimation();
-	AddImage(shoot, L"boss-shoot0.png");
-	AddImage(shoot, L"boss-shoot1.png");
-	AddImage(shoot, L"boss-shoot2.png");
-	AddImage(shoot, L"boss-shoot3.png");
-	AddImage(shoot, L"boss-shoot4.png");
-	AddImage(shoot, L"boss-shoot5.png");
-	AddImage(shoot, L"boss-shoot6.png");
-	AddImage(shoot, L"boss-shoot7.png");
-	NextAnimation(shoot, shoot);
-	SetAnimationSpeed(shoot, 6.0f);
+	rightShoot = AddAnimation();
+	AddImage(rightShoot, L"robot-shoot0.png");
+	AddImage(rightShoot, L"robot-shoot1.png");
+	AddImage(rightShoot, L"robot-shoot2.png");
+	AddImage(rightShoot, L"robot-shoot3.png");
+	AddImage(rightShoot, L"robot-shoot4.png");
+	AddImage(rightShoot, L"robot-shoot5.png");
+	AddImage(rightShoot, L"robot-shoot6.png");
+	AddImage(rightShoot, L"robot-shoot7.png");
+	NextAnimation(rightShoot, rightShoot);
+	SetAnimationSpeed(rightShoot, 6.0f);
 
-	death = AddAnimation();
-	AddImage(death, L"boss-death0.png");
-	AddImage(death, L"boss-death1.png");
-	AddImage(death, L"boss-death2.png");
-	AddImage(death, L"boss-death3.png");
-	AddImage(death, L"boss-death4.png");
-	AddImage(death, L"boss-death5.png");
-	AddImage(death, L"boss-death6.png");
-	AddImage(death, L"boss-death7.png");
-	AddImage(death, L"boss-death8.png");
-	NextAnimation(death, death);
-	SetAnimationSpeed(death, 6.0f);
+	rightDeath = AddAnimation();
+	AddImage(rightDeath, L"robot-death0.png");
+	AddImage(rightDeath, L"robot-death1.png");
+	AddImage(rightDeath, L"robot-death2.png");
+	AddImage(rightDeath, L"robot-death3.png");
+	AddImage(rightDeath, L"robot-death4.png");
+	AddImage(rightDeath, L"robot-death5.png");
+	AddImage(rightDeath, L"robot-death6.png");
+	AddImage(rightDeath, L"robot-death7.png");
+	AddImage(rightDeath, L"robot-death8.png");
+	NextAnimation(rightDeath, rightDeath);
+	SetAnimationSpeed(rightDeath, 6.0f);
 
-	SetCurrentAnimation(idle);
+	//adding normal images for different animation states
+	leftRun = AddAnimation();
+	AddImage(leftRun, L"flipped-robot-run0.png");
+	AddImage(leftRun, L"flipped-robot-run1.png");
+	AddImage(leftRun, L"flipped-robot-run2.png");
+	AddImage(leftRun, L"flipped-robot-run3.png");
+	AddImage(leftRun, L"flipped-robot-run4.png");
+	AddImage(leftRun, L"flipped-robot-run5.png");
+	AddImage(leftRun, L"flipped-robot-run6.png");
+	AddImage(leftRun, L"flipped-robot-run7.png");
+
+	NextAnimation(leftRun, leftRun);
+	SetAnimationSpeed(leftRun, 6.0f);
+
+	leftIdle = AddAnimation();
+	AddImage(leftIdle, L"flipped-robot-idle0.png");
+	AddImage(leftIdle, L"flipped-robot-idle1.png");
+	AddImage(leftIdle, L"flipped-robot-idle2.png");
+	AddImage(leftIdle, L"flipped-robot-idle3.png");
+	NextAnimation(leftIdle, leftIdle);
+	SetAnimationSpeed(leftIdle, 6.0f);
+
+	leftShoot = AddAnimation();
+	AddImage(leftShoot, L"flipped-robot-shoot0.png");
+	AddImage(leftShoot, L"flipped-robot-shoot1.png");
+	AddImage(leftShoot, L"flipped-robot-shoot2.png");
+	AddImage(leftShoot, L"flipped-robot-shoot3.png");
+	AddImage(leftShoot, L"flipped-robot-shoot4.png");
+	AddImage(leftShoot, L"flipped-robot-shoot5.png");
+	AddImage(leftShoot, L"flipped-robot-shoot6.png");
+	AddImage(leftShoot, L"flipped-robot-shoot7.png");
+	NextAnimation(leftShoot, leftShoot);
+	SetAnimationSpeed(leftShoot, 6.0f);
+
+	leftDeath = AddAnimation();
+	AddImage(leftDeath, L"flipped-robot-death0.png");
+	AddImage(leftDeath, L"flipped-robot-death1.png");
+	AddImage(leftDeath, L"flipped-robot-death2.png");
+	AddImage(leftDeath, L"flipped-robot-death3.png");
+	AddImage(leftDeath, L"flipped-robot-death4.png");
+	AddImage(leftDeath, L"flipped-robot-death5.png");
+	AddImage(leftDeath, L"flipped-robot-death6.png");
+	AddImage(leftDeath, L"flipped-robot-death7.png");
+	AddImage(leftDeath, L"flipped-robot-death8.png");
+	NextAnimation(leftDeath, leftDeath);
+	SetAnimationSpeed(leftDeath, 6.0f);
+	
+	//setting base animation state
+	SetCurrentAnimation(rightIdle);
 }
 
 void RoamingRobot::Update(double gt)
 {
-	if (active)
+	if (direction == 1 && active) //animations if facing right
 	{
-		Vector2D soldierPos = pSoldier->GetPosition();
-		float dirX = soldierPos.XValue - position.XValue;
-		float dirY = soldierPos.YValue - position.YValue;
-		float hyp = sqrt(dirX * dirX + dirY * dirY);
-		dirX /= hyp;
-		dirY /= hyp;
-		position.XValue += dirX * speed;
-		position.YValue += dirY * speed;
+		if (movementSpeed == 0.0f) //not moving
+		{
+			SetCurrentAnimation(rightIdle);
+		}
 
-		SetCurrentAnimation(run);
-		
+		if (health <= 0) //death
+		{
+			timer = -gt;
+			SetCurrentAnimation(rightDeath);
+			if (timer >= 1.0f)
+			{
+				timer = 0.0f;
+				active = false;
+			}
+		}
+
+		if (movementSpeed) //moving
+		{
+			SetCurrentAnimation(rightRun);
+		}
 	}
 
-	if (active & health <= 0)
+	if (direction == 0 && active) //animations if facing left
 	{
-		timer = -gt;
-		SetCurrentAnimation(death);
-		if (timer >= 1.0f)
+		if (movementSpeed == 0.0f) //not moving
 		{
-			timer = 0.0f;
-			active = false;
+			SetCurrentAnimation(leftIdle);
+		}
+
+		if (health <= 0) //death
+		{
+			timer = -gt;
+			SetCurrentAnimation(leftDeath);
+			if (timer >= 1.0f)
+			{
+				timer = 0.0f;
+				active = false;
+			}
+		}
+
+		if (movementSpeed) //moving
+		{
+			SetCurrentAnimation(leftRun);
 		}
 	}
 	Animate(gt);
@@ -95,31 +169,46 @@ void RoamingRobot::Render()
 	if (active)
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->DrawAt(position, image, scale, angle, 0.1f);
-
+		pDE->DrawAt(position, image, scale, angle, 0.0f);
 	}
 }
 
 IShape2D& RoamingRobot::GetShape()
 {
-	collisionShape.PlaceAt(position, scale * 20); //collision scales with scale
+	collisionShape.PlaceAt(position, 20);
 	return collisionShape;
 }
 IShape2D& RoamingRobot::GetDetectionRadius()
 {
-	detectionRadius.PlaceAt(position, 400); //collision scales with scale
+	detectionRadius.PlaceAt(position, 400);
 	return detectionRadius;
 }
 
 void RoamingRobot::HandleCollision(GameObject& other)
 {
-	if (typeid(other) == typeid(Soldier))
+	if (typeid(other) == typeid(Bullet))
 	{
-		health = health + 0.1; //heals when damaging the player
-		scale = scale + 0.02; //grows as he damages the player
+		health -= 10;
 	}
 }
 void RoamingRobot::HandleDetection(GameObject& other)
 {
+	if (typeid(other) == typeid(Soldier) && active)
+	{
+		Vector2D soldierPos = other.GetPosition();
+		float X = soldierPos.XValue;
+		float Y = soldierPos.YValue;
+		if (X > position.XValue)
+		{
+			direction = 1;
+		}
+		else
+		{
+			direction = 0;
+		}
 
+		//angle = -atan2(Y - position.YValue, X - position.XValue) + 1.57;
+		//DOES NOT WORK, IMAGE ROTATES- Instead mirror left and right depending on
+		//the direction it is moving/the player is.
+	}
 }

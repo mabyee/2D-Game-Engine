@@ -11,7 +11,7 @@ void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, S
 	speed = 3.0f;
 	angle = 0.0f;
 	active = true;
-	scale = 4.0f;
+	scale = 2.0f;
 	pObjectManager = pOM;
 	pSoundFX = sound;
 	pSoldier = solPos;
@@ -63,7 +63,7 @@ IShape2D& Boss::GetShape()
 }
 IShape2D& Boss::GetDetectionRadius()
 {
-	detectionRadius.PlaceAt(position, 400); //collision scales with scale
+	detectionRadius.PlaceAt(position, 400);
 	return detectionRadius;
 }
 

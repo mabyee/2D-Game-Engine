@@ -102,8 +102,6 @@ void Enemy::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Bullet))
 	{
 		health -= 10;
-		int score = 5;
-		pScore->AddScore(score);
 	}
 	if (typeid(other) == typeid(Soldier))
 	{

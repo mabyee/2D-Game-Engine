@@ -52,26 +52,23 @@ void Turret::HandleCollision(GameObject& other)
 }
 void Turret::HandleDetection(GameObject& other)
 {
-	if (typeid(other) == typeid(Soldier))
+	if (typeid(other) == typeid(Soldier) && functional && active)
 	{
-		if (functional && active)
-		{
-			Vector2D soldierPos = other.GetPosition();
-			float X = soldierPos.XValue;
-			float Y = soldierPos.YValue;
-			angle = -atan2(Y - position.YValue, X - position.XValue) + 1.57; //rotate the turret to the players current position
+		Vector2D soldierPos = other.GetPosition();
+		float X = soldierPos.XValue;
+		float Y = soldierPos.YValue;
+		angle = -atan2(Y - position.YValue, X - position.XValue) + 1.57; //rotate the turret to the players current position
 
-			if (cooldown <= 0)
-			{
-				Bullet* pBullet = new Bullet();//change bullet to something else to avoid counting score
-				Vector2D gun;
-				gun.setBearing(angle + 3.14f, -40.0f);
-				gun = gun + position;
-				pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
-				pObjectManager->AddObject(pBullet);
-				pSoundFX->PlayShot();
-				cooldown = 1.5;
-			}
+		if (cooldown <= 0)
+		{
+			Bullet* pBullet = new Bullet();//change bullet to something else to avoid counting score
+			Vector2D gun;
+			gun.setBearing(angle + 3.14f, -40.0f);
+			gun = gun + position;
+			pBullet->Initialise(gun, angle, 700.0f, pObjectManager);
+			pObjectManager->AddObject(pBullet);
+			pSoundFX->PlayShot();
+			cooldown = 1.5;
 		}
 	}
 }

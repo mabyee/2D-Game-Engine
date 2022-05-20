@@ -13,6 +13,7 @@
 #include "outerwall.h"
 #include "boss.h"
 #include "turret.h"
+#include "RoamingRobot.h"
 
 Game::Game()
 {
@@ -410,10 +411,14 @@ ErrorType Game::StartOfGame()
 	Vector2D startPos(0, 0);
 	pSoldier->Initialise(startPos, &ObjectManager, pTheSoundFX, &Score);
 
-	// Spawning boss
+	// Spawning boss cloud
 	Boss* pBoss = new Boss();
 	pBoss->Initialise(Vector2D(500, 500), &ObjectManager, pTheSoundFX, pSoldier);
-
+	
+	// Spawning Roaming Robot
+	RoamingRobot* pRoamingRobot = new RoamingRobot();
+	pRoamingRobot->Initialise(Vector2D(100, 100), &ObjectManager, pTheSoundFX, pSoldier);
+	
 	// AmmoBoxes
 	for (int i = 0; i < 4; i++)
 	{
@@ -437,8 +442,10 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pComputer);
 	}
 
-	ObjectManager.AddObject(pBoss);
+	ObjectManager.AddObject(pRoamingRobot);
 	ObjectManager.AddObject(pSoldier);
+	ObjectManager.AddObject(pBoss); //loading cloud boss last to render after player
+	
 
 	gt.mark();
 	gt.mark();
