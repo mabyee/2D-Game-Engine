@@ -73,6 +73,13 @@ void Bullet::HandleCollision(GameObject& other)
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
 	}
+	if (typeid(other) == typeid(BrickWall))
+	{
+		Deactivate();
+		Explosion* pExp = new Explosion();
+		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
+		pObjectManager->AddObject(pExp);
+	}
 }
 void Bullet::HandleDetection(GameObject& other)
 {

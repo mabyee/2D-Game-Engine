@@ -8,7 +8,6 @@ This file...
 
 void Turret::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
-	LoadImg(L"turret.bmp");
 	angle = 0;
 	active = true;
 	scale = 1.0f;
@@ -19,6 +18,21 @@ void Turret::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound,
 	cooldown = 0;
 	health = 100;
 	functional = true;
+
+	working = AddAnimation();
+	AddImage(working, L"turret.bmp");
+	NextAnimation(working, working);
+	SetAnimationSpeed(working, 0.0f);
+
+	broken = AddAnimation();
+	AddImage(broken, L"turretFire0.png");
+	AddImage(broken, L"turretFire1.png");
+	AddImage(broken, L"turretFire2.png");
+	NextAnimation(broken, broken);
+	SetAnimationSpeed(broken, 4.0f);
+
+	
+	SetCurrentAnimation(working);
 }
 void Turret::Update(double gt)
 {
@@ -26,12 +40,15 @@ void Turret::Update(double gt)
 	{
 		cooldown = 1;
 		functional = false;
+		scale = 0.65f;
+		SetCurrentAnimation(broken);
 	}
 	else
 	{
 		angle = angle + 0.02;
 		cooldown -= gt;
 	}
+	Animate(gt);
 }
 IShape2D& Turret::GetShape()
 {

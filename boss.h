@@ -7,6 +7,7 @@ This file...
 #include "SoundFX.h"
 #include "soldier.h"
 #include "AnimatedGameObject.h"
+#include "GameObject.h"
 
 class Boss:public AnimatedGameObject
 {

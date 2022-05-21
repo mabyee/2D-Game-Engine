@@ -6,9 +6,10 @@ This file...
 #include "GameObject.h"
 #include "SoundFX.h"
 #include "score.h"
+#include "AnimatedGameObject.h"
 #include "ObjectManager.h"
 
-class Turret:public GameObject
+class Turret:public AnimatedGameObject
 {
 private:
 	PictureIndex image;
@@ -21,8 +22,7 @@ private:
 	ObjectManager* pObjectManager;
 	float cooldown;
 	bool functional;
-	PictureIndex turretFire[3];
-	int currentImage;
+	int working, broken;
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore);
 	void Update(double gt);

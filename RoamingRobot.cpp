@@ -1,6 +1,7 @@
 #include "RoamingRobot.h"
 #include "bullet.h"
 #include "soldier.h"
+#include "stinger.h"
 
 void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
 {
@@ -116,7 +117,7 @@ void RoamingRobot::Update(double gt)
 {
 	if (direction == 1 && active) //animations if facing right
 	{
-		if (movementSpeed == 0.0f) //not moving
+		if (movementSpeed == 0.0f && health >= 1) //not moving
 		{
 			SetCurrentAnimation(rightIdle);
 		}
@@ -132,7 +133,7 @@ void RoamingRobot::Update(double gt)
 			}
 		}
 
-		if (movementSpeed) //moving
+		if (movementSpeed >= 1.0f && health >= 1) //moving
 		{
 			SetCurrentAnimation(rightRun);
 		}
@@ -140,23 +141,23 @@ void RoamingRobot::Update(double gt)
 
 	if (direction == 0 && active) //animations if facing left
 	{
-		if (movementSpeed == 0.0f) //not moving
+		if (movementSpeed == 0.0f && health >= 1) //not moving
 		{
 			SetCurrentAnimation(leftIdle);
 		}
 
 		if (health <= 0) //death
 		{
-			timer = -gt;
+			timer += gt;
 			SetCurrentAnimation(leftDeath);
-			if (timer >= 1.0f)
+			if (timer >= 1.5f)
 			{
 				timer = 0.0f;
 				active = false;
 			}
 		}
 
-		if (movementSpeed) //moving
+		if (movementSpeed >= 1.0f && health >= 1) //moving
 		{
 			SetCurrentAnimation(leftRun);
 		}
@@ -175,7 +176,7 @@ void RoamingRobot::Render()
 
 IShape2D& RoamingRobot::GetShape()
 {
-	collisionShape.PlaceAt(position, 20);
+	collisionShape.PlaceAt(position, 50);
 	return collisionShape;
 }
 IShape2D& RoamingRobot::GetDetectionRadius()
@@ -189,6 +190,10 @@ void RoamingRobot::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Bullet))
 	{
 		health -= 10;
+	}
+	if (typeid(other) == typeid(Stinger))
+	{
+		health -= 75;
 	}
 }
 void RoamingRobot::HandleDetection(GameObject& other)
@@ -206,9 +211,5 @@ void RoamingRobot::HandleDetection(GameObject& other)
 		{
 			direction = 0;
 		}
-
-		//angle = -atan2(Y - position.YValue, X - position.XValue) + 1.57;
-		//DOES NOT WORK, IMAGE ROTATES- Instead mirror left and right depending on
-		//the direction it is moving/the player is.
 	}
 }
