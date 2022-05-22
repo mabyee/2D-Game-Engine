@@ -417,7 +417,7 @@ ErrorType Game::StartOfGame()
 	
 	// Spawning Roaming Robot
 	RoamingRobot* pRoamingRobot = new RoamingRobot();
-	pRoamingRobot->Initialise(Vector2D(100, 100), &ObjectManager, pTheSoundFX, pSoldier);
+	pRoamingRobot->Initialise(Vector2D(100, 100), &ObjectManager, pTheSoundFX, pSoldier, &Score);
 	
 	// AmmoBoxes
 	for (int i = 0; i < 4; i++)

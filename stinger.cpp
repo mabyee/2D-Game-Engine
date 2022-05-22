@@ -6,7 +6,7 @@ This file...
 #include "enemy.h"
 #include "boss.h"
 #include "soldier.h"
-
+#include "RoamingRobot.h"
 
 void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM)
 {
@@ -58,6 +58,10 @@ void Stinger::HandleCollision(GameObject& other)
 		Deactivate();
 	}
 	if (typeid(other) == typeid(Boss))
+	{
+		Deactivate();
+	}
+	if (typeid(other) == typeid(RoamingRobot))
 	{
 		Deactivate();
 	}

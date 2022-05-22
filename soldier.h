@@ -52,4 +52,5 @@ public:
 	int GetAmmo();
 	int GetStingerAmmo();
 	int GetHealth();
+	void DealDamage(int damageAmount);
 };

@@ -5,7 +5,7 @@
 #include "outerwall.h"
 #include "brickwall.h"
 
-void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
+void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos, Score* pCurrentScore)
 {
 	movementSpeed = 5.0f;
 	health = 150.0f;
@@ -18,6 +18,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	direction = 1;
 	isMoving = false;
 	state = currentState::IDLE;
+	pScore = pCurrentScore;
 
 	//adding flipped images for different animation states
 	rightRun = AddAnimation();
@@ -31,7 +32,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(rightRun, L"robot-run7.png");
 
 	NextAnimation(rightRun, rightRun);
-	SetAnimationSpeed(rightRun, 6.0f);
+	SetAnimationSpeed(rightRun, ANIMATION_SPEED);
 
 	rightIdle = AddAnimation();
 	AddImage(rightIdle, L"robot-idle0.png");
@@ -39,7 +40,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(rightIdle, L"robot-idle2.png");
 	AddImage(rightIdle, L"robot-idle3.png");
 	NextAnimation(rightIdle, rightIdle);
-	SetAnimationSpeed(rightIdle, 6.0f);
+	SetAnimationSpeed(rightIdle, ANIMATION_SPEED);
 
 	rightShoot = AddAnimation();
 	AddImage(rightShoot, L"robot-shoot0.png");
@@ -51,7 +52,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(rightShoot, L"robot-shoot6.png");
 	AddImage(rightShoot, L"robot-shoot7.png");
 	NextAnimation(rightShoot, rightShoot);
-	SetAnimationSpeed(rightShoot, 6.0f);
+	SetAnimationSpeed(rightShoot, ANIMATION_SPEED);
 
 	rightDeath = AddAnimation();
 	AddImage(rightDeath, L"robot-death0.png");
@@ -64,7 +65,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(rightDeath, L"robot-death7.png");
 	AddImage(rightDeath, L"robot-death8.png");
 	NextAnimation(rightDeath, rightDeath);
-	SetAnimationSpeed(rightDeath, 6.0f);
+	SetAnimationSpeed(rightDeath, ANIMATION_SPEED);
 
 	//adding normal images for different animation states
 	leftRun = AddAnimation();
@@ -78,7 +79,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(leftRun, L"flipped-robot-run7.png");
 
 	NextAnimation(leftRun, leftRun);
-	SetAnimationSpeed(leftRun, 6.0f);
+	SetAnimationSpeed(leftRun, ANIMATION_SPEED);
 
 	leftIdle = AddAnimation();
 	AddImage(leftIdle, L"flipped-robot-idle0.png");
@@ -86,7 +87,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(leftIdle, L"flipped-robot-idle2.png");
 	AddImage(leftIdle, L"flipped-robot-idle3.png");
 	NextAnimation(leftIdle, leftIdle);
-	SetAnimationSpeed(leftIdle, 6.0f);
+	SetAnimationSpeed(leftIdle, ANIMATION_SPEED);
 
 	leftShoot = AddAnimation();
 	AddImage(leftShoot, L"flipped-robot-shoot0.png");
@@ -98,7 +99,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(leftShoot, L"flipped-robot-shoot6.png");
 	AddImage(leftShoot, L"flipped-robot-shoot7.png");
 	NextAnimation(leftShoot, leftShoot);
-	SetAnimationSpeed(leftShoot, 6.0f);
+	SetAnimationSpeed(leftShoot, ANIMATION_SPEED);
 
 	leftDeath = AddAnimation();
 	AddImage(leftDeath, L"flipped-robot-death0.png");
@@ -111,7 +112,7 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	AddImage(leftDeath, L"flipped-robot-death7.png");
 	AddImage(leftDeath, L"flipped-robot-death8.png");
 	NextAnimation(leftDeath, leftDeath);
-	SetAnimationSpeed(leftDeath, 6.0f);
+	SetAnimationSpeed(leftDeath, ANIMATION_SPEED);
 	
 	//setting base animation state
 	SetCurrentAnimation(rightIdle);
@@ -154,7 +155,13 @@ void RoamingRobot::Update(double gt)
 			SetCurrentAnimation(leftRun); //opposite run direction
 			break;
 		case currentState::ATTACK:
+			timer += gt;
 			SetCurrentAnimation(rightShoot);
+			if (timer >= 1.0f)
+			{
+				pSoldier->DealDamage(20);
+				timer = 0.0f; //reset timer
+			}
 			break;
 		}
 	}
@@ -174,7 +181,8 @@ void RoamingRobot::Update(double gt)
 			{
 				timer = 0.0f;
 				active = false;
-			}
+				pScore->AddScore(150); //adding score
+			}	
 			break;
 		case currentState::CHASE:
 			SetCurrentAnimation(leftRun);
@@ -184,6 +192,12 @@ void RoamingRobot::Update(double gt)
 			break;
 		case currentState::ATTACK:
 			SetCurrentAnimation(leftShoot);
+			timer += gt;
+			if (timer >= 1.0f)
+			{
+				pSoldier->DealDamage(20);
+				timer = 0.0f; //reset timer
+			}
 			break;
 		}
 	}
@@ -220,6 +234,7 @@ void RoamingRobot::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Stinger))
 	{
 		health -= 75.0f;
+		pScore->AddScore(75); //adding score
 	}
 	if (typeid(other) == typeid(outerwall))
 	{
@@ -228,6 +243,20 @@ void RoamingRobot::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(BrickWall))
 	{
 		//collision
+	}
+	if (typeid(other) == typeid(Soldier))
+	{
+		state = currentState::ATTACK;
+		Vector2D soldierPos = other.GetPosition();
+		float X = soldierPos.XValue;
+		float Y = soldierPos.YValue;
+		float dirX = X - position.XValue;
+		float dirY = Y - position.YValue;
+		float hyp = sqrt(dirX * dirX + dirY * dirY);
+		dirX /= hyp;
+		dirY /= hyp;
+		position.XValue += dirX * movementSpeed / 2; //reduced movement speed while attacking
+		position.YValue += dirY * movementSpeed / 2;
 	}
 }
 void RoamingRobot::HandleDetection(GameObject& other)
@@ -246,6 +275,10 @@ void RoamingRobot::HandleDetection(GameObject& other)
 			if (hyp < 75)
 			{
 				state = currentState::ATTACK;
+				dirX /= hyp;
+				dirY /= hyp;
+				position.XValue += dirX * movementSpeed/2; //reduced movement speed while attacking
+				position.YValue += dirY * movementSpeed/2;
 			}
 			else
 			{
@@ -256,15 +289,25 @@ void RoamingRobot::HandleDetection(GameObject& other)
 				position.YValue += dirY * movementSpeed;
 			}
 		}
-		else //run away
+		if (health < 50.0f) //run away
 		{
-			state = currentState::RUN_AWAY;
-			dirX /= hyp;
-			dirY /= hyp;
-			position.XValue -= dirX * movementSpeed;
-			position.YValue -= dirY * movementSpeed;
+			if (hyp < 75)
+			{
+				state = currentState::ATTACK;
+				dirX /= hyp;
+				dirY /= hyp;
+				position.XValue += dirX * movementSpeed / 2; //reduced movement speed while attacking
+				position.YValue += dirY * movementSpeed / 2;
+			}
+			else
+			{
+				state = currentState::RUN_AWAY;
+				dirX /= hyp;
+				dirY /= hyp;
+				position.XValue -= dirX * movementSpeed;
+				position.YValue -= dirY * movementSpeed;
+			}
 		}
-		
 		//turn the model depending on X position relative to player
 		if (X > position.XValue)
 		{

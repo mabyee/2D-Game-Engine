@@ -212,7 +212,7 @@ void Soldier::HandleCollision(GameObject& other)
 		timer += gameTime; //start count
 		if (timer >= 1.0f)
 		{
-			health = health - 20;
+			//health = health - 20;
 			timer = 0.0f; //reset timer
 		}
 		
@@ -237,4 +237,9 @@ int Soldier::GetStingerAmmo()
 int Soldier::GetHealth()
 {
 	return health;
+}
+
+void Soldier::DealDamage(int damageAmount)
+{
+	health -= damageAmount;
 }

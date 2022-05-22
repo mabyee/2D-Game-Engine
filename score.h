@@ -6,7 +6,6 @@ This file...
 class Score
 {
 private:
-	
 	int currentScore;
 public:
 	void Initialise();
@@ -15,6 +14,5 @@ public:
 	void ResetScore();
 	Score();
 	~Score();
-	
 };
 

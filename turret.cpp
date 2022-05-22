@@ -5,6 +5,7 @@ This file...
 #include "turret.h"
 #include "soldier.h"
 #include "bullet.h"
+#include "explosion.h"
 
 void Turret::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
@@ -39,6 +40,14 @@ void Turret::Update(double gt)
 	if (health <= 0)
 	{
 		cooldown = 1;
+		if (functional == true)//only explodes once
+		{
+			pSoundFX->PlayExplosion();
+			Explosion* pExp = new Explosion();
+			pExp->Initialise(position, 3.0f, 1.0f, Vector2D(0, 0));
+			pObjectManager->AddObject(pExp);
+			pScore->AddScore(150);//add score
+		}
 		functional = false;
 		scale = 0.65f;
 		SetCurrentAnimation(broken);

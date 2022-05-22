@@ -21,7 +21,7 @@ void Score::Initialise()
 
 void Score::AddScore(int newScore)
 {
-	currentScore = currentScore + newScore;
+	currentScore += newScore;
 }
 
 int Score::GetScore()
