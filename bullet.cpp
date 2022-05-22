@@ -9,6 +9,7 @@ This file...
 #include "brickwall.h"
 #include "turret.h"
 #include "outerwall.h"
+#include "RoamingRobot.h"
 
 void Bullet::Initialise(Vector2D initialPos, float soldierAngle, float bulletSpeed, ObjectManager* pOM)
 {
@@ -73,7 +74,7 @@ void Bullet::HandleCollision(GameObject& other)
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
 	}
-	if (typeid(other) == typeid(BrickWall))
+	if (typeid(other) == typeid(RoamingRobot))
 	{
 		Deactivate();
 		Explosion* pExp = new Explosion();

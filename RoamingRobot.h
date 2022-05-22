@@ -14,9 +14,13 @@ private:
 	Circle2D detectionRadius;
 	ObjectManager* pObjectManager;
 	SoundFX* pSoundFX;
-	int health;
+	float health;
 	Soldier* pSoldier;
 	float timer;
+	bool isMoving;
+	enum class currentState { CHASE, RUN_AWAY, IDLE, ATTACK, DEAD };
+	currentState state;
+
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos);
 	void Update(double gt);

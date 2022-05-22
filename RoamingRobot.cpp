@@ -2,11 +2,13 @@
 #include "bullet.h"
 #include "soldier.h"
 #include "stinger.h"
+#include "outerwall.h"
+#include "brickwall.h"
 
 void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos)
 {
-	movementSpeed = 0.0f;
-	health = 150;
+	movementSpeed = 5.0f;
+	health = 150.0f;
 	position.set(initialPos);
 	active = true;
 	scale = 0.5f;
@@ -14,6 +16,8 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	pSoundFX = sound;
 	pSoldier = solPos;
 	direction = 1;
+	isMoving = false;
+	state = currentState::IDLE;
 
 	//adding flipped images for different animation states
 	rightRun = AddAnimation();
@@ -115,16 +119,28 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 
 void RoamingRobot::Update(double gt)
 {
+	if (health <= 0) //set DEAD state when health reaches 0
+	{
+		movementSpeed = 0.0f;
+		state = currentState::DEAD;
+	}
+
+	if (health < 50 && health > 0) //set RUN_AWAY if low health
+	{
+		state = currentState::RUN_AWAY;
+	}
+
 	if (direction == 1 && active) //animations if facing right
 	{
-		if (movementSpeed == 0.0f && health >= 1) //not moving
+		if (state == currentState::IDLE) //not moving
 		{
+			health += 0.1f; //health regen when IDLE
 			SetCurrentAnimation(rightIdle);
 		}
 
-		if (health <= 0) //death
+		if (state == currentState::DEAD) //death
 		{
-			timer = -gt;
+			timer += gt;
 			SetCurrentAnimation(rightDeath);
 			if (timer >= 1.0f)
 			{
@@ -133,20 +149,28 @@ void RoamingRobot::Update(double gt)
 			}
 		}
 
-		if (movementSpeed >= 1.0f && health >= 1) //moving
+		if (state == currentState::CHASE) //moving
 		{
 			SetCurrentAnimation(rightRun);
+		}
+
+		if (state == currentState::RUN_AWAY)
+		{
+
+			SetCurrentAnimation(leftRun);//opposite run direction
+
 		}
 	}
 
 	if (direction == 0 && active) //animations if facing left
 	{
-		if (movementSpeed == 0.0f && health >= 1) //not moving
+		if (state == currentState::IDLE) //not moving
 		{
+			health += 0.1f;
 			SetCurrentAnimation(leftIdle);
 		}
 
-		if (health <= 0) //death
+		if (state == currentState::DEAD) //death
 		{
 			timer += gt;
 			SetCurrentAnimation(leftDeath);
@@ -157,12 +181,20 @@ void RoamingRobot::Update(double gt)
 			}
 		}
 
-		if (movementSpeed >= 1.0f && health >= 1) //moving
+		if (state == currentState::CHASE) //moving
 		{
 			SetCurrentAnimation(leftRun);
 		}
+
+		if (state == currentState::RUN_AWAY)
+		{
+
+			SetCurrentAnimation(rightRun);
+		
+		}
 	}
-	Animate(gt);
+	Animate(gt); //play animation
+	state = currentState::IDLE; //reset to IDLE
 }
 
 void RoamingRobot::Render()
@@ -181,7 +213,7 @@ IShape2D& RoamingRobot::GetShape()
 }
 IShape2D& RoamingRobot::GetDetectionRadius()
 {
-	detectionRadius.PlaceAt(position, 400);
+	detectionRadius.PlaceAt(position, 500);
 	return detectionRadius;
 }
 
@@ -189,23 +221,57 @@ void RoamingRobot::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Bullet))
 	{
-		health -= 10;
+		health -= 10.0f;
 	}
 	if (typeid(other) == typeid(Stinger))
 	{
-		health -= 75;
+		health -= 75.0f;
+	}
+	if (typeid(other) == typeid(outerwall))
+	{
+		//collision
+	}
+	if (typeid(other) == typeid(BrickWall))
+	{
+		//collision
 	}
 }
 void RoamingRobot::HandleDetection(GameObject& other)
 {
-	if (typeid(other) == typeid(Soldier) && active)
+	if (typeid(other) == typeid(Soldier) && active) //if player is in detection radius, CHASE
 	{
 		Vector2D soldierPos = other.GetPosition();
 		float X = soldierPos.XValue;
 		float Y = soldierPos.YValue;
+		
+		if (health >= 50.0f) //chase
+		{
+			state = currentState::CHASE;
+			float dirX = X - position.XValue;
+			float dirY = Y - position.YValue;
+			float hyp = sqrt(dirX * dirX + dirY * dirY);
+			dirX /= hyp;
+			dirY /= hyp;
+			position.XValue += dirX * movementSpeed;
+			position.YValue += dirY * movementSpeed;
+		}
+		else //run away
+		{
+			state = currentState::RUN_AWAY;
+			float dirX = X - position.XValue;
+			float dirY = Y - position.YValue;
+			float hyp = sqrt(dirX * dirX + dirY * dirY);
+			dirX /= hyp;
+			dirY /= hyp;
+			position.XValue -= dirX * movementSpeed;
+			position.YValue -= dirY * movementSpeed;
+		}
+		
+		//turn the model depending on X position relative to player
 		if (X > position.XValue)
 		{
 			direction = 1;
+
 		}
 		else
 		{
