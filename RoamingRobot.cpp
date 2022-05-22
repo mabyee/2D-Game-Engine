@@ -156,9 +156,12 @@ void RoamingRobot::Update(double gt)
 
 		if (state == currentState::RUN_AWAY)
 		{
-
 			SetCurrentAnimation(leftRun);//opposite run direction
+		}
 
+		if (state == currentState::ATTACK)
+		{
+			SetCurrentAnimation(rightShoot);
 		}
 	}
 
@@ -188,9 +191,12 @@ void RoamingRobot::Update(double gt)
 
 		if (state == currentState::RUN_AWAY)
 		{
-
 			SetCurrentAnimation(rightRun);
-		
+		}
+
+		if (state == currentState::ATTACK)
+		{
+			SetCurrentAnimation(leftShoot);
 		}
 	}
 	Animate(gt); //play animation
@@ -243,24 +249,28 @@ void RoamingRobot::HandleDetection(GameObject& other)
 		Vector2D soldierPos = other.GetPosition();
 		float X = soldierPos.XValue;
 		float Y = soldierPos.YValue;
+		float dirX = X - position.XValue;
+		float dirY = Y - position.YValue;
+		float hyp = sqrt(dirX * dirX + dirY * dirY);
 		
 		if (health >= 50.0f) //chase
 		{
-			state = currentState::CHASE;
-			float dirX = X - position.XValue;
-			float dirY = Y - position.YValue;
-			float hyp = sqrt(dirX * dirX + dirY * dirY);
-			dirX /= hyp;
-			dirY /= hyp;
-			position.XValue += dirX * movementSpeed;
-			position.YValue += dirY * movementSpeed;
+			if (hyp < 100)
+			{
+				state = currentState::ATTACK;
+			}
+			else
+			{
+				state = currentState::CHASE;
+				dirX /= hyp;
+				dirY /= hyp;
+				position.XValue += dirX * movementSpeed;
+				position.YValue += dirY * movementSpeed;
+			}
 		}
 		else //run away
 		{
 			state = currentState::RUN_AWAY;
-			float dirX = X - position.XValue;
-			float dirY = Y - position.YValue;
-			float hyp = sqrt(dirX * dirX + dirY * dirY);
 			dirX /= hyp;
 			dirY /= hyp;
 			position.XValue -= dirX * movementSpeed;
