@@ -15,6 +15,7 @@ This file...
 #include "stinger.h"
 #include "outerwall.h"
 #include "boss.h"
+#include "RoamingRobot.h"
 
 
 //Initialise Soldier
@@ -56,6 +57,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 //Update Soldier
 void Soldier::Update(double gt)
 {
+	gameTime = gt; //keep a local gametime
 	if (health <= 0)
 	{
 		Deactivate();
@@ -131,12 +133,6 @@ void Soldier::Update(double gt)
 		}
 	}
 
-	// checking if is in bounds (wraping around) add back incase of teleporter wall
-	//if (position.XValue >= 1600 || position.XValue <= -1600)
-	//{
-	//	position.XValue = position.XValue * -1;
-	//
-
 	DamageBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(50.0f, 65.0f));
 	HealthBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(-50.0f + health, 65.0f));
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
@@ -210,6 +206,16 @@ void Soldier::HandleCollision(GameObject& other)
 		health = health - 0.1;
 		MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 		pDrawEngine->theCamera.SetZoom(3.0f);
+	}
+	if (typeid(other) == typeid(RoamingRobot))
+	{
+		timer += gameTime; //start count
+		if (timer >= 1.0f)
+		{
+			health = health - 20;
+			timer = 0.0f; //reset timer
+		}
+		
 	}
 }
 

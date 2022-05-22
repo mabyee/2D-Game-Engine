@@ -132,14 +132,13 @@ void RoamingRobot::Update(double gt)
 
 	if (direction == 1 && active) //animations if facing right
 	{
-		if (state == currentState::IDLE) //not moving
+		switch (state)
 		{
+		case currentState::IDLE:
 			health += 0.1f; //health regen when IDLE
 			SetCurrentAnimation(rightIdle);
-		}
-
-		if (state == currentState::DEAD) //death
-		{
+			break;
+		case currentState::DEAD:
 			timer += gt;
 			SetCurrentAnimation(rightDeath);
 			if (timer >= 1.0f)
@@ -147,56 +146,45 @@ void RoamingRobot::Update(double gt)
 				timer = 0.0f;
 				active = false;
 			}
-		}
-
-		if (state == currentState::CHASE) //moving
-		{
+			break;
+		case currentState::CHASE:
 			SetCurrentAnimation(rightRun);
-		}
-
-		if (state == currentState::RUN_AWAY)
-		{
-			SetCurrentAnimation(leftRun);//opposite run direction
-		}
-
-		if (state == currentState::ATTACK)
-		{
+			break;
+		case currentState::RUN_AWAY:
+			SetCurrentAnimation(leftRun); //opposite run direction
+			break;
+		case currentState::ATTACK:
 			SetCurrentAnimation(rightShoot);
+			break;
 		}
 	}
 
 	if (direction == 0 && active) //animations if facing left
 	{
-		if (state == currentState::IDLE) //not moving
+		switch (state)
 		{
-			health += 0.1f;
+		case currentState::IDLE:
+			health += 0.1f; //health regen when IDLE
 			SetCurrentAnimation(leftIdle);
-		}
-
-		if (state == currentState::DEAD) //death
-		{
+			break;
+		case currentState::DEAD:
 			timer += gt;
 			SetCurrentAnimation(leftDeath);
-			if (timer >= 1.5f)
+			if (timer >= 1.0f)
 			{
 				timer = 0.0f;
 				active = false;
 			}
-		}
-
-		if (state == currentState::CHASE) //moving
-		{
+			break;
+		case currentState::CHASE:
 			SetCurrentAnimation(leftRun);
-		}
-
-		if (state == currentState::RUN_AWAY)
-		{
-			SetCurrentAnimation(rightRun);
-		}
-
-		if (state == currentState::ATTACK)
-		{
+			break;
+		case currentState::RUN_AWAY:
+			SetCurrentAnimation(rightRun); //opposite run direction
+			break;
+		case currentState::ATTACK:
 			SetCurrentAnimation(leftShoot);
+			break;
 		}
 	}
 	Animate(gt); //play animation
@@ -255,7 +243,7 @@ void RoamingRobot::HandleDetection(GameObject& other)
 		
 		if (health >= 50.0f) //chase
 		{
-			if (hyp < 100)
+			if (hyp < 75)
 			{
 				state = currentState::ATTACK;
 			}

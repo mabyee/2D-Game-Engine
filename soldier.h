@@ -11,6 +11,7 @@ This file...
 class Soldier:public AnimatedGameObject
 {
 private:
+	//animation
 	int walk, idle;
 	//health bar colours and shapes
 	unsigned int colourRed;
@@ -34,6 +35,8 @@ private:
 	SoundFX* pSoundFX;
 
 	//other
+	float timer;
+	float gameTime;
 	ObjectManager* pObjectManager; // Pointer to objectmanager required when an object creates another object
 	Circle2D collisionShape;
 	Circle2D detectionRadius;
