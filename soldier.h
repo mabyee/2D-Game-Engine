@@ -28,6 +28,7 @@ private:
 	Vector2D velocity;
 	Vector2D acceleration;
 	Vector2D friction;
+	bool isByWall;
 
 	//sound
 	SoundIndex shootSound;

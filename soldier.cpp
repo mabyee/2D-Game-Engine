@@ -80,7 +80,7 @@ void Soldier::Update(double gt)
 	{
 		angle = angle + 0.05 * gt * 50;
 	}
-	if (pInputs->KeyPressed(DIK_W))
+	if (pInputs->KeyPressed(DIK_W) && !isByWall)
 	{
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
@@ -102,7 +102,7 @@ void Soldier::Update(double gt)
 
 	}
 	velocity = velocity + friction * gt;
-	friction = -6 * velocity;		// -10 for more friction, 0 to disable friction
+	friction = -6 * velocity; // -10 for more friction, 0 to disable friction
 	position = position + velocity*3 * gt;
 
 	if (pInputs->NewKeyPressed(DIK_SPACE)) // shoot
@@ -138,6 +138,7 @@ void Soldier::Update(double gt)
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
 	MyDrawEngine::GetInstance()->FillRect(HealthBar, colourGreen, 0.0f); //healthbar red area
 
+	isByWall = false; //reset
 	Animate(gt);
 }
 
@@ -177,7 +178,8 @@ void Soldier::HandleCollision(GameObject& other)
 		Vector2D normal = (position - other.GetPosition()).unitVector();
 		if (normal * velocity < 0)
 		{
-			velocity = velocity - 1.5 * (velocity * normal) * normal;
+			velocity = velocity - 1.0f * (velocity * normal) * normal;
+			isByWall = true; //stop movement through wall by setting bool
 		}
 	}
 	if (typeid(other) == typeid(ammoBox))
@@ -198,7 +200,8 @@ void Soldier::HandleCollision(GameObject& other)
 		Vector2D normal = (position - other.GetPosition()).unitVector();
 		if (normal * velocity < 0)
 		{
-			velocity = velocity - 1.5 * (velocity * normal) * normal;
+			velocity = velocity - 1.0f * (velocity * normal) * normal;
+			isByWall = true; 
 		}
 	}
 	if (typeid(other) == typeid(Boss))
@@ -209,6 +212,7 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(RoamingRobot))
 	{
+		
 		timer += gameTime; //start count
 		if (timer >= 1.0f)
 		{
