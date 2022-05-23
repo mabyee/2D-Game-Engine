@@ -54,26 +54,7 @@ void Enemy::Update(double gt)
 		angle = angle + 2.0f * gt;
 		SetCurrentAnimation(move);
 		Animate(gt);
-
-		if (position.YValue > 1000 && velocity.YValue > 0)
-		{
-			velocity.YValue = -velocity.YValue;
-		}
-		if (position.YValue < -1000 && velocity.YValue < 0)
-		{
-			velocity.YValue = -velocity.YValue;
-		}
-		if (position.XValue > 1600 && velocity.XValue > 0)
-		{
-			velocity.XValue = -velocity.XValue;
-		}
-		if (position.XValue < -1600 && velocity.XValue < 0)
-		{
-			velocity.XValue = -velocity.XValue;
-		}
-		
 	}
-	
 }
 
 void Enemy::Render()
@@ -106,8 +87,7 @@ void Enemy::HandleCollision(GameObject& other)
 	if (typeid(other) == typeid(Soldier))
 	{
 		health = 0;
-		int score = 50;
-		pScore->AddScore(score);
+		pScore->AddScore(50);
 	}
 	if (typeid(other) == typeid(Enemy))
 	{
@@ -125,6 +105,7 @@ void Enemy::HandleCollision(GameObject& other)
 			velocity = velocity - 2 * (velocity * normal) * normal;
 		}
 	}
+
 	if (typeid(other) == typeid(Stinger))
 	{
 		health = 0;

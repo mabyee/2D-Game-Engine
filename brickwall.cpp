@@ -21,7 +21,7 @@ void BrickWall::Update(double gt)
 	{
 		Deactivate();
 	}
-	if (health < 80 & health > 50) //wall damage
+	if (health < 80 & health > 50) //wall damage stages
 	{
 		LoadImg(L"innerWall1.png");
 	}

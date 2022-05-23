@@ -80,7 +80,7 @@ void Soldier::Update(double gt)
 	{
 		angle = angle + 0.05 * gt * 50;
 	}
-	if (pInputs->KeyPressed(DIK_W) && !isByWall)
+	if (pInputs->KeyPressed(DIK_W))
 	{
 		acceleration.setBearing(angle, 300.0f);
 		velocity = velocity + acceleration * gt;
@@ -138,7 +138,6 @@ void Soldier::Update(double gt)
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
 	MyDrawEngine::GetInstance()->FillRect(HealthBar, colourGreen, 0.0f); //healthbar red area
 
-	isByWall = false; //reset
 	Animate(gt);
 }
 
@@ -175,27 +174,35 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		if (position.XValue > other.GetPosition().XValue && position.YValue + 88 / 2  > other.GetPosition().YValue
-			&& position.YValue - 88 / 2 < other.GetPosition().YValue)
+		float otherPosX = other.GetPosition().XValue; //reduce number of calls
+		float otherPosY = other.GetPosition().YValue;
+		float playerSize = 26.0f;
+		float wallSize = 110.0f; //wallSize value gained by tweaking and testing
+		MyDrawEngine* draw = MyDrawEngine::GetInstance();
+		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
+
+		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
+			&& position.YValue - wallSize / 2.0f < otherPosY)
 		{
-			position.XValue = other.GetPosition().XValue + (26 + 96) / 2 ;
+			position.XValue = otherPosX + (playerSize + wallSize) / 2.0f;
 		}
-		if (position.XValue < other.GetPosition().XValue && position.YValue - 88 / 2 < other.GetPosition().YValue
-			&& position.YValue + 88 / 2 > other.GetPosition().YValue)
+		if (position.XValue < otherPosX && position.YValue - wallSize / 2.0f < otherPosY
+			&& position.YValue + wallSize / 2.0f > otherPosY)
 		{
-			position.XValue = other.GetPosition().XValue - (26 + 96) / 2 ;
+			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f;
 		}
-		if (position.YValue > other.GetPosition().YValue && position.XValue + 88 / 2 > other.GetPosition().XValue
-			&& position.XValue - 88 / 2 < other.GetPosition().XValue)
+		if (position.YValue > otherPosY && position.XValue + wallSize / 2 > otherPosX
+			&& position.XValue - wallSize / 2.0f < otherPosX)
 		{
-			position.YValue = other.GetPosition().YValue + (26 + 96) / 2 ;
+			position.YValue = otherPosY + (playerSize + wallSize) / 2.0f;
 		}
-		if (position.YValue < other.GetPosition().YValue && position.XValue - 88 / 2 < other.GetPosition().XValue
-			&& position.XValue + 88 / 2 > other.GetPosition().XValue)
+		if (position.YValue < otherPosY && position.XValue - wallSize / 2.0f < otherPosX
+			&& position.XValue + wallSize / 2.0f > otherPosX)
 		{
-			position.YValue = other.GetPosition().YValue - (26 + 96) / 2 ;
+			position.YValue = otherPosY - (playerSize + wallSize) / 2.0f;
 		}
 	}
+	
 	if (typeid(other) == typeid(ammoBox))
 	{
 		pSoundFX->PlayHealthPickup();
@@ -211,11 +218,32 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(outerwall))
 	{
-		Vector2D normal = (position - other.GetPosition()).unitVector();
-		if (normal * velocity < 0)
+		float otherPosX = other.GetPosition().XValue; //reduce number of calls
+		float otherPosY = other.GetPosition().YValue;
+		float playerSize = 26.0f;
+		float wallSize = 102.0f;
+		MyDrawEngine* draw = MyDrawEngine::GetInstance();
+		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
+
+		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
+			&& position.YValue - wallSize / 2.0f < otherPosY)
 		{
-			velocity = velocity - 1.0f * (velocity * normal) * normal;
-			isByWall = true; 
+			position.XValue = otherPosX + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.XValue < otherPosX && position.YValue - wallSize / 2.0f < otherPosY
+			&& position.YValue + wallSize / 2.0f > otherPosY)
+		{
+			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue > otherPosY && position.XValue + wallSize / 2 > otherPosX
+			&& position.XValue - wallSize / 2.0f < otherPosX)
+		{
+			position.YValue = otherPosY + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue < otherPosY && position.XValue - wallSize / 2.0f < otherPosX
+			&& position.XValue + wallSize / 2.0f > otherPosX)
+		{
+			position.YValue = otherPosY - (playerSize + wallSize) / 2.0f;
 		}
 	}
 	if (typeid(other) == typeid(Boss))

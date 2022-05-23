@@ -19,6 +19,9 @@ void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* 
 	isMoving = false;
 	state = currentState::IDLE;
 	pScore = pCurrentScore;
+	randDirX = 0;
+	randDirY = 0;
+
 
 	//adding flipped images for different animation states
 	rightRun = AddAnimation();
@@ -126,12 +129,25 @@ void RoamingRobot::Update(double gt)
 		state = currentState::DEAD;
 	}
 
+	soldierAmmo = pSoldier->GetAmmo();
+	if (soldierAmmo <= 5) //increase movement speed if the soldier is low on ammo
+	{
+		movementSpeed = 7.0f;
+	}
+	else
+	{
+		movementSpeed = 5.0f;
+	}
+
 	if (direction == 1 && active) //animations if facing right
 	{
 		switch (state)
 		{
 		case currentState::IDLE:
-			health += 1.0f; //health regen when IDLE
+			if (health < 150.0f) //health regen when IDLE if < 150 health
+			{
+				health += 1.0f; 
+			}
 			SetCurrentAnimation(rightIdle);
 			break;
 		case currentState::DEAD:
@@ -158,6 +174,16 @@ void RoamingRobot::Update(double gt)
 				timer = 0.0f; //reset timer
 			}
 			break;
+		case currentState::ROAMING: //randomly move around
+			timer += gt;
+			position += Vector2D(randDirX, randDirY);
+			if (timer > 3.0f)
+			{
+				randDirX = (rand() % 12+1) - 6;
+				randDirY = (rand() % 12+1) - 6;
+				timer = 0.0f;
+			}
+			break;
 		}
 	}
 
@@ -166,7 +192,10 @@ void RoamingRobot::Update(double gt)
 		switch (state)
 		{
 		case currentState::IDLE:
-			health += 1.0f; //health regen when IDLE
+			if (health < 150.0f) //health regen when IDLE if < 150 health
+			{
+				health += 1.0f;
+			}
 			SetCurrentAnimation(leftIdle);
 			break;
 		case currentState::DEAD:
@@ -194,10 +223,26 @@ void RoamingRobot::Update(double gt)
 				timer = 0.0f; //reset timer
 			}
 			break;
+		case currentState::ROAMING:
+			SetCurrentAnimation(leftRun);
+			timer += gt;
+			position += Vector2D(randDirX, randDirY);
+			if (timer > 3.0f)
+			{
+				randDirX = (rand() % 12+1) - 6;
+				randDirY = (rand() % 12+1) - 6;
+				timer = 0.0f;
+			}
+			break;
 		}
 	}
 	Animate(gt); //play animation
-	state = currentState::IDLE; //reset to IDLE
+	state = currentState::ROAMING; //reset to ROAMING if fully healed
+	if (health < 150.0f)
+	{
+		state = currentState::IDLE; //reset to IDLE if not full health to heal
+	}
+	
 }
 
 void RoamingRobot::Render()
@@ -233,11 +278,63 @@ void RoamingRobot::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(outerwall))
 	{
-		//collision
+		float otherPosX = other.GetPosition().XValue; //reduce number of calls
+		float otherPosY = other.GetPosition().YValue;
+		float playerSize = 50.0f;
+		float wallSize = 130.0f; //wallSize value gained by tweaking and testing
+		MyDrawEngine* draw = MyDrawEngine::GetInstance();
+		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
+
+		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
+			&& position.YValue - wallSize / 2.0f < otherPosY)
+		{
+			position.XValue = otherPosX + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.XValue < otherPosX && position.YValue - wallSize / 2.0f < otherPosY
+			&& position.YValue + wallSize / 2.0f > otherPosY)
+		{
+			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue > otherPosY && position.XValue + wallSize / 2 > otherPosX
+			&& position.XValue - wallSize / 2.0f < otherPosX)
+		{
+			position.YValue = otherPosY + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue < otherPosY && position.XValue - wallSize / 2.0f < otherPosX
+			&& position.XValue + wallSize / 2.0f > otherPosX)
+		{
+			position.YValue = otherPosY - (playerSize + wallSize) / 2.0f;
+		}
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		//collision
+		float otherPosX = other.GetPosition().XValue; //reduce number of calls
+		float otherPosY = other.GetPosition().YValue;
+		float playerSize = 50.0f;
+		float wallSize = 130.0f; //wallSize value gained by tweaking and testing
+		MyDrawEngine* draw = MyDrawEngine::GetInstance();
+		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
+
+		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
+			&& position.YValue - wallSize / 2.0f < otherPosY)
+		{
+			position.XValue = otherPosX + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.XValue < otherPosX && position.YValue - wallSize / 2.0f < otherPosY
+			&& position.YValue + wallSize / 2.0f > otherPosY)
+		{
+			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue > otherPosY && position.XValue + wallSize / 2 > otherPosX
+			&& position.XValue - wallSize / 2.0f < otherPosX)
+		{
+			position.YValue = otherPosY + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue < otherPosY && position.XValue - wallSize / 2.0f < otherPosX
+			&& position.XValue + wallSize / 2.0f > otherPosX)
+		{
+			position.YValue = otherPosY - (playerSize + wallSize) / 2.0f;
+		}
 	}
 	if (typeid(other) == typeid(Soldier))
 	{

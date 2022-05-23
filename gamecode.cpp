@@ -413,11 +413,11 @@ ErrorType Game::StartOfGame()
 
 	// Spawning boss cloud
 	Boss* pBoss = new Boss();
-	pBoss->Initialise(Vector2D(500, 500), &ObjectManager, pTheSoundFX, pSoldier);
+	pBoss->Initialise(spawnArr[rand() % 450], &ObjectManager, pTheSoundFX, pSoldier);
 	
 	// Spawning Roaming Robot
 	RoamingRobot* pRoamingRobot = new RoamingRobot();
-	pRoamingRobot->Initialise(Vector2D(100, 100), &ObjectManager, pTheSoundFX, pSoldier, &Score);
+	pRoamingRobot->Initialise(spawnArr[rand() % 450], &ObjectManager, pTheSoundFX, pSoldier, &Score);
 	
 	// AmmoBoxes
 	for (int i = 0; i < 4; i++)

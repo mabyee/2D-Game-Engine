@@ -13,8 +13,10 @@ private:
 	//movement variables
 	float movementSpeed;
 	int direction;
-	enum class currentState { CHASE, RUN_AWAY, IDLE, ATTACK, DEAD };
+	enum class currentState { CHASE, RUN_AWAY, IDLE, ATTACK, DEAD, ROAMING };
 	currentState state;
+	int randDirX;
+	int randDirY;
 	//other
 	Circle2D collisionShape;
 	Circle2D detectionRadius;
@@ -25,6 +27,7 @@ private:
 	float timer;
 	bool isMoving;
 	Score* pScore;
+	int soldierAmmo;
 
 public:
 	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos, Score* pCurrentScore);
