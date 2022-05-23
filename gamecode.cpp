@@ -379,7 +379,7 @@ ErrorType Game::StartOfGame()
 	}
 	// finished creating walls ------------------------------------------------------------------------------
 	// Loading background
-	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"backgroundFloor.bmp");
+	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/Background/backgroundFloor.bmp");
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();

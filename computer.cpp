@@ -15,18 +15,18 @@ void computer::Initialise(Vector2D pos, float size, float time)
 	//loading images of computer
 	blink = AddAnimation();
 
-	AddImage(blink, L"screen0.png");
-	AddImage(blink, L"screen1.png");
-	AddImage(blink, L"screen2.png");
-	AddImage(blink, L"screen3.png");
-	AddImage(blink, L"screen4.png");
-	AddImage(blink, L"screen5.png");
-	AddImage(blink, L"screen6.png");
-	AddImage(blink, L"screen7.png");
-	AddImage(blink, L"screen8.png");
-	AddImage(blink, L"screen9.png");
-	AddImage(blink, L"screen10.png");
-	AddImage(blink, L"screen11.png");
+	AddImage(blink, L"Images/Screen/screen0.png");
+	AddImage(blink, L"Images/Screen/screen1.png");
+	AddImage(blink, L"Images/Screen/screen2.png");
+	AddImage(blink, L"Images/Screen/screen3.png");
+	AddImage(blink, L"Images/Screen/screen4.png");
+	AddImage(blink, L"Images/Screen/screen5.png");
+	AddImage(blink, L"Images/Screen/screen6.png");
+	AddImage(blink, L"Images/Screen/screen7.png");
+	AddImage(blink, L"Images/Screen/screen8.png");
+	AddImage(blink, L"Images/Screen/screen9.png");
+	AddImage(blink, L"Images/Screen/screen10.png");
+	AddImage(blink, L"Images/Screen/screen11.png");
 	NextAnimation(blink, blink);
 	SetAnimationSpeed(blink, 9.0f);
 	SetCurrentAnimation(blink);

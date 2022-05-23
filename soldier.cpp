@@ -38,20 +38,20 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 
 	//new animation engine
 	walk = AddAnimation();
-	AddImage(walk, L"walking0.png");
-	AddImage(walk, L"walking1.png");
-	AddImage(walk, L"walking2.png");
-	AddImage(walk, L"walking3.png");
-	AddImage(walk, L"walking4.png");
-	AddImage(walk, L"walking5.png");
-	AddImage(walk, L"walking6.png");
-	AddImage(walk, L"walking7.png");
+	AddImage(walk, L"Images/Soldier/walking0.png");
+	AddImage(walk, L"Images/Soldier/walking1.png");
+	AddImage(walk, L"Images/Soldier/walking2.png");
+	AddImage(walk, L"Images/Soldier/walking3.png");
+	AddImage(walk, L"Images/Soldier/walking4.png");
+	AddImage(walk, L"Images/Soldier/walking5.png");
+	AddImage(walk, L"Images/Soldier/walking6.png");
+	AddImage(walk, L"Images/Soldier/walking7.png");
 	NextAnimation(walk, walk);
 	SetAnimationSpeed(walk, 9.0f);
 	SetCurrentAnimation(walk);
 	
 	idle = AddAnimation();
-	AddImage(idle, L"walking4.png");
+	AddImage(idle, L"Images/Soldier/walking4.png");
 }
 
 //Update Soldier

@@ -18,10 +18,10 @@ void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, S
 	//loading images of boss
 	move = AddAnimation();
 
-	AddImage(move, L"cloud1.png");
-	AddImage(move, L"cloud2.png");
-	AddImage(move, L"cloud3.png");
-	AddImage(move, L"cloud4.png");
+	AddImage(move, L"Images/CloudBoss/cloud1.png");
+	AddImage(move, L"Images/CloudBoss/cloud2.png");
+	AddImage(move, L"Images/CloudBoss/cloud3.png");
+	AddImage(move, L"Images/CloudBoss/cloud4.png");
 
 	NextAnimation(move, move);
 	SetAnimationSpeed(move, 6.0f);

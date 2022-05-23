@@ -17,9 +17,9 @@ void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM)
 	//loading images of stinger
 	blink = AddAnimation();
 
-	AddImage(blink,L"stinger0.png");
-	AddImage(blink, L"stinger1.png");
-	AddImage(blink, L"stinger2.png");
+	AddImage(blink,L"Images/Stinger/stinger0.png");
+	AddImage(blink, L"Images/Stinger/stinger1.png");
+	AddImage(blink, L"Images/Stinger/stinger2.png");
 	NextAnimation(blink, blink);
 	SetAnimationSpeed(blink, 3.0f);
 	SetCurrentAnimation(blink);

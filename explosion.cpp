@@ -16,14 +16,14 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 	//loading images of explosion
 	explode = AddAnimation();
 
-	AddImage(explode, L"explosion1.bmp");
-	AddImage(explode, L"explosion2.bmp");
-	AddImage(explode, L"explosion3.bmp");
-	AddImage(explode, L"explosion4.bmp");
-	AddImage(explode, L"explosion5.bmp");
-	AddImage(explode, L"explosion6.bmp");
-	AddImage(explode, L"explosion7.bmp");
-	AddImage(explode, L"explosion8.bmp");
+	AddImage(explode, L"Images/Explosion/explosion1.bmp");
+	AddImage(explode, L"Images/Explosion/explosion2.bmp");
+	AddImage(explode, L"Images/Explosion/explosion3.bmp");
+	AddImage(explode, L"Images/Explosion/explosion4.bmp");
+	AddImage(explode, L"Images/Explosion/explosion5.bmp");
+	AddImage(explode, L"Images/Explosion/explosion6.bmp");
+	AddImage(explode, L"Images/Explosion/explosion7.bmp");
+	AddImage(explode, L"Images/Explosion/explosion8.bmp");
 
 	NextAnimation(explode, explode);
 	SetAnimationSpeed(explode, 10.0f);

@@ -21,14 +21,14 @@ void Turret::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound,
 	functional = true;
 
 	working = AddAnimation();
-	AddImage(working, L"turret.bmp");
+	AddImage(working, L"Images/Turret/turret.bmp");
 	NextAnimation(working, working);
 	SetAnimationSpeed(working, 0.0f);
 
 	broken = AddAnimation();
-	AddImage(broken, L"turretFire0.png");
-	AddImage(broken, L"turretFire1.png");
-	AddImage(broken, L"turretFire2.png");
+	AddImage(broken, L"Images/Turret/turretFire0.png");
+	AddImage(broken, L"Images/Turret/turretFire1.png");
+	AddImage(broken, L"Images/Turret/turretFire2.png");
 	NextAnimation(broken, broken);
 	SetAnimationSpeed(broken, 4.0f);
 

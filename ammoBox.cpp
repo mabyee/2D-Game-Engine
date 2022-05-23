@@ -8,7 +8,7 @@ This file...
 void ammoBox::Initialise(Vector2D pos, ObjectManager* pOM)
 {
 	position.set(pos);
-	LoadImg(L"crate1.bmp");
+	LoadImg(L"Images/Crate/crate.bmp");
 	angle = 0;
 	active = true;
 	scale = 1.0f;

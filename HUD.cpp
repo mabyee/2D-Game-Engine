@@ -7,7 +7,7 @@ This file...
 
 void HUD::Initialise()
 {
-	HUDimage = MyDrawEngine::GetInstance()->LoadPicture(L"HUD.png");
+	HUDimage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/HUD/HUD.png");
 	scale = 2.0f;
 	transparency = 0.2f;
 }

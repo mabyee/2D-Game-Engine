@@ -10,7 +10,7 @@ void outerwall::Initialise(Vector2D pos, float ang)
 	active = true;
 	scale = 3.0f;
 	angle = ang;
-	LoadImg(L"outerWall.png");
+	LoadImg(L"Images/OuterWall/outerWall.png");
 }
 
 void outerwall::HandleCollision(GameObject& other)

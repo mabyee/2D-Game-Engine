@@ -24,14 +24,14 @@ void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, So
 	//loading images of enemy
 	move = AddAnimation();
 
-	AddImage(move, L"robot0.png");
-	AddImage(move, L"robot1.png");
-	AddImage(move, L"robot2.png");
-	AddImage(move, L"robot3.png");
-	AddImage(move, L"robot4.png");
-	AddImage(move, L"robot5.png");
-	AddImage(move, L"robot6.png");
-	AddImage(move, L"robot7.png");
+	AddImage(move, L"Images/MiniRobot/robot0.png");
+	AddImage(move, L"Images/MiniRobot/robot1.png");
+	AddImage(move, L"Images/MiniRobot/robot2.png");
+	AddImage(move, L"Images/MiniRobot/robot3.png");
+	AddImage(move, L"Images/MiniRobot/robot4.png");
+	AddImage(move, L"Images/MiniRobot/robot5.png");
+	AddImage(move, L"Images/MiniRobot/robot6.png");
+	AddImage(move, L"Images/MiniRobot/robot7.png");
 
 	NextAnimation(move, move);
 	SetAnimationSpeed(move, 8.0f);
