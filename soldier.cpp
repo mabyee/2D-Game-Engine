@@ -175,11 +175,25 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		Vector2D normal = (position - other.GetPosition()).unitVector();
-		if (normal * velocity < 0)
+		if (position.XValue > other.GetPosition().XValue && position.YValue + 88 / 2  > other.GetPosition().YValue
+			&& position.YValue - 88 / 2 < other.GetPosition().YValue)
 		{
-			velocity = velocity - 1.0f * (velocity * normal) * normal;
-			isByWall = true; //stop movement through wall by setting bool
+			position.XValue = other.GetPosition().XValue + (26 + 96) / 2 ;
+		}
+		if (position.XValue < other.GetPosition().XValue && position.YValue - 88 / 2 < other.GetPosition().YValue
+			&& position.YValue + 88 / 2 > other.GetPosition().YValue)
+		{
+			position.XValue = other.GetPosition().XValue - (26 + 96) / 2 ;
+		}
+		if (position.YValue > other.GetPosition().YValue && position.XValue + 88 / 2 > other.GetPosition().XValue
+			&& position.XValue - 88 / 2 < other.GetPosition().XValue)
+		{
+			position.YValue = other.GetPosition().YValue + (26 + 96) / 2 ;
+		}
+		if (position.YValue < other.GetPosition().YValue && position.XValue - 88 / 2 < other.GetPosition().XValue
+			&& position.XValue + 88 / 2 > other.GetPosition().XValue)
+		{
+			position.YValue = other.GetPosition().YValue - (26 + 96) / 2 ;
 		}
 	}
 	if (typeid(other) == typeid(ammoBox))

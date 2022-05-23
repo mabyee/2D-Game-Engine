@@ -126,17 +126,12 @@ void RoamingRobot::Update(double gt)
 		state = currentState::DEAD;
 	}
 
-	if (health < 50 && health > 0) //set RUN_AWAY if low health
-	{
-		state = currentState::RUN_AWAY;
-	}
-
 	if (direction == 1 && active) //animations if facing right
 	{
 		switch (state)
 		{
 		case currentState::IDLE:
-			health += 0.1f; //health regen when IDLE
+			health += 1.0f; //health regen when IDLE
 			SetCurrentAnimation(rightIdle);
 			break;
 		case currentState::DEAD:
@@ -171,7 +166,7 @@ void RoamingRobot::Update(double gt)
 		switch (state)
 		{
 		case currentState::IDLE:
-			health += 0.1f; //health regen when IDLE
+			health += 1.0f; //health regen when IDLE
 			SetCurrentAnimation(leftIdle);
 			break;
 		case currentState::DEAD:
