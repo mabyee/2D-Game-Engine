@@ -212,10 +212,21 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(computer))
 	{
-		health = 100;
-		pSoundFX->PlayChirp();
-		int score = 10;
-		pScore->AddScore(score);
+		MyInputs* pInputs = MyInputs::GetInstance();
+		pInputs->SampleKeyboard();
+		if (pInputs->KeyPressed(DIK_E) && cardCount == 0)
+		{
+			pSoundFX->PlayAccessDenied();
+		}
+		if (pInputs->KeyPressed(DIK_E) && cardCount >= 1)
+		{
+			health = 100;
+			pSoundFX->PlayChirp();
+			pScore->AddScore(50);
+			cardCount -= 1;
+			other.Deactivate();
+		}
+		
 	}
 	if (typeid(other) == typeid(outerwall))
 	{

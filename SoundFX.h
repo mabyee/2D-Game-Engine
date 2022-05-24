@@ -17,6 +17,8 @@ private:
 	SoundIndex Chirp;
 	SoundIndex stingerDrop;
 	SoundIndex healthPickup;
+	SoundIndex AccessDenied;
+
 public:
 	void LoadSounds();
 	void PlayShot();
@@ -27,5 +29,6 @@ public:
 	void PlayChirp();
 	void PlayStingerDrop();
 	void PlayHealthPickup();
+	void PlayAccessDenied();
 };
 

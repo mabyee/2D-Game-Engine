@@ -4,6 +4,7 @@
 #include "stinger.h"
 #include "outerwall.h"
 #include "brickwall.h"
+#include "KeyCard.h"
 
 void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos, Score* pCurrentScore)
 {
@@ -157,6 +158,11 @@ void RoamingRobot::Update(double gt)
 			{
 				timer = 0.0f;
 				active = false;
+				pScore->AddScore(150); //adding score
+				//drop keycard on death
+				KeyCard* pKeyCard = new KeyCard();
+				pKeyCard->Initialise(position, pObjectManager, pSoldier);
+				pObjectManager->AddObject(pKeyCard);
 			}
 			break;
 		case currentState::CHASE:
@@ -206,6 +212,10 @@ void RoamingRobot::Update(double gt)
 				timer = 0.0f;
 				active = false;
 				pScore->AddScore(150); //adding score
+				//drop keycard on death
+				KeyCard* pKeyCard = new KeyCard();
+				pKeyCard->Initialise(position, pObjectManager, pSoldier);
+				pObjectManager->AddObject(pKeyCard);
 			}	
 			break;
 		case currentState::CHASE:

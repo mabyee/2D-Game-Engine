@@ -52,7 +52,8 @@ void computer::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Soldier))
 	{
-		Deactivate();
+		MyDrawEngine* MDE =  MyDrawEngine::GetInstance();
+		MDE->WriteText(position+Vector2D(-75,50), L"Press E to use Keycard", MyDrawEngine::WHITE);
 	}
 }
 void computer::HandleDetection(GameObject& other)

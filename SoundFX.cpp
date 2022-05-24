@@ -18,6 +18,7 @@ void SoundFX::LoadSounds()
 	Explosions[2] = pSoundEngine->LoadWav(L"Sounds/explosion3.wav");
 	Explosions[3] = pSoundEngine->LoadWav(L"Sounds/explosion4.wav");
 	Explosions[4] = pSoundEngine->LoadWav(L"Sounds/explosion5.wav");
+	AccessDenied = pSoundEngine->LoadWav(L"Sounds/accessDenied.wav");
 }
 
 void SoundFX::PlayShot()
@@ -63,4 +64,9 @@ void SoundFX::PlayStingerDrop()
 void SoundFX::PlayHealthPickup()
 {
 	MySoundEngine::GetInstance()->Play(healthPickup);
+}
+
+void SoundFX::PlayAccessDenied()
+{
+	MySoundEngine::GetInstance()->Play(AccessDenied);
 }
