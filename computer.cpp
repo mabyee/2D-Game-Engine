@@ -5,7 +5,7 @@ This file...
 #include "computer.h"
 #include "soldier.h"
 
-void computer::Initialise(Vector2D pos, float size, float time)
+void computer::Initialise(Vector2D pos, float size)
 {
 	position = pos;
 	scale = size;
@@ -13,29 +13,39 @@ void computer::Initialise(Vector2D pos, float size, float time)
 	active = true;
 
 	//loading images of computer
-	blink = AddAnimation();
+	on = AddAnimation();
+	AddImage(on, L"Images/Screen/screen0.png");
+	AddImage(on, L"Images/Screen/screen1.png");
+	AddImage(on, L"Images/Screen/screen2.png");
+	AddImage(on, L"Images/Screen/screen3.png");
+	AddImage(on, L"Images/Screen/screen4.png");
+	AddImage(on, L"Images/Screen/screen5.png");
+	AddImage(on, L"Images/Screen/screen6.png");
+	AddImage(on, L"Images/Screen/screen7.png");
+	AddImage(on, L"Images/Screen/screen8.png");
+	AddImage(on, L"Images/Screen/screen9.png");
+	AddImage(on, L"Images/Screen/screen10.png");
+	AddImage(on, L"Images/Screen/screen11.png");
+	NextAnimation(on, on);
+	SetAnimationSpeed(on, 9.0f);
+	SetCurrentAnimation(on);
 
-	AddImage(blink, L"Images/Screen/screen0.png");
-	AddImage(blink, L"Images/Screen/screen1.png");
-	AddImage(blink, L"Images/Screen/screen2.png");
-	AddImage(blink, L"Images/Screen/screen3.png");
-	AddImage(blink, L"Images/Screen/screen4.png");
-	AddImage(blink, L"Images/Screen/screen5.png");
-	AddImage(blink, L"Images/Screen/screen6.png");
-	AddImage(blink, L"Images/Screen/screen7.png");
-	AddImage(blink, L"Images/Screen/screen8.png");
-	AddImage(blink, L"Images/Screen/screen9.png");
-	AddImage(blink, L"Images/Screen/screen10.png");
-	AddImage(blink, L"Images/Screen/screen11.png");
-	NextAnimation(blink, blink);
-	SetAnimationSpeed(blink, 9.0f);
-	SetCurrentAnimation(blink);
-	
+	off = AddAnimation();
+	AddImage(off, L"Images/Screen/screenOff.png");
+	NextAnimation(off, off);
+	SetAnimationSpeed(off, 1.0f);
 }
 
 void computer::Update(double gt)
 {
-	SetCurrentAnimation(blink);
+	//if () // TODO, turn computer off when keycard used
+	//{
+	//	SetCurrentAnimation(off);
+	//}
+	//else
+	//{
+	//	SetCurrentAnimation(on);
+	//}
 	Animate(gt);
 }
 
@@ -52,8 +62,8 @@ void computer::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Soldier))
 	{
-		MyDrawEngine* MDE =  MyDrawEngine::GetInstance();
-		MDE->WriteText(position+Vector2D(-75,50), L"Press E to use Keycard", MyDrawEngine::WHITE);
+		MyDrawEngine* pDE =  MyDrawEngine::GetInstance();
+		pDE->WriteText(position+Vector2D(-75,50), L"Press F to use Keycard", MyDrawEngine::WHITE);
 	}
 }
 void computer::HandleDetection(GameObject& other)

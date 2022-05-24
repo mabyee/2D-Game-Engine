@@ -16,7 +16,8 @@ private:
 	float scale;
 	float transparency;
 	Soldier* pSoldier;
-	int stingerAmmo, ammo, health, cardCount;
+	int stingerAmmo, ammo, health, cardCount, accessCount;
+	const wchar_t* missionMessage;
 
 public:
 	void Initialise(Soldier* pSol);

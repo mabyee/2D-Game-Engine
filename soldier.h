@@ -14,16 +14,14 @@ private:
 	//animation
 	int walk, idle;
 	//health bar colours and shapes
-	unsigned int colourRed;
-	unsigned int colourGreen;
-	Rectangle2D HealthBar;
-	Rectangle2D DamageBar;
+	unsigned int colourRed, colourGreen;
+	Rectangle2D HealthBar, DamageBar;
 
 	//soldier attributes
-	int stingerAmmo;
-	int ammo;
+	int stingerAmmo, ammo;
 	int health;
 	int cardCount;
+	int accessCount;
 
 	//movement stats
 	Vector2D velocity;
@@ -31,8 +29,6 @@ private:
 	Vector2D friction;
 
 	//sound
-	SoundIndex shootSound;
-	SoundIndex thrustLoop;
 	SoundFX* pSoundFX;
 
 	//other
@@ -54,6 +50,6 @@ public:
 	int GetStingerAmmo();
 	int GetHealth();
 	int GetCardCount();
+	int GetAccessCount();
 	void DealDamage(int damageAmount);
-	void PickupKeycard(int card);
 };

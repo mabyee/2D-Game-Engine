@@ -3,23 +3,23 @@ Created by Henri Puennel, W19019002.
 This file...
 */
 #pragma once
-#include "GameObject.h"
 #include "AnimatedGameObject.h"
+#include "soldier.h"
 
-class computer : public AnimatedGameObject
+class gate:public AnimatedGameObject
 {
 private:
-	Vector2D velocity;
 	Rectangle2D collisionShape;
-	Circle2D detectionRadius;
-	int on, off;
+	Rectangle2D detectionRadius;
+	int open, opening, closed;
+	Soldier* pSoldier;
 public:
-	void Initialise(Vector2D pos, float size);
+	void Initialise(Vector2D pos, Soldier* pSol);
 	void Update(double gt);
 	void Render() override;
 	void HandleCollision(GameObject& other);
-	IShape2D& GetShape();
 	void HandleDetection(GameObject& other);
+	IShape2D& GetShape();
 	IShape2D& GetDetectionRadius();
 };
 

@@ -53,6 +53,8 @@ private:
 	const int FIRST_X = -1600;
 	const int LAST_Y = 936;
 	const int FIRST_Y = -1000;
+	const int GATE_Y = 936;
+	const int GATE_X = -1000;
 	PictureIndex backgroundImage;
 public:
 	static Game instance;          // Singleton instance

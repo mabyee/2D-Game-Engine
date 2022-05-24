@@ -14,6 +14,7 @@
 #include "boss.h"
 #include "turret.h"
 #include "RoamingRobot.h"
+#include "gate.h"
 
 Game::Game()
 {
@@ -304,21 +305,20 @@ ErrorType Game::StartOfGame()
 	// placing outer bound walls
 	for (int i = 0; i < TILES; i++)
 	{
-		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y)
+		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y || initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
 		{
-			outerwall* pOuterWall = new outerwall();
-			pos = initialArr[i];
-			ang = 0.0f;
-			pOuterWall->Initialise(pos, ang);
-			ObjectManager.AddObject(pOuterWall);
-		}
-		if (initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
-		{
-			outerwall* pOuterWall = new outerwall();
-			pos = initialArr[i];
-			ang = 0.0f;
-			pOuterWall->Initialise(pos, ang);
-			ObjectManager.AddObject(pOuterWall);
+			if (initialArr[i].YValue == LAST_Y && initialArr[i].XValue == -16)
+			{
+				//leave blank for gate
+			}
+			else 
+			{
+				outerwall* pOuterWall = new outerwall();
+				pos = initialArr[i];
+				ang = 0.0f;
+				pOuterWall->Initialise(pos, ang);
+				ObjectManager.AddObject(pOuterWall);
+			}
 		}
 	}
 	// Deciding where to place walls
@@ -377,6 +377,7 @@ ErrorType Game::StartOfGame()
 			ObjectManager.AddObject(pBrickWall);
 		}
 	}
+
 	// finished creating walls ------------------------------------------------------------------------------
 	// Loading background
 	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/Background/backgroundFloor.bmp");
@@ -429,6 +430,12 @@ ErrorType Game::StartOfGame()
 		ObjectManager.AddObject(pAmmoBox);
 	}
 
+	// Placing Gate
+	gate* pGate = new gate();
+	pos = Vector2D(-16, LAST_Y); //fixed position
+	pGate->Initialise(pos, pSoldier);
+	ObjectManager.AddObject(pGate);
+
 	// HUD
 	HUD.Initialise(pSoldier);
 
@@ -438,7 +445,7 @@ ErrorType Game::StartOfGame()
 		computer* pComputer = new computer();
 		Vector2D pos;
 		pos = spawnArr[rand() % 450]; // random available spawn point
-		pComputer->Initialise(pos, 0.4f, 1.0f);
+		pComputer->Initialise(pos, 0.4f);
 		ObjectManager.AddObject(pComputer);
 	}
 

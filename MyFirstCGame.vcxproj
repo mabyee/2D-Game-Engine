@@ -152,6 +152,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="computer.cpp" />
     <ClCompile Include="ErrorLogger.cpp" />
+    <ClCompile Include="gate.cpp" />
     <ClCompile Include="explosion.cpp" />
     <ClCompile Include="gamecode.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="computer.h" />
     <ClInclude Include="ErrorLogger.h" />
     <ClInclude Include="errortype.h" />
+    <ClInclude Include="gate.h" />
     <ClInclude Include="explosion.h" />
     <ClInclude Include="gamecode.h" />
     <ClInclude Include="GameObject.h" />

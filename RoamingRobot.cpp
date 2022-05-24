@@ -161,7 +161,7 @@ void RoamingRobot::Update(double gt)
 				pScore->AddScore(150); //adding score
 				//drop keycard on death
 				KeyCard* pKeyCard = new KeyCard();
-				pKeyCard->Initialise(position, pObjectManager, pSoldier);
+				pKeyCard->Initialise(position);
 				pObjectManager->AddObject(pKeyCard);
 			}
 			break;
@@ -214,7 +214,7 @@ void RoamingRobot::Update(double gt)
 				pScore->AddScore(150); //adding score
 				//drop keycard on death
 				KeyCard* pKeyCard = new KeyCard();
-				pKeyCard->Initialise(position, pObjectManager, pSoldier);
+				pKeyCard->Initialise(position);
 				pObjectManager->AddObject(pKeyCard);
 			}	
 			break;

@@ -16,6 +16,8 @@ This file...
 #include "outerwall.h"
 #include "boss.h"
 #include "RoamingRobot.h"
+#include "gate.h"
+#include "KeyCard.h"
 
 
 //Initialise Soldier
@@ -36,6 +38,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
 	cardCount = 0;
+	accessCount = 0;
 
 	//new animation engine
 	walk = AddAnimation();
@@ -59,11 +62,9 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 void Soldier::Update(double gt)
 {
 	gameTime = gt; //keep a local gametime
-	if (health <= 0)
+	if (health <= 0) //death
 	{
 		Deactivate();
-		// create new soldier and add blinking effect (respawn) TODO
-
 	}
 
 	// placing camera center at location of soldier and zooming in slightly
@@ -148,7 +149,6 @@ void Soldier::Render()
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
 		pDE->DrawAt(position, image, scale, angle, 0.0f);
-
 	}
 }
 
@@ -173,14 +173,18 @@ void Soldier::HandleCollision(GameObject& other)
 	{
 		health = health - 10;
 	}
+	if (typeid(other) == typeid(KeyCard))
+	{
+		cardCount += 1;
+	}
 	if (typeid(other) == typeid(BrickWall))
 	{
 		float otherPosX = other.GetPosition().XValue; //reduce number of calls
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 26.0f;
 		float wallSize = 110.0f; //wallSize value gained by tweaking and testing
-		MyDrawEngine* draw = MyDrawEngine::GetInstance();
-		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)
@@ -214,16 +218,17 @@ void Soldier::HandleCollision(GameObject& other)
 	{
 		MyInputs* pInputs = MyInputs::GetInstance();
 		pInputs->SampleKeyboard();
-		if (pInputs->KeyPressed(DIK_E) && cardCount == 0)
+		if (pInputs->KeyPressed(DIK_F) && cardCount == 0)
 		{
 			pSoundFX->PlayAccessDenied();
 		}
-		if (pInputs->KeyPressed(DIK_E) && cardCount >= 1)
+		if (pInputs->KeyPressed(DIK_F) && cardCount >= 1)
 		{
 			health = 100;
 			pSoundFX->PlayChirp();
 			pScore->AddScore(50);
 			cardCount -= 1;
+			accessCount += 1;
 			other.Deactivate();
 		}
 		
@@ -264,16 +269,35 @@ void Soldier::HandleCollision(GameObject& other)
 		MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 		pDrawEngine->theCamera.SetZoom(3.0f);
 	}
-	if (typeid(other) == typeid(RoamingRobot))
+	if (typeid(other) == typeid(gate) && accessCount <= 3)
 	{
+		float otherPosX = other.GetPosition().XValue; //reduce number of calls
+		float otherPosY = other.GetPosition().YValue;
+		float playerSize = 26.0f;
+		float wallSize = 110.0f; //wallSize value gained by tweaking and testing
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 		
-		timer += gameTime; //start count
-		if (timer >= 1.0f)
+		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
+			&& position.YValue - wallSize / 2.0f < otherPosY)
 		{
-			//health = health - 20;
-			timer = 0.0f; //reset timer
+			position.XValue = otherPosX + (playerSize + wallSize) / 2.0f;
 		}
-		
+		if (position.XValue < otherPosX && position.YValue - wallSize / 2.0f < otherPosY
+			&& position.YValue + wallSize / 2.0f > otherPosY)
+		{
+			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue > otherPosY && position.XValue + wallSize / 2 > otherPosX
+			&& position.XValue - wallSize / 2.0f < otherPosX)
+		{
+			position.YValue = otherPosY + (playerSize + wallSize) / 2.0f;
+		}
+		if (position.YValue < otherPosY && position.XValue - wallSize / 2.0f < otherPosX
+			&& position.XValue + wallSize / 2.0f > otherPosX)
+		{
+			position.YValue = otherPosY - (playerSize + wallSize) / 2.0f;
+		}
 	}
 }
 
@@ -302,12 +326,12 @@ void Soldier::DealDamage(int damageAmount)
 	health -= damageAmount;
 }
 
-void Soldier::PickupKeycard(int card)
-{
-	cardCount += card;
-}
-
 int Soldier::GetCardCount()
 {
 	return cardCount;
+}
+
+int Soldier::GetAccessCount()
+{
+	return accessCount;
 }

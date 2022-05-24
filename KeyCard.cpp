@@ -5,15 +5,13 @@ This file...
 #include "KeyCard.h"
 #include "soldier.h"
 
-void KeyCard::Initialise(Vector2D pos, ObjectManager* pOM, Soldier* pSol)
+void KeyCard::Initialise(Vector2D pos)
 {
 	position.set(pos);
 	LoadImg(L"Images/KeyCard/keyCard.png");
 	angle = 0;
 	active = true;
 	scale = 1.0f;
-	pObjectManager = pOM;
-	pSoldier = pSol;
 }
 void KeyCard::Update(double gt)
 {
@@ -35,7 +33,6 @@ void KeyCard::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Soldier))
 	{
-		pSoldier->PickupKeycard(1);
 		Deactivate();
 	}
 }

@@ -9,6 +9,7 @@ This file...
 #include "brickwall.h"
 #include "stinger.h"
 #include "outerwall.h"
+#include "KeyCard.h"
 
 void Enemy::Initialise(Vector2D initialPos, Vector2D vel, ObjectManager* pOM, SoundFX* sound, Score* pCurrentScore)
 {
@@ -47,6 +48,10 @@ void Enemy::Update(double gt)
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 3.0f, 1.0f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		//drop keycard on death
+		KeyCard* pKeyCard = new KeyCard();
+		pKeyCard->Initialise(position);
+		pObjectManager->AddObject(pKeyCard);
 	}
 	else
 	{
