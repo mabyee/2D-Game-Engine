@@ -4,6 +4,7 @@ This file...
 */
 #pragma once
 #include "GameObject.h"
+#include "soldier.h"
 
 class HUD
 {
@@ -14,9 +15,12 @@ private:
 	int screenWidth;
 	float scale;
 	float transparency;
+	Soldier* pSoldier;
+	int stingerAmmo, ammo, health, cardCount;
+
 public:
-	void Initialise();
-	void Update(int score, int health, int ammo, int stingerAmmo);
+	void Initialise(Soldier* pSol);
+	void Update(int score);
 	//HUD();
 	//~HUD();
 };

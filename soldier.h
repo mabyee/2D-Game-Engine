@@ -23,6 +23,7 @@ private:
 	int stingerAmmo;
 	int ammo;
 	int health;
+	int cardCount;
 
 	//movement stats
 	Vector2D velocity;
@@ -52,5 +53,7 @@ public:
 	int GetAmmo();
 	int GetStingerAmmo();
 	int GetHealth();
+	int GetCardCount();
 	void DealDamage(int damageAmount);
+	void PickupKeycard(int card);
 };

@@ -157,6 +157,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="gametimer.cpp" />
     <ClCompile Include="HUD.cpp" />
+    <ClCompile Include="KeyCard.cpp" />
     <ClCompile Include="mydrawengine.cpp" />
     <ClCompile Include="myinputs.cpp" />
     <ClCompile Include="mysoundengine.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="gametimer.h" />
     <ClInclude Include="HUD.h" />
+    <ClInclude Include="KeyCard.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="outerwall.h" />

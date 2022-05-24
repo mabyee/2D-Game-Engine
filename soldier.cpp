@@ -35,6 +35,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	HealthBar.PlaceAt(0,0,20,10);
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
+	cardCount = 0;
 
 	//new animation engine
 	walk = AddAnimation();
@@ -288,4 +289,14 @@ int Soldier::GetHealth()
 void Soldier::DealDamage(int damageAmount)
 {
 	health -= damageAmount;
+}
+
+void Soldier::PickupKeycard(int card)
+{
+	cardCount += card;
+}
+
+int Soldier::GetCardCount()
+{
+	return cardCount;
 }

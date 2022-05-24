@@ -430,7 +430,7 @@ ErrorType Game::StartOfGame()
 	}
 
 	// HUD
-	HUD.Initialise();
+	HUD.Initialise(pSoldier);
 
 	// Computer
 	for (int i = 0; i < 4; i++)
@@ -484,7 +484,8 @@ ErrorType Game::Update()
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
 	
-	HUD.Update(Score.GetScore(),pSoldier->GetHealth(),pSoldier->GetAmmo(),pSoldier->GetStingerAmmo()); // Drawing HUD
+	// HUD.Update(Score.GetScore(),pSoldier->GetHealth(),pSoldier->GetAmmo(),pSoldier->GetStingerAmmo(),pSoldier);
+	HUD.Update(Score.GetScore()); // Drawing HUD
 
 	// *********************************************************************
    // *********************************************************************
