@@ -8,10 +8,11 @@ This file...
 class Wall :public GameObject
 {
 private:
-	Circle2D detectionRadius;
+
 public:
 	void Initialise(Vector2D pos, float ang);
 	Rectangle2D collisionShape;
+	Circle2D detectionRadius;
 	IShape2D& GetShape();
 	IShape2D& GetDetectionRadius();
 	void Update(double gt);

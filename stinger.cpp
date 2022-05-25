@@ -56,14 +56,17 @@ void Stinger::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Enemy))
 	{
+		pSoundFX->PlayZap();
 		Deactivate();
 	}
 	if (typeid(other) == typeid(Boss))
 	{
+		pSoundFX->PlayZap();
 		Deactivate();
 	}
 	if (typeid(other) == typeid(RoamingRobot))
 	{
+		pSoundFX->PlayZap();
 		Deactivate();
 	}
 }

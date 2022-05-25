@@ -290,28 +290,38 @@ void RoamingRobot::HandleCollision(GameObject& other)
 	{
 		float otherPosX = other.GetPosition().XValue; //reduce number of calls
 		float otherPosY = other.GetPosition().YValue;
-		float playerSize = 50.0f;
-		float wallSize = 130.0f; //wallSize value gained by tweaking and testing
+		float playerSize = 26.0f;
+		float wallSize = 130.0f;
+		float offset = 14.0f;
+		outerwall& wall = dynamic_cast<outerwall&>(other);
 
-		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
-			&& position.YValue - wallSize / 2.0f < otherPosY)
+		//right
+		if (position.XValue > otherPosX
+			&& position.YValue > (otherPosY - (wallSize / 2))
+			&& position.YValue < otherPosY + (wallSize * wall.GetWallHeight()) - wallSize / 2)
 		{
-			position.XValue = otherPosX + (playerSize + wallSize) / 2.0f;
+			position.XValue = otherPosX + (playerSize + (wallSize * wall.GetWallWidth())) - wallSize / 2;
 		}
-		if (position.XValue < otherPosX && position.YValue - wallSize / 2.0f < otherPosY
-			&& position.YValue + wallSize / 2.0f > otherPosY)
+		//left
+		if (position.XValue < otherPosX
+			&& position.YValue - (wallSize * wall.GetWallHeight()) < otherPosY
+			&& position.YValue + (wallSize * wall.GetWallHeight()) > otherPosY)
 		{
-			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f;
+			position.XValue = otherPosX - (playerSize + (wallSize)) / 2.0f - offset;
 		}
-		if (position.YValue > otherPosY && position.XValue + wallSize / 2 > otherPosX
-			&& position.XValue - wallSize / 2.0f < otherPosX)
+		//top
+		if (position.YValue > otherPosY
+			&& position.XValue > (otherPosX - (wallSize / 2))
+			&& position.XValue < otherPosX + (wallSize * wall.GetWallWidth()) - wallSize / 2)
 		{
-			position.YValue = otherPosY + (playerSize + wallSize) / 2.0f;
+			position.YValue = otherPosY + (playerSize + (wallSize * wall.GetWallHeight())) - wallSize / 2;
 		}
-		if (position.YValue < otherPosY && position.XValue - wallSize / 2.0f < otherPosX
-			&& position.XValue + wallSize / 2.0f > otherPosX)
+		//bottom
+		if (position.YValue < otherPosY
+			&& position.XValue - (wallSize * wall.GetWallWidth()) - offset * 2 < otherPosX
+			&& position.XValue + (wallSize * wall.GetWallWidth()) > otherPosX)
 		{
-			position.YValue = otherPosY - (playerSize + wallSize) / 2.0f;
+			position.YValue = otherPosY - (playerSize)-wallSize / 2;
 		}
 	}
 	if (typeid(other) == typeid(BrickWall))

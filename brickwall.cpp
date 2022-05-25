@@ -35,23 +35,12 @@ void BrickWall::Update(double gt)
 	}
 }
 
-IShape2D& BrickWall::GetShape()
-{
-	collisionShape.PlaceAt(position - Vector2D(44,44), position + Vector2D(44, 44));
-	return collisionShape;
-}
-
 void BrickWall::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Bullet))
 	{
 		health = health - 5;
 	}
-}
-IShape2D& BrickWall::GetDetectionRadius()
-{
-	detectionRadius.PlaceAt(position,0);
-	return detectionRadius;
 }
 
 void BrickWall::HandleDetection(GameObject& other)

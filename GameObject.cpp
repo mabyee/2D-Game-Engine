@@ -7,10 +7,7 @@ This file...
 
 void GameObject::Update(double gt)
 {
-	if (active)
-	{
 
-	}
 }
 
 void GameObject::AddImage(Animation* anim, const wchar_t* filename) {};

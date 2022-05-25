@@ -15,9 +15,9 @@ void Bullet::Initialise(Vector2D initialPos, float soldierAngle, float bulletSpe
 {
 	position.set(initialPos);
 	velocity.setBearing(soldierAngle, bulletSpeed);
-	LoadImg(L"Images/Bullet/bullet.bmp");
+	LoadImg(L"Images/Bullet/bullet.png");
 	active = true;
-	scale = 2.0f;
+	scale = 0.5f;
 	timer = 5.0f;
 	angle = soldierAngle;
 	pObjectManager = pOM;

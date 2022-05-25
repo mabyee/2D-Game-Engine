@@ -308,6 +308,8 @@ ErrorType Game::StartOfGame()
    // Code to set up your game *********************************************
    // **********************************************************************
 
+	// Loading background
+	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/Background/backgroundFloor.bmp");
 // Procedurally generating the level ------------------------------------------------------------------------
 	int numberRows = 23;
 	int numberCol = 37;
@@ -334,6 +336,7 @@ ErrorType Game::StartOfGame()
 	}
 	// --------Placing initial walls--------------
 	// outer walls
+	
 	for (int i = 0; i < TILES; i++)//loop through entire initialArr
 	{
 		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y || initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
@@ -344,11 +347,7 @@ ErrorType Game::StartOfGame()
 			}
 			else 
 			{
-				outerwall* pOuterWall = new outerwall();
-				pos = initialArr[i];
-				ang = 0.0f;
-				pOuterWall->Initialise(pos, ang);
-				ObjectManager.AddObject(pOuterWall);
+				
 			}
 		}
 		// inner walls
@@ -395,8 +394,28 @@ ErrorType Game::StartOfGame()
 	}
 
 	// finished creating walls ------------------------------------------------------------------------------
-	// Loading background
-	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/Background/backgroundFloor.bmp");
+	//outer wall
+	outerwall* pOuterWallBot = new outerwall();
+
+	pOuterWallBot->Initialise(Vector2D(FIRST_X, FIRST_Y), 0.0f, 37, 1);
+	ObjectManager.AddObject(pOuterWallBot);
+
+	outerwall* pOuterWallTop1 = new outerwall();
+	pOuterWallTop1->Initialise(Vector2D(FIRST_X, LAST_Y), 0.0f, 18, 1);
+	ObjectManager.AddObject(pOuterWallTop1);
+
+	outerwall* pOuterWallTop2 = new outerwall();
+	pOuterWallTop2->Initialise(Vector2D(-16+88, GATE_Y), 0.0f, 18, 1);
+	ObjectManager.AddObject(pOuterWallTop2);
+
+	outerwall* pOuterWallLeft = new outerwall();
+	pOuterWallLeft->Initialise(Vector2D(FIRST_X, FIRST_Y), 0.0f, 1, 23);
+	ObjectManager.AddObject(pOuterWallLeft);
+
+	outerwall* pOuterWallRight = new outerwall();
+	pOuterWallRight->Initialise(Vector2D(LAST_X, FIRST_Y), 0.0f, 1, 23);
+	ObjectManager.AddObject(pOuterWallRight);
+	
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
