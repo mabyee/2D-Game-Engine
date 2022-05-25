@@ -292,8 +292,6 @@ void RoamingRobot::HandleCollision(GameObject& other)
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 50.0f;
 		float wallSize = 130.0f; //wallSize value gained by tweaking and testing
-		MyDrawEngine* draw = MyDrawEngine::GetInstance();
-		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)
@@ -322,8 +320,6 @@ void RoamingRobot::HandleCollision(GameObject& other)
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 50.0f;
 		float wallSize = 130.0f; //wallSize value gained by tweaking and testing
-		MyDrawEngine* draw = MyDrawEngine::GetInstance();
-		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)

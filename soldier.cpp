@@ -128,7 +128,7 @@ void Soldier::Update(double gt)
 		{
 			pSoundFX->PlayStingerDrop();
 			Stinger* pStinger = new Stinger();
-			pStinger->Initialise(position,pObjectManager);
+			pStinger->Initialise(position,pObjectManager, pSoundFX);
 			pObjectManager->AddObject(pStinger);
 			// place object that does damage, costs 5 ammo, explodes on collision
 			stingerAmmo = stingerAmmo - 1;
@@ -183,8 +183,6 @@ void Soldier::HandleCollision(GameObject& other)
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 26.0f;
 		float wallSize = 110.0f; //wallSize value gained by tweaking and testing
-		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)
@@ -239,8 +237,6 @@ void Soldier::HandleCollision(GameObject& other)
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 26.0f;
 		float wallSize = 102.0f;
-		MyDrawEngine* draw = MyDrawEngine::GetInstance();
-		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)

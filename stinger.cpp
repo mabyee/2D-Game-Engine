@@ -8,11 +8,12 @@ This file...
 #include "soldier.h"
 #include "RoamingRobot.h"
 
-void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM)
+void Stinger::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound)
 {
 	position.set(initialPos);
 	active = true;
 	scale = 2.0f;
+	pSoundFX = sound;
 
 	//loading images of stinger
 	blink = AddAnimation();

@@ -6,6 +6,7 @@ This file...
 #include "GameObject.h"
 #include "ObjectManager.h"
 #include "AnimatedGameObject.h"
+#include "SoundFX.h"
 
 class Stinger :public AnimatedGameObject
 {
@@ -15,8 +16,9 @@ private:
 	Circle2D detectionRadius;
 	ObjectManager* pObjectManager;
 	int health;
+	SoundFX* pSoundFX;
 public:
-	void Initialise(Vector2D initialPos, ObjectManager* pOM);
+	void Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound);
 	void Update(double gt);
 	void Render()override;
 	IShape2D& GetShape();
