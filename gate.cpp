@@ -62,7 +62,7 @@ void gate::HandleDetection(GameObject& other)
 	if (typeid(other) == typeid(Soldier))
 	{
 		int accessCount = pSoldier->GetAccessCount();
-		if (accessCount == 4) //only open if all computers accessed
+		if (accessCount >= 4) //only open if all computers accessed
 		{
 			static bool initialized; //only execute once
 			if (!initialized) {

@@ -38,7 +38,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
 	cardCount = 0;
-	accessCount = 4;
+	accessCount = 0;
 
 	//new animation engine
 	walk = AddAnimation();
@@ -167,11 +167,12 @@ void Soldier::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Enemy))
 	{
-		health = health - 50;
+		health -= 50;
 	}
 	if (typeid(other) == typeid(Bullet))
 	{
-		health = health - 10;
+		health -= 10;
+		other.Deactivate();
 	}
 	if (typeid(other) == typeid(KeyCard))
 	{
@@ -271,7 +272,7 @@ void Soldier::HandleCollision(GameObject& other)
 	}
 	if (typeid(other) == typeid(Boss))
 	{
-		health = health - 0.1;
+		health -= 0.005; //slowly lose health
 		MyDrawEngine* pDrawEngine = MyDrawEngine::GetInstance();
 		pDrawEngine->theCamera.SetZoom(3.0f);
 	}

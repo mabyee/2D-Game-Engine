@@ -8,7 +8,7 @@
 
 void RoamingRobot::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, Soldier* solPos, Score* pCurrentScore)
 {
-	movementSpeed = 5.0f;
+	movementSpeed = 3.0f;
 	health = 150.0f;
 	position.set(initialPos);
 	active = true;
@@ -133,11 +133,11 @@ void RoamingRobot::Update(double gt)
 	soldierAmmo = pSoldier->GetAmmo();
 	if (soldierAmmo <= 5) //increase movement speed if the soldier is low on ammo
 	{
-		movementSpeed = 7.0f;
+		movementSpeed = 5.0f;
 	}
 	else
 	{
-		movementSpeed = 5.0f;
+		movementSpeed = 3.0f;
 	}
 
 	if (direction == 1 && active) //animations if facing right
@@ -252,7 +252,6 @@ void RoamingRobot::Update(double gt)
 	{
 		state = currentState::IDLE; //reset to IDLE if not full health to heal
 	}
-	
 }
 
 void RoamingRobot::Render()
@@ -291,37 +290,33 @@ void RoamingRobot::HandleCollision(GameObject& other)
 		float otherPosX = other.GetPosition().XValue; //reduce number of calls
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 26.0f;
-		float wallSize = 130.0f;
+		float wallSize = 140.0f;
 		float offset = 14.0f;
 		outerwall& wall = dynamic_cast<outerwall&>(other);
 
 		//right
-		if (position.XValue > otherPosX
-			&& position.YValue > (otherPosY - (wallSize / 2))
+		if (position.XValue > otherPosX && position.YValue > (otherPosY - (wallSize / 2))
 			&& position.YValue < otherPosY + (wallSize * wall.GetWallHeight()) - wallSize / 2)
 		{
 			position.XValue = otherPosX + (playerSize + (wallSize * wall.GetWallWidth())) - wallSize / 2;
 		}
 		//left
-		if (position.XValue < otherPosX
-			&& position.YValue - (wallSize * wall.GetWallHeight()) < otherPosY
+		if (position.XValue < otherPosX && position.YValue - (wallSize * wall.GetWallHeight()) < otherPosY
 			&& position.YValue + (wallSize * wall.GetWallHeight()) > otherPosY)
 		{
-			position.XValue = otherPosX - (playerSize + (wallSize)) / 2.0f - offset;
+			position.XValue = otherPosX - (playerSize + wallSize) / 2.0f - offset;
 		}
 		//top
-		if (position.YValue > otherPosY
-			&& position.XValue > (otherPosX - (wallSize / 2))
+		if (position.YValue > otherPosY && position.XValue > (otherPosX - (wallSize / 2))
 			&& position.XValue < otherPosX + (wallSize * wall.GetWallWidth()) - wallSize / 2)
 		{
 			position.YValue = otherPosY + (playerSize + (wallSize * wall.GetWallHeight())) - wallSize / 2;
 		}
 		//bottom
-		if (position.YValue < otherPosY
-			&& position.XValue - (wallSize * wall.GetWallWidth()) - offset * 2 < otherPosX
+		if (position.YValue < otherPosY && position.XValue - (wallSize * wall.GetWallWidth()) - offset * 2 < otherPosX
 			&& position.XValue + (wallSize * wall.GetWallWidth()) > otherPosX)
 		{
-			position.YValue = otherPosY - (playerSize)-wallSize / 2;
+			position.YValue = otherPosY - playerSize-wallSize / 2;
 		}
 	}
 	if (typeid(other) == typeid(BrickWall))
@@ -329,7 +324,7 @@ void RoamingRobot::HandleCollision(GameObject& other)
 		float otherPosX = other.GetPosition().XValue; //reduce number of calls
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 50.0f;
-		float wallSize = 130.0f; //wallSize value gained by tweaking and testing
+		float wallSize = 130.0f; //wallSize value slightly larger than wall size
 
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)

@@ -54,7 +54,7 @@ void Turret::Update(double gt)
 	}
 	else
 	{
-		angle = angle + 0.02;
+		angle = angle + 0.4 * gt;
 		cooldown -= gt;
 	}
 	Animate(gt);

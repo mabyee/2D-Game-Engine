@@ -8,7 +8,7 @@ void Boss::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound, S
 {
 	health = 500;
 	position.set(initialPos);
-	speed = 3.0f;
+	speed = 50.0f;
 	angle = 0.0f;
 	active = true;
 	scale = 2.0f;
@@ -38,8 +38,8 @@ void Boss::Update(double gt)
 		float hyp = sqrt(dirX * dirX + dirY * dirY);
 		dirX /= hyp;
 		dirY /= hyp;
-		position.XValue += dirX * speed;
-		position.YValue += dirY * speed;
+		position.XValue += dirX * speed*gt;
+		position.YValue += dirY * speed*gt;
 
 		SetCurrentAnimation(move);
 		Animate(gt);
@@ -52,7 +52,6 @@ void Boss::Render()
 	{
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
 		pDE->DrawAt(position, image, scale, angle, 0.1f);
-
 	}
 }
 
@@ -71,9 +70,9 @@ void Boss::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Soldier))
 	{
-		health = health + 0.1; //heals when damaging the player
-		scale = scale + 0.02; //grows as he damages the player
+		scale += 0.02; //grows as he damages the player
 	}
+
 }
 void Boss::HandleDetection(GameObject& other)
 {
