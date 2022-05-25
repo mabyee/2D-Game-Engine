@@ -8,7 +8,22 @@ This file...
 void KeyCard::Initialise(Vector2D pos)
 {
 	position.set(pos);
-	LoadImg(L"Images/KeyCard/keyCard.png");
+	int selection = rand() % 4;
+	switch (selection) //randomly load one of 4 keycard images
+	{
+	case 0:
+		LoadImg(L"Images/KeyCard/keyCard0.png");
+		break;
+	case 1:
+		LoadImg(L"Images/KeyCard/keyCard1.png");
+		break;
+	case 2:
+		LoadImg(L"Images/KeyCard/keyCard2.png");
+		break;
+	case 3:
+		LoadImg(L"Images/KeyCard/keyCard3.png");
+		break;
+	}
 	angle = 0;
 	active = true;
 	scale = 1.0f;

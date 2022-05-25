@@ -13,11 +13,11 @@ private:
 	SoundIndex Explosions[5];
 	SoundIndex Thrust;
 	SoundIndex Shoot;
-	SoundIndex Alarm;
 	SoundIndex Chirp;
 	SoundIndex stingerDrop;
 	SoundIndex healthPickup;
 	SoundIndex AccessDenied;
+	SoundIndex Zap;
 
 public:
 	void LoadSounds();
@@ -25,10 +25,10 @@ public:
 	void PlayExplosion();
 	void StartThrust();
 	void StopThrust();
-	void StartAlarm();
 	void PlayChirp();
 	void PlayStingerDrop();
 	void PlayHealthPickup();
 	void PlayAccessDenied();
+	void PlayZap();
 };
 

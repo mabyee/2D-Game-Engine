@@ -9,7 +9,6 @@ void SoundFX::LoadSounds()
 	MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
 	Shoot = pSoundEngine->LoadWav(L"Sounds/shoot.wav");
 	Thrust = pSoundEngine->LoadWav(L"Sounds/thrustloop2.wav");
-	Alarm = pSoundEngine->LoadWav(L"Sounds/alert.wav");
 	Chirp = pSoundEngine->LoadWav(L"Sounds/chirp.wav");
 	healthPickup = pSoundEngine->LoadWav(L"Sounds/healthPickup.wav");
 	stingerDrop = pSoundEngine->LoadWav(L"Sounds/stingerDrop.wav");
@@ -19,6 +18,7 @@ void SoundFX::LoadSounds()
 	Explosions[3] = pSoundEngine->LoadWav(L"Sounds/explosion4.wav");
 	Explosions[4] = pSoundEngine->LoadWav(L"Sounds/explosion5.wav");
 	AccessDenied = pSoundEngine->LoadWav(L"Sounds/accessDenied.wav");
+	Zap = pSoundEngine->LoadWav(L"Sounds/zap.wav");
 }
 
 void SoundFX::PlayShot()
@@ -46,11 +46,6 @@ void SoundFX::StopThrust()
 	MySoundEngine::GetInstance()->Stop(Thrust);
 }
 
-void SoundFX::StartAlarm()
-{
-	MySoundEngine::GetInstance()->Play(Alarm);
-}
-
 void SoundFX::PlayChirp()
 {
 	MySoundEngine::GetInstance()->Play(Chirp);
@@ -69,4 +64,9 @@ void SoundFX::PlayHealthPickup()
 void SoundFX::PlayAccessDenied()
 {
 	MySoundEngine::GetInstance()->Play(AccessDenied);
+}
+
+void SoundFX::PlayZap()
+{
+	MySoundEngine::GetInstance()->Play(Zap);
 }
