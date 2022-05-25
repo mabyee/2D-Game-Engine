@@ -15,6 +15,7 @@
 #include "turret.h"
 #include "RoamingRobot.h"
 #include "gate.h"
+#include <thread>
 
 Game::Game()
 {
@@ -302,8 +303,9 @@ ErrorType Game::StartOfGame()
 			j++;
 		}
 	}
-	// placing outer bound walls
-	for (int i = 0; i < TILES; i++)
+	// --------Placing initial walls--------------
+	// outer walls
+	for (int i = 0; i < TILES; i++)//loop through entire initialArr
 	{
 		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y || initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
 		{
@@ -320,11 +322,7 @@ ErrorType Game::StartOfGame()
 				ObjectManager.AddObject(pOuterWall);
 			}
 		}
-	}
-	// Deciding where to place walls
-	endArr[0] = initialArr[0];
-	for (int i = 0; i < TILES;i++) //loop through entire initialArr
-	{
+		// inner walls
 		int n = rand() % 3 + 1; // 33% chance of creating a wall
 		if (n == 1)
 		{
@@ -332,39 +330,28 @@ ErrorType Game::StartOfGame()
 		}
 		else
 		{
-			if (initialArr[i] != Vector2D(0, 0))
+			if (initialArr[i] != Vector2D(0, 0) && !(initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X || initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y))
 			{
-				if (initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X || initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y)
-				{
-				}
-				else
-				{
-					spawnArr[spawnCounter] = initialArr[i];
-					spawnCounter++;
-				}	
+				spawnArr[spawnCounter] = initialArr[i];
+				spawnCounter++;
 			}
-			
 		}
 	}
 
 	for (int i = 0; i < TILES; i++)
 	{
-		if (endArr[i] != Vector2D(0, 0))
-		{//if the wall does not have a wall next to it, delete it
-			{
-				//if the wall does not have a wall next to it, delete it
-				if (endArr[i].XValue != endArr[i + 1].XValue && endArr[i].YValue != endArr[i + numberRows].YValue && endArr[i].YValue != endArr[i - numberRows].YValue && endArr[i].XValue != endArr[i - 1].XValue)
-				{
-					endArr[i] = Vector2D(0, 0);
-				}
-				//deleting any overlapping walls on outside
-				if (endArr[i].XValue == FIRST_X || endArr[i].XValue == LAST_X || endArr[i].YValue == FIRST_Y || endArr[i].YValue == LAST_Y)
-				{
-					endArr[i] = Vector2D(0, 0);
-				}
-			}
+		//if the wall is not at 0,0 and does not have a wall next to it, delete it
+		if (endArr[i] != Vector2D(0, 0)  && endArr[i].XValue != endArr[i + 1].XValue && endArr[i].YValue != endArr[i + numberRows].YValue && endArr[i].YValue != endArr[i - numberRows].YValue && endArr[i].XValue != endArr[i - 1].XValue)
+		{
+			endArr[i] = Vector2D(0, 0);
+		}
+		//deleting any overlapping walls on outside
+		if (endArr[i] != Vector2D(0, 0) && endArr[i].XValue == FIRST_X || endArr[i].XValue == LAST_X || endArr[i].YValue == FIRST_Y || endArr[i].YValue == LAST_Y)
+		{
+			endArr[i] = Vector2D(0, 0);
 		}
 	}
+
 	// Placing walls where vector != (0,0)
 	for (int i = 0; i < TILES; i++)
 	{
