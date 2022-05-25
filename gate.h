@@ -13,6 +13,7 @@ private:
 	Rectangle2D detectionRadius;
 	int open, opening, closed;
 	Soldier* pSoldier;
+	double timer;
 public:
 	void Initialise(Vector2D pos, Soldier* pSol);
 	void Update(double gt);

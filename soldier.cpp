@@ -38,7 +38,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
 	cardCount = 0;
-	accessCount = 0;
+	accessCount = 4;
 
 	//new animation engine
 	walk = AddAnimation();

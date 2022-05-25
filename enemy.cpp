@@ -120,11 +120,8 @@ void Enemy::HandleCollision(GameObject& other)
 
 	if (typeid(other) == typeid(outerwall))
 	{
-		Vector2D normal = (position - other.GetPosition()).unitVector();
-		if (normal * velocity < 0)
-		{
-			velocity = velocity - 2 * (velocity * normal) * normal;
-		}
+		velocity.XValue = -velocity.XValue;
+		velocity.YValue = -velocity.YValue;
 	}
 }
 void Enemy::HandleDetection(GameObject& other)

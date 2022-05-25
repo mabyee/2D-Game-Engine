@@ -3,7 +3,7 @@ Created by Henri Puennel, W19019002.
 This file...
 */
 #include "gate.h"
-
+#include "gamecode.h"
 
 void gate::Initialise(Vector2D pos, Soldier* pSol)
 {
@@ -68,8 +68,12 @@ void gate::HandleDetection(GameObject& other)
 			if (!initialized) {
 				initialized = true;
 				SetCurrentAnimation(opening);
-			} 
-			// TODO: GAME OVER
+			}
+			timer += 0.1;
+			if (timer >= 5)
+			{
+				Game::instance.ChangeState(Game::GameState::MENU);
+			}
 		}
 		else
 		{

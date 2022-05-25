@@ -526,11 +526,14 @@ ErrorType Game::Update()
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
 	
-	// HUD.Update(Score.GetScore(),pSoldier->GetHealth(),pSoldier->GetAmmo(),pSoldier->GetStingerAmmo(),pSoldier);
 	HUD.Update(Score.GetScore()); // Drawing HUD
 
 	// *********************************************************************
    // *********************************************************************
+	if (m_currentState == GameState::MENU)
+	{
+		EndOfGame();
+	}
 
 	return SUCCESS;
 }
@@ -544,7 +547,6 @@ ErrorType Game::EndOfGame()
 {
    // Add code here to tidy up ********************************************
    // *********************************************************************
-
 	Score.ResetScore();
 	delete pTheSoundFX;
 	ObjectManager.DeleteAll();

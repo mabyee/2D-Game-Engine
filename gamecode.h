@@ -28,14 +28,11 @@
 class Game
 {
 private:
-	enum GameState{MENU, PAUSED, RUNNING, GAMEOVER};
-	GameState m_currentState;      // Current state of the game 
                                   // Menu = start menu
                                   // Paused = paused
                                   // Running = the main game loop
                                   // GAMEOVER = setting this state causes the program to close
                                   //            after tidying up
-	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
 	int m_menuOption;              // Tracks the currently selected menu option, during main or pause menu
 	Game();                        // Constructor
 	~Game();                       // Destructor
@@ -57,6 +54,10 @@ private:
 	const int GATE_X = -1000;
 	PictureIndex backgroundImage;
 public:
+	enum GameState { MENU, PAUSED, RUNNING, GAMEOVER };
+	void ChangeState(GameState newState);  // Use to change the state of the game to one of the states above
+	GameState m_currentState;      // Current state of the game 
+
 	static Game instance;          // Singleton instance
 	Vector2D move;
 	
