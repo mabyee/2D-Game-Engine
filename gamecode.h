@@ -56,6 +56,7 @@ private:
 	const int GATE_Y = 936;
 	const int GATE_X = -1000;
 	PictureIndex backgroundImage;
+	PictureIndex backgroundWallImage;
 public:
 	static Game instance;          // Singleton instance
 	Vector2D move;

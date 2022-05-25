@@ -3,15 +3,19 @@ Created by Henri Puennel, W19019002.
 This file...
 */
 #pragma once
-#include "wall.h"
+#include "GameObject.h"
 
-class outerwall :public Wall
+class outerwall :public GameObject
 {
 private:
-
+	Rectangle2D collisionShape;
+	Circle2D detectionRadius;
+	int wallSide;
 public:
-	void Initialise(Vector2D pos, float ang);
+	void Initialise(int side);
 	void Update(double gt);
 	void HandleCollision(GameObject& other);
+	IShape2D& GetShape();
 	void HandleDetection(GameObject& other);
+	IShape2D& GetDetectionRadius();
 };

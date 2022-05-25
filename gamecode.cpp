@@ -15,7 +15,6 @@
 #include "turret.h"
 #include "RoamingRobot.h"
 #include "gate.h"
-#include <thread>
 
 Game::Game()
 {
@@ -214,8 +213,28 @@ ErrorType Game::MainMenu()
 	MyDrawEngine::GetInstance()->WriteText(450,220, L"Main menu", MyDrawEngine::WHITE);
 
 	const int NUMOPTIONS = 2;
+	const int NUMDESC = 7;
+	const int NUMKEYS = 6;
 	wchar_t options[NUMOPTIONS][15] = {L"Start game", L"Exit"};
-
+	wchar_t description[NUMDESC][60] = 
+	{ 
+		L"The objective of the game is shown",
+		L"at the top of the screen below the score.",
+		L"",
+		L"Some game information:",
+		L"- White blocks are destructible",
+		L"- The cloud does tick-damage and should be avoided",
+		L"- Enemies drop keycards"
+	};
+	wchar_t keys[NUMKEYS][50] =
+	{
+		L"Key Layout:",
+		L"W, S - Movement",
+		L"A, D - Rotation",
+		L"SPACE - Shoot",
+		L"F - Interact",
+		L"E - Place Stinger"
+	};
    // Display the options
 	for(int i=0;i<NUMOPTIONS;i++)
 	{
@@ -226,7 +245,16 @@ ErrorType Game::MainMenu()
 		}
 		MyDrawEngine::GetInstance()->WriteText(450,300+50*i, options[i], colour);
 	}
-
+	for (int i = 0; i < NUMDESC; i++)
+	{
+		int colour = MyDrawEngine::WHITE;
+		MyDrawEngine::GetInstance()->WriteText(450, 500 + 25 * i, description[i], colour);
+	}
+	for (int i = 0; i < NUMKEYS; i++)
+	{
+		int colour = MyDrawEngine::WHITE;
+		MyDrawEngine::GetInstance()->WriteText(450, 700 + 25 * i, keys[i], colour);
+	}
    // Get keyboard input
 	MyInputs* pInputs = MyInputs::GetInstance();
 
@@ -305,23 +333,15 @@ ErrorType Game::StartOfGame()
 	}
 	// --------Placing initial walls--------------
 	// outer walls
+	for (int i = 0; i <= 5; i++)
+	{
+		outerwall* pOuterWall = new outerwall();
+		pOuterWall->Initialise(i);
+		ObjectManager.AddObject(pOuterWall);
+	}
+
 	for (int i = 0; i < TILES; i++)//loop through entire initialArr
 	{
-		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y || initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
-		{
-			if (initialArr[i].YValue == LAST_Y && initialArr[i].XValue == -16)
-			{
-				//leave blank for gate
-			}
-			else 
-			{
-				outerwall* pOuterWall = new outerwall();
-				pos = initialArr[i];
-				ang = 0.0f;
-				pOuterWall->Initialise(pos, ang);
-				ObjectManager.AddObject(pOuterWall);
-			}
-		}
 		// inner walls
 		int n = rand() % 3 + 1; // 33% chance of creating a wall
 		if (n == 1)
@@ -366,8 +386,10 @@ ErrorType Game::StartOfGame()
 	}
 
 	// finished creating walls ------------------------------------------------------------------------------
-	// Loading background
+	// Loading background image
 	backgroundImage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/Background/backgroundFloor.bmp");
+	backgroundWallImage = MyDrawEngine::GetInstance()->LoadPicture(L"Images/Background/backgroundFloor.png");
+
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();
@@ -472,13 +494,14 @@ ErrorType Game::Update()
 
 	gt.mark();
 
-	MyDrawEngine::GetInstance()->DrawAt(Vector2D(0,0), backgroundImage, 0.95f, 0.0f, 0.0f); // Drawing background
+	MyDrawEngine::GetInstance()->DrawAt(Vector2D(0, 0), backgroundImage, 0.95f, 0.0f, 0.0f); // Drawing background
+	MyDrawEngine::GetInstance()->DrawAt(Vector2D(0,0), backgroundWallImage, 1.78f, 0.0f, 0.0f); // Drawing background walls
+	
 	ObjectManager.RenderAll();
 	ObjectManager.UpdateAll(gt.mdFrameTime);
 	ObjectManager.DeleteInactiveObjects();
 	ObjectManager.CheckAllCollisions();
 	
-	// HUD.Update(Score.GetScore(),pSoldier->GetHealth(),pSoldier->GetAmmo(),pSoldier->GetStingerAmmo(),pSoldier);
 	HUD.Update(Score.GetScore()); // Drawing HUD
 
 	// *********************************************************************

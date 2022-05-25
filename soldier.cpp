@@ -135,6 +135,14 @@ void Soldier::Update(double gt)
 		}
 	}
 
+	if (pInputs->KeyPressed(DIK_LSHIFT) && pInputs->KeyPressed(DIK_W))
+	{
+		acceleration.setBearing(angle, 100.0f);
+		velocity = velocity + acceleration * gt;
+		//walking animation
+		SetCurrentAnimation(walk);
+	}
+
 	DamageBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(50.0f, 65.0f));
 	HealthBar.PlaceAt(position + Vector2D(-50.0f, 50.0f), position + Vector2D(-50.0f + health, 65.0f));
 	MyDrawEngine::GetInstance()->FillRect(DamageBar, colourRed, 0.0f); //healthbar green area
@@ -238,7 +246,7 @@ void Soldier::HandleCollision(GameObject& other)
 		float otherPosX = other.GetPosition().XValue; //reduce number of calls
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 26.0f;
-		float wallSize = 102.0f;
+		float wallSize = 88.0f;
 		MyDrawEngine* draw = MyDrawEngine::GetInstance();
 		draw->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 
