@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file contains a boss cloud which roams across the map slowly hoaming into the player. It deals tick-damage and grows in size.
 */
 #pragma once
 #include "ObjectManager.h"

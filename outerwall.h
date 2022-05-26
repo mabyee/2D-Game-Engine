@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This is the outer wall, stopping the player or NPCs from leaving the play area.
 */
 #pragma once
 #include "GameObject.h"

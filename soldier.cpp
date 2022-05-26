@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is the soldier, which is controlled by the player. It can create bullets, move around and interact with other objects.
 */
 #pragma once
 #include "soldier.h"
@@ -38,7 +38,7 @@ void Soldier::Initialise(Vector2D initialPos, ObjectManager* pOM, SoundFX* sound
 	colourRed = _XRGB(255, 0, 0);
 	colourGreen = _XRGB(0, 255, 0);
 	cardCount = 0;
-	accessCount = 4;
+	accessCount = 0;
 
 	//new animation engine
 	walk = AddAnimation();
@@ -289,8 +289,6 @@ void Soldier::HandleCollision(GameObject& other)
 		float otherPosY = other.GetPosition().YValue;
 		float playerSize = 26.0f;
 		float wallSize = 110.0f; //wallSize value gained by tweaking and testing
-		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
-		pDE->WriteText(other.GetPosition(), L"Wall Here", MyDrawEngine::WHITE);
 		
 		if (position.XValue > otherPosX && position.YValue + wallSize / 2.0f > otherPosY
 			&& position.YValue - wallSize / 2.0f < otherPosY)

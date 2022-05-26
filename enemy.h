@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is a simple enemy which rotates and bounces of objects. Upon contact it explodes and deals damage.
 */
 #pragma once
 #include "GameObject.h"

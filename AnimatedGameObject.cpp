@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This file handels game objects which are animated.
+*/
 #include "AnimatedGameObject.h"
 
 void AnimatedGameObject::AddImage(int animCount, const wchar_t* filename)

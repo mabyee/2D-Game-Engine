@@ -1,6 +1,7 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file contains a turret which turns until it can sense a player close by. 
+Then it rotates to the players position and tracks and shoots in regular intervals.
 */
 #include "turret.h"
 #include "soldier.h"

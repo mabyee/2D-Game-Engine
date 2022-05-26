@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This is a drop-able item, controlled by the the soldier. It explodes when enemies collide with it.
 */
 #pragma once
 #include "GameObject.h"

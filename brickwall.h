@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This is the main wall element, used to contruct the inner walls. Inner walls are destructible.
 */
 #pragma once
 #include "GameObject.h"

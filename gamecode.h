@@ -1,7 +1,9 @@
 // gamecode.h
-// Shell engine version 2020
-// Chris Rook
-// Last modified 25/09/2018
+// Shell engine version 2022
+// Original by Chris Rook, modified by Henri Puennel, W19019002
+// Last modified 26/05/2022
+// This file is the main part of the engine, it runs all other components.
+// The Map is procedurally generated.
 //   Update to prevent game loop from flipping twice
 #pragma once
 #include "errortype.h"

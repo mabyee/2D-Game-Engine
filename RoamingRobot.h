@@ -1,3 +1,7 @@
+/*
+Created by Henri Puennel, W19019002.
+This is the smart AI, which has different behaviour depending on the players proximity, its health, and the players ammo count.
+*/
 #pragma once
 #include "AnimatedGameObject.h"
 #include "ObjectManager.h"

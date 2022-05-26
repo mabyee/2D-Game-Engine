@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is an ammo box which can be picked up to restore some ammo to the player.
 */
 #pragma once
 #include "GameObject.h"

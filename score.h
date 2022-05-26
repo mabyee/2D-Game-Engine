@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file stores and passes on the game score.
 */
 #pragma once
 class Score

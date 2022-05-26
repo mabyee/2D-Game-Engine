@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is the soldier, which is controlled by the player. It can create bullets, move around and interact with other objects.
 */
 #pragma once
 #include "ObjectManager.h"

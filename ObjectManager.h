@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is the object manager and tracks objects in the game, and handels the collision and detection between them.
 */
 #pragma once
 #include "GameObject.h"

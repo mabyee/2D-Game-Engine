@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file handels game objects which are animated.
 */
 #pragma once
 #include "GameObject.h"

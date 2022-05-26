@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This is the keycard which is dropped by enemies and the roaming robot. It is a consumable, needed to access computers.
 */
 #pragma once
 #include "GameObject.h"

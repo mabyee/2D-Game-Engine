@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is the HUD and displays soldier and score information.
 */
 #include "HUD.h"
 #include "GameObject.h"

@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is an abstract class, as a parent to all game objects. It is incharge of rendering and updating game objects.
 */
 #pragma once
 #include "errortype.h"

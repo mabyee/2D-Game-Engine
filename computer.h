@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is an computer which is unlocked to to progress in the game.
 */
 #pragma once
 #include "GameObject.h"

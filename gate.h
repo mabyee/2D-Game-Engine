@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file is the gate which the player enters to win the game. It is unlocked once 4 computers have been accessed.
 */
 #pragma once
 #include "AnimatedGameObject.h"

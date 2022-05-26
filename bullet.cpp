@@ -1,6 +1,6 @@
 /*
 Created by Henri Puennel, W19019002.
-This file...
+This file handels the creation and movement of bullets fired by other objects in the game.
 */
 #include "bullet.h"
 #include "enemy.h"
