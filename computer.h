@@ -9,7 +9,6 @@ This file...
 class computer : public AnimatedGameObject
 {
 private:
-	Vector2D velocity;
 	Rectangle2D collisionShape;
 	Circle2D detectionRadius;
 	int on, off;

@@ -8,7 +8,6 @@ void SoundFX::LoadSounds()
 {
 	MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
 	Shoot = pSoundEngine->LoadWav(L"Sounds/shoot.wav");
-	Thrust = pSoundEngine->LoadWav(L"Sounds/thrustloop2.wav");
 	Chirp = pSoundEngine->LoadWav(L"Sounds/chirp.wav");
 	healthPickup = pSoundEngine->LoadWav(L"Sounds/healthPickup.wav");
 	stingerDrop = pSoundEngine->LoadWav(L"Sounds/stingerDrop.wav");
@@ -34,16 +33,6 @@ void SoundFX::PlayExplosion()
 	{
 		nextExplosion = 0;
 	}
-}
-
-void SoundFX::StartThrust()
-{
-	MySoundEngine::GetInstance()->Play(Thrust, true);
-}
-
-void SoundFX::StopThrust()
-{
-	MySoundEngine::GetInstance()->Stop(Thrust);
 }
 
 void SoundFX::PlayChirp()

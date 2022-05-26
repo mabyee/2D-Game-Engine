@@ -38,14 +38,6 @@ void computer::Initialise(Vector2D pos, float size)
 
 void computer::Update(double gt)
 {
-	//if () // TODO, turn computer off when keycard used
-	//{
-	//	SetCurrentAnimation(off);
-	//}
-	//else
-	//{
-	//	SetCurrentAnimation(on);
-	//}
 	Animate(gt);
 }
 
