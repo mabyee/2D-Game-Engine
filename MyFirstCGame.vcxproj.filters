@@ -84,9 +84,6 @@
     <ClCompile Include="stinger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="outerwall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -183,9 +180,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stinger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wall.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="outerwall.h">
