@@ -12,6 +12,7 @@ void gate::Initialise(Vector2D pos, Soldier* pSol)
 	scale = 0.7f;
 	angle = 0.0f;
 	pSoldier = pSol;
+	hasWon = false;
 	
 	closed = AddAnimation();
 	AddImage(closed, L"Images/Gate/gateClosed.png");
@@ -54,13 +55,17 @@ void gate::Render()
 
 void gate::HandleCollision(GameObject& other)
 {
-	
+	if (typeid(other) == typeid(Soldier) && hasWon == true)
+	{
+		Game::instance.ChangeState(Game::GameState::MENU); //win game if passing through door and timer ended
+	}
 }
 
 void gate::HandleDetection(GameObject& other)
 {
 	if (typeid(other) == typeid(Soldier))
 	{
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
 		int accessCount = pSoldier->GetAccessCount();
 		if (accessCount >= 4) //only open if all computers accessed
 		{
@@ -69,15 +74,15 @@ void gate::HandleDetection(GameObject& other)
 				initialized = true;
 				SetCurrentAnimation(opening);
 			}
+			pDE->WriteText(other.GetPosition() + Vector2D(-80, 50), L"GAME OVER: YOU WON", MyDrawEngine::WHITE);
 			timer += 0.1;
-			if (timer >= 5)
+			if (timer >= 7) //set has won to true after some time has passed
 			{
-				Game::instance.ChangeState(Game::GameState::MENU);
+				hasWon = true;
 			}
 		}
 		else
 		{
-			MyDrawEngine* pDE = MyDrawEngine::GetInstance();
 			pDE->WriteText(position + Vector2D(-170, 50), L"ACCESS DENIED: You haven't accessed every computer", MyDrawEngine::WHITE);
 		}
 	}

@@ -46,3 +46,15 @@ void BrickWall::HandleCollision(GameObject& other)
 void BrickWall::HandleDetection(GameObject& other)
 {
 }
+
+IShape2D& BrickWall::GetDetectionRadius()
+{
+	detectionRadius.PlaceAt(position, 0);
+	return detectionRadius;
+}
+
+IShape2D& BrickWall::GetShape()
+{
+	collisionShape.PlaceAt(position - Vector2D(44, 44), position + Vector2D(44, 44));
+	return collisionShape;
+}

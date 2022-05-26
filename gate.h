@@ -14,6 +14,7 @@ private:
 	int open, opening, closed;
 	Soldier* pSoldier;
 	double timer;
+	bool hasWon;
 public:
 	void Initialise(Vector2D pos, Soldier* pSol);
 	void Update(double gt);

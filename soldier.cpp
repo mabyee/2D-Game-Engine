@@ -64,7 +64,14 @@ void Soldier::Update(double gt)
 	gameTime = gt; //keep a local gametime
 	if (health <= 0) //death
 	{
-		Deactivate();
+		timer += gt;
+		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
+		pDE->WriteText(position + Vector2D(-80, 50), L"GAME OVER: YOU DIED", MyDrawEngine::WHITE);
+		if (timer >= 3)
+		{
+			Game::instance.ChangeState(Game::GameState::MENU);
+			Deactivate();
+		}
 	}
 
 	// placing camera center at location of soldier and zooming in slightly

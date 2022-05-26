@@ -334,22 +334,10 @@ ErrorType Game::StartOfGame()
 			j++;
 		}
 	}
-	// --------Placing initial walls--------------
-	// outer walls
+	// --------Placing initial inner walls--------------
 	
 	for (int i = 0; i < TILES; i++)//loop through entire initialArr
 	{
-		if (initialArr[i].YValue == FIRST_Y || initialArr[i].YValue == LAST_Y || initialArr[i].XValue == FIRST_X || initialArr[i].XValue == LAST_X)
-		{
-			if (initialArr[i].YValue == LAST_Y && initialArr[i].XValue == -16)
-			{
-				//leave blank for gate
-			}
-			else 
-			{
-				
-			}
-		}
 		// inner walls
 		int n = rand() % 3 + 1; // 33% chance of creating a wall
 		if (n == 1)
@@ -392,11 +380,8 @@ ErrorType Game::StartOfGame()
 			ObjectManager.AddObject(pBrickWall);
 		}
 	}
-
-	// finished creating walls ------------------------------------------------------------------------------
-	//outer wall
+	//outer walls
 	outerwall* pOuterWallBot = new outerwall();
-
 	pOuterWallBot->Initialise(Vector2D(FIRST_X, FIRST_Y), 0.0f, 37, 1);
 	ObjectManager.AddObject(pOuterWallBot);
 
@@ -405,7 +390,7 @@ ErrorType Game::StartOfGame()
 	ObjectManager.AddObject(pOuterWallTop1);
 
 	outerwall* pOuterWallTop2 = new outerwall();
-	pOuterWallTop2->Initialise(Vector2D(-16+88, GATE_Y), 0.0f, 18, 1);
+	pOuterWallTop2->Initialise(Vector2D(-16 + 88, GATE_Y), 0.0f, 18, 1);
 	ObjectManager.AddObject(pOuterWallTop2);
 
 	outerwall* pOuterWallLeft = new outerwall();
@@ -415,7 +400,8 @@ ErrorType Game::StartOfGame()
 	outerwall* pOuterWallRight = new outerwall();
 	pOuterWallRight->Initialise(Vector2D(LAST_X, FIRST_Y), 0.0f, 1, 23);
 	ObjectManager.AddObject(pOuterWallRight);
-	
+
+	// finished creating walls ------------------------------------------------------------------------------
 	// Loading soundFX
 	pTheSoundFX = new SoundFX();
 	pTheSoundFX->LoadSounds();

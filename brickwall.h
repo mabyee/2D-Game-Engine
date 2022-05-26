@@ -4,9 +4,8 @@ This file...
 */
 #pragma once
 #include "GameObject.h"
-#include "wall.h"
 
-class BrickWall: public Wall
+class BrickWall: public GameObject
 {
 private:
 	int health;
@@ -15,4 +14,8 @@ public:
 	void Update(double gt);
 	void HandleCollision(GameObject& other);
 	void HandleDetection(GameObject& other);
+	Rectangle2D collisionShape;
+	Circle2D detectionRadius;
+	IShape2D& GetShape();
+	IShape2D& GetDetectionRadius();
 };
