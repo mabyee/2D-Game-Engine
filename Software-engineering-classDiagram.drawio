@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2022-05-26T10:56:31.959Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36" etag="hegD42sPp7tWzWXlObRj" version="18.1.2" type="github">
+<mxfile host="app.diagrams.net" modified="2022-05-26T11:21:39.634Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36" etag="cP7Z7db8sOrbLyhkrYq1" version="18.1.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="552" dy="702" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="749" dy="2122" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1654" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -224,6 +224,65 @@
         </mxCell>
         <mxCell id="MZ5k-7aTsP1du69uxO8d-163" value="+ GetDetectionRadius(): IShape2D&amp;&#xa;+ GetShape(): IShape2D&amp;&#xa;+ HandleCollision(other:GameObject&amp;)&#xa;+ Initialise(initialPos: Vector2D, &#xa;pOM: ObjectManager*, sound: SoundFX*,&#xa;pCurrentScore: Score*, solPos: Soldier*)&#xa;+ Render()&#xa;+ Update(gt: double)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-160">
           <mxGeometry y="368" width="240" height="122" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-169" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.966;entryY=1.027;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="MZ5k-7aTsP1du69uxO8d-165" target="MZ5k-7aTsP1du69uxO8d-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="630" y="730" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1100" y="1085" />
+              <mxPoint x="970" y="1085" />
+              <mxPoint x="970" y="730" />
+              <mxPoint x="630" y="730" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-165" value="computer" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="980" y="1120" width="240" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-166" value="- collisionShape: Circle2D&#xa;- detectionShape: Circle2D&#xa;- off: int&#xa;- on: int" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-165">
+          <mxGeometry y="26" width="240" height="64" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-167" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-165">
+          <mxGeometry y="90" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-168" value="+ GetDetectionRadius(): IShape2D&amp;&#xa;+ GetShape(): IShape2D&amp;&#xa;+ HandleCollision(other:GameObject&amp;)&#xa;+ Initialise(pos: Vector2D, size: float)&#xa;+ Render()&#xa;+ Update(gt: double)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-165">
+          <mxGeometry y="98" width="240" height="92" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-170" value="HUD" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="980" y="-150" width="240" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-171" value="- accessCount: int&#xa;- ammo: int&#xa;- cardCount: int&#xa;- health: int&#xa;- HUDimage: PictureIndex&#xa;- missionMessage: const wchar_t*&#xa;- pos: Vector2D&#xa;- pSoldier: Soldier*&#xa;- scale: float&#xa;- screenHeight: int&#xa;- screenWidth: int&#xa;- stingerAmmo: int&#xa;- transparency: float" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-170">
+          <mxGeometry y="26" width="240" height="194" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-172" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-170">
+          <mxGeometry y="220" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-173" value="+ Initialise(pSol: Soldier*)&#xa;+ Update(score: int)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-170">
+          <mxGeometry y="228" width="240" height="42" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-174" value="Game" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1290" y="-150" width="240" height="500" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-175" value="- backgroundImage: PictureIndex&#xa;- BLOCK_SIZE: const int&#xa;- FIRST_X: const int&#xa;- FIRST_Y: const int&#xa;- GATE_X: const int&#xa;- GATE_Y: const int&#xa;- LAST_X: const int&#xa;- LAST_Y: const int&#xa;- gt: GameTimer&#xa;- HUD: HUD&#xa;+ instance: Game&#xa;+ m_currentState: GameState&#xa;- m_menuOption: int&#xa;+ move: Vector2D&#xa;- ObjectManger: ObjectManager&#xa;- pNewObject: GameObject*&#xa;- pSoldier: Soldier*&#xa;- pTheSoundFX:SoundFX*&#xa;- Score: Score&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-174">
+          <mxGeometry y="26" width="240" height="274" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-176" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-174">
+          <mxGeometry y="300" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-177" value="- ~Game()&#xa;+ ChangeState(newState: GameState)&#xa;+ EndOfGame(): ErrorType&#xa;- Game()&#xa;- Game(other: Game&amp;)&#xa;+ Main(): ErrorType&#xa;+ MainMenu(): ErrorType&#xa;+ PauseMenu(): ErrorType&#xa;+ Setup(bFullScreen: bool, hwnd: HWND, &#xa;hinstance: HINSTANCE): ErrorType&#xa;+ Shutdown()&#xa;+ StartOfGame(): ErrorType&#xa;+ Update(): ErrorType" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-174">
+          <mxGeometry y="308" width="240" height="192" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-178" value="ObjectManager" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="1575" y="-150" width="240" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-179" value="- pObjectList: list&lt;GameObject*&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-178">
+          <mxGeometry y="26" width="240" height="34" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-180" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-178">
+          <mxGeometry y="60" width="240" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="MZ5k-7aTsP1du69uxO8d-181" value="+ ~ObjectManager()&#xa;+ ObjectManager()&#xa;+ AddObject(pNewObject: GameObject*)&#xa;+ CheckAllCollisions()&#xa;+ DeleteAll()&#xa;+ DeleteInactiveObjects()&#xa;+ ObjectManager()&#xa;+ RenderAll()&#xa;+ UpdateAll(gt: double)&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="MZ5k-7aTsP1du69uxO8d-178">
+          <mxGeometry y="68" width="240" height="142" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
