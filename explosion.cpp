@@ -12,6 +12,7 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 	velocity = vel;
 	angle = (rand() % 628 / 100.0f);
 	active = true;
+	LoadImg(L"Images/Explosion/explosion1.bmp");
 
 	//loading images of explosion
 	explode = AddAnimation();
@@ -24,7 +25,6 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 	AddImage(explode, L"Images/Explosion/explosion7.bmp");
 	AddImage(explode, L"Images/Explosion/explosion8.bmp");
 
-	NextAnimation(explode, explode);
 	SetAnimationSpeed(explode, 10.0f);
 	SetCurrentAnimation(explode);
 }
@@ -32,8 +32,8 @@ void Explosion::Initialise(Vector2D pos, float size, float time, Vector2D vel = 
 void Explosion::Update(double gt)
 {
 	timer += gt;
-	SetCurrentAnimation(explode);
 	Animate(gt);
+
 	if (timer >= 0.7f)
 	{
 		Deactivate();

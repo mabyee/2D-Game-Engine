@@ -49,45 +49,45 @@ void Bullet::HandleCollision(GameObject& other)
 {
 	if (typeid(other) == typeid(Enemy))
 	{
-		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 0.5f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		Deactivate();
 	}
 	if (typeid(other) == typeid(BrickWall))
 	{
-		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		Deactivate();
 	}
 	if (typeid(other) == typeid(Turret))
 	{
-		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		Deactivate();
 	}
 	if (typeid(other) == typeid(outerwall))
 	{
-		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		Deactivate();
 	}
 	if (typeid(other) == typeid(RoamingRobot))
 	{
-		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		Deactivate();
 	}
 	if (typeid(other) == typeid(gate))
 	{
-		Deactivate();
 		Explosion* pExp = new Explosion();
 		pExp->Initialise(position, 0.2f, 0.2f, Vector2D(0, 0));
 		pObjectManager->AddObject(pExp);
+		Deactivate();
 	}
 }
 void Bullet::HandleDetection(GameObject& other)

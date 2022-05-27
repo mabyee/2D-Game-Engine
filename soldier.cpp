@@ -65,8 +65,11 @@ void Soldier::Update(double gt)
 	if (health <= 0) //death
 	{
 		timer += gt;
+		// walk around for 2 more seconds while dead
 		MyDrawEngine* pDE = MyDrawEngine::GetInstance();
 		pDE->WriteText(position + Vector2D(-80, 50), L"GAME OVER: YOU DIED", MyDrawEngine::WHITE);
+		ammo = 0;
+		stingerAmmo = 0;
 		if (timer >= 3)
 		{
 			Game::instance.ChangeState(Game::GameState::MENU);
